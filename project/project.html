@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공( )명 : 청주대학교 디지털미디어디자인학과 제5회 졸업전시회</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- fontawesome 아이콘 링크 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="img/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="gnb-logo">
+                <a href="index.html">
+                    <img src="img/head_logo.png" alt="">
+                    <p>청주대학교 디지털미디어디자인학과<br>
+                        제5회 졸업전시회</p>
+                </a>
+            </div>
+
+            <div class="gnb-menu">
+                <a href="www1/about.html">
+                    <p>전시소개</p>
+                </a>
+                <a href="www2/project.html" id="current">
+                    <p>프로젝트</p>
+                </a>
+                <a href="www3/designer.html">
+                    <p>디자이너</p>
+                </a>
+                <a href="www4/archive.html">
+                    <p>아카이브</p>
+                </a>
+                <button class="dmd2025" onclick="openExhibitionLink()">
+                    <p>2025 전시도록 <i class="fa-solid fa-arrow-right"></i></p>
+                </button>
+
+                <script>
+                        function openExhibitionLink() {
+                            window.open("https://indd.adobe.com/view/5749a1d9-1fc3-4055-aea8-13508477998d", "_blank");
+                        }
+                </script>
+            </div>
+            <a href="" class="navbar-toggle">
+                    <img src="./img/nav-bar.png" alt="">
+                </a>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <h1 class="search-title">
+            공(&nbsp;
+            <form action="" class="search-form" onsubmit="return false;">
+                <input type="search" placeholder="프로젝트명 검색">
+            </form>
+            &nbsp;)명
+        </h1>
+        <p class="search-subtitle">21개의 울림</p>
+    </div>
+    
+    <div class="sliders">
+        <div class="slide-track"></div>
+    </div>
+
+
+    <footer>
+        <div class="container">
+            <div class="bottom-footer">
+                <div class="foot-left">
+                    <img src="img/foot_logo.png" alt="">
+                    <p>청주대학교 디지털미디어디자인학과<br>제5회 졸업전시회</p>
+                </div>
+                <div class="foot-right">
+                    <div class="exh-info">
+                        <div class="info-left">
+                            <p>전시공간</p>
+                            <p>전시일정</p>
+                            <p>인스타그램</p>
+                            <p>문의전화</p>
+                        </div>
+                        <div class="info-right">
+                            <p>충북 청주시 청원구 안덕벌로 19번길 116</p>
+                            <p>2025. 11. 15 — 11. 19</p>
+                            <p>@cjudmd_2025</p>
+                            <p>043 - 229 - 8660(학과사무실)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom-row">
+                <p class="copyright">
+                    © 2025, Department of Digital Media Design, Cheongju University. All rights reserved.
+                </p>
+                <div class="sns-icons">
+                    <a href="https://youtube.com/channel/UC5275bIPKnUuTG0onFeFsLw?si=ReOEsoZA_fMy-Yib" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/cjudmd_2025/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.cju.ac.kr/dmd/index.do" target="_blank" id="dmdlogo"><img src="img/department.png" alt="" width="50px"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="./js/script.js"></script>
+    <script type="module" src="./js/search.js"></script>
+</body>
+</html>
