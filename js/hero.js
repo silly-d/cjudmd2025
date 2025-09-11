@@ -53,3 +53,27 @@ gsap.utils.toArray(".item").forEach(item => {
     markers: true
   });
 });
+
+  const textAnimation = gsap.timeline({
+    scrollTrigger: {
+        trigger: ".content01",
+        start: "top top",
+        end: "+=500",
+        scrub: 1,
+    }
+});
+
+textAnimation
+    .to(".text-left", { 
+        xPercent: -50,
+        opacity: 0
+    }, 0)
+    .to(".text-right", {
+        xPercent: 50,
+        opacity: 0
+    }, 0)
+    .to(".field", {
+        yPercent: -50,
+        opacity: 0
+    }, 0
+  );

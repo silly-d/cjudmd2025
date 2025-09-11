@@ -21,11 +21,13 @@ a{
 }
 
 body {
+    overflow-x: hidden;
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
     background: #121212;
     color: #fff;
+    user-select: none;
 }
 
 header{
