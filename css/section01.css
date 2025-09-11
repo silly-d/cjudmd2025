@@ -1,32 +1,37 @@
 .content01 {
     width: 100%;
     height: 100%;
-    max-width: 1600px;
-    justify-content: space-between;
-    margin-right: auto;
-    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 21.5%;
+    box-sizing: border-box;
 }
 
 .text-left {
-    font-size: 8.5rem;
-    font-weight: 700;
+    align-self: flex-start;
+    font-size: 4rem;
+    font-weight: 300;
     letter-spacing: -1px;
+    text-align: left;
 }
 
 .text-right {
+    align-self: flex-end;
     font-size: 8.5rem;
     text-align: right;
-    font-weight: 700;
+    font-weight: 300;
     letter-spacing: -1px;
 }
 
 #images {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 30%;
     overflow: hidden;
-    margin: -40vh 0 -20vh;
     z-index: -100;
+    padding: 20%;
 }
 
 .item {

@@ -16,13 +16,12 @@ lenis.on('scroll', ScrollTrigger.update);
 window.addEventListener("load", () => {
   const items = gsap.utils.toArray(".item");
 
-  // 첫 진입: 중앙에서 퍼져나오기
   gsap.from(items, {
     duration: 2.5,
     scale: 0,
     opacity: 0,
     ease: "expo.out",
-    stagger: 0.05
+    stagger: 0.1
   });
 });
 
@@ -35,13 +34,11 @@ gsap.utils.toArray(".item").forEach(item => {
   gsap.to(item, {
     scrollTrigger: {
       trigger: item,
-      start: "top 35%", // end 지점을 조금 수정하여 더 자연스럽게 만듭니다.
+      start: "top 35%",
       scrub: true,
       
       onToggle: self => {
         if (self.isActive) {
-          // 애니메이션이 활성화될 때
-          // 1. 현재 위치/크기를 가져옵니다.
           const bounds = item.getBoundingClientRect();
           
           gsap.set(item, {
@@ -61,5 +58,29 @@ gsap.utils.toArray(".item").forEach(item => {
     ease: "power2.out",
     markers: true
   });
+
+  const textAnimation = gsap.timeline({
+    scrollTrigger: {
+        trigger: ".content01",
+        start: "top top",
+        end: "+=500",
+        scrub: 1,
+    }
+});
+
+textAnimation
+    .to(".text-left", { 
+        xPercent: -50,
+        opacity: 0
+    }, 0)
+    .to(".text-right", {
+        xPercent: 50,
+        opacity: 0
+    }, 0)
+    .to(".field", {
+        yPercent: 50,
+        opacity: 0
+    }, 0);
+
 });
 
