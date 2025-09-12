@@ -57,3 +57,17 @@
   grid-column: 1/15;
   align-items: flex-end;
 }
+
+.mask-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+  margin-top: -75vh;
+}
+
+.mask-container img {
+  width: 150px;
+  max-width: 80vw;
+}

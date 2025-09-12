@@ -35,7 +35,7 @@ gsap.utils.toArray(".item").forEach(item => {
   gsap.to(item, {
     scrollTrigger: {
       trigger: item,
-      start: "top 25%",
+      start: "top 35%",
       scrub: true,
       onToggle: self => {
         if (self.isActive) {
@@ -73,7 +73,50 @@ textAnimation
         opacity: 0
     }, 0)
     .to(".field", {
-        yPercent: -50,
+        yPercent: -100,
         opacity: 0
     }, 0
   );
+
+  gsap.utils.toArray(".ct02-item").forEach(item => {
+    gsap.from(item, {
+        yPercent: 50, // 요소를 높이만큼 아래로 이동
+        opacity: 0,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: item,
+            start: "top 90%",
+            end: "bottom 90%",
+            scrub: 1,
+        }
+    });
+});
+
+const maskTimeline = gsap.timeline();
+
+
+maskTimeline.to('.mask-container img', {
+    scale: 30,
+    ease: "power1.in"
+})
+.to('.mask-container img', {
+    opacity: 0,
+    ease: "power1.in"
+})
+.to('body', {
+    backgroundColor: '#ffffff',
+    color: '#000',
+    ease: "none"
+}, "-=1");
+
+ScrollTrigger.create({
+    animation: maskTimeline,
+    trigger: ".mask-container",
+    start: "center center", 
+    end: "+=1500",
+    scrub: 1,
+    pin: true,
+    onLeave: () => {
+        gsap.set(".mask-container", { display: "none" });
+    }
+});

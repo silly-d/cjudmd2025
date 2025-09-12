@@ -1,0 +1,14 @@
+.content03 {
+    width: 100%;
+    height: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.content03 p{
+  font-size: 5em;
+}
