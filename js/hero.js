@@ -31,11 +31,12 @@ window.addEventListener("load", () => {
 gsap.utils.toArray(".item").forEach(item => {
   const randomX = gsap.utils.random(-window.innerWidth, window.innerWidth);
   const randomY = gsap.utils.random(-window.innerHeight, window.innerHeight);
+  const randomRotation = gsap.utils.random(-720, 720);
 
   gsap.to(item, {
     scrollTrigger: {
       trigger: item,
-      start: "top 35%",
+      start: "top 30%",
       scrub: true,
       onToggle: self => {
         if (self.isActive) {
@@ -49,6 +50,7 @@ gsap.utils.toArray(".item").forEach(item => {
     y: randomY,
     scale: gsap.utils.random(1, 5),
     opacity: 0,
+    rotation: randomRotation,
     ease: "power2.out",
     markers: true
   });
