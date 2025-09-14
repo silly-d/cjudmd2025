@@ -11,12 +11,17 @@
 }
 
 .slogun {
-  width: 100%;
+  width: auto;
+  white-space: nowrap;
+  position: absolute;
   color: #121212;
-  font-size: 30em;
-  font-weight: 400;
+  font-size: 32vw;
+  font-weight: 200;
   text-align: center;
   margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .ct03-wrapper {
@@ -38,4 +43,24 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+#ct03-card-1 {
+  top: 50%;
+  left: 20%;
+}
+
+#ct03-card-2 {
+  top: 25%;
+  left: 40%;
+}
+
+#ct03-card-3 {
+  top: 45%;
+  left: 60%;
+}
+
+#ct03-card-4 {
+  top: 15%;
+  left: 96%;
 }

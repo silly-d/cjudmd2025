@@ -29,7 +29,6 @@ window.addEventListener("load", () => {
 gsap.utils.toArray(".item").forEach(item => {
   const randomX = gsap.utils.random(-window.innerWidth, window.innerWidth);
   const randomY = gsap.utils.random(-window.innerHeight, window.innerHeight);
-  const randomRotation = gsap.utils.random(-720, 720);
 
   gsap.to(item, {
     scrollTrigger: {
@@ -48,7 +47,6 @@ gsap.utils.toArray(".item").forEach(item => {
     y: randomY,
     scale: gsap.utils.random(1, 5),
     opacity: 0,
-    rotation: randomRotation,
     ease: "power2.out",
     markers: true
   });
@@ -94,20 +92,18 @@ textAnimation
 
 const maskTimeline = gsap.timeline();
 
-
 maskTimeline.to('.mask-container img', {
     scale: 30,
     ease: "power1.in"
 })
 .to('.mask-container img', {
-    opacity: 0,
-    ease: "power1.in"
+    ease: "power0.in"
 })
 .to('body', {
     backgroundColor: '#ffffff',
-    color: '#000',
-    ease: "none"
-}, "-=1");
+    color: '#000'
+});
+
 
 ScrollTrigger.create({
     animation: maskTimeline,
@@ -122,26 +118,57 @@ ScrollTrigger.create({
 });
 
 document.addEventListener("DOMContentLoaded", function() {
+  gsap.registerPlugin(ScrollTrigger);
+
+  const horizontalScroll = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".ct03-wrapper",
+      start: "top top",
+      end: "+=1000vh",
+      scrub: 1,
+      pin: true,
+    }
+  });
+  
+  horizontalScroll.from(".slogun", {
+    x: "170vw",
+    duration: 0.2,
+    ease: "power0.in"
+  }, "<");
+
+  horizontalScroll.to(".ct03-wrapper", {
+    x: "-470vw",
+    ease: "none",
+  }, "<");
+
   const cards = [
-    { id: "#card-1", endTranslateX: -2000, rotate: 45 },
-    { id: "#card-2", endTranslateX: -1000, rotate: 45 },
-    { id: "#card-3", endTranslateX: -2000, rotate: 45 },
-    { id: "#card-4", endTranslateX: -1500, rotate: 45 },
+    { id: "#ct03-card-1", endTranslateX: -2000, rotate: 45 },
+    { id: "#ct03-card-2", endTranslateX: -1000, rotate: -30 },
+    { id: "#ct03-card-3", endTranslateX: -2000, rotate: 25 },
+    { id: "#ct03-card-4", endTranslateX: -1500, rotate: -45 },
   ];
 
-  ScrollTrigger.create({
-    trigger: ".ct03-wrapper",
-    start: "top top",
-    end: "+=900vh",
-    scrub: 1,
-    pin: true,
-    onUpdate: (self) => {
-      gsap.to(".ct03-wrapper", {
-        x: `${-350 * self.progress}vw`,
-        duration: 0.5,
-        ease: "power2.out",
-      });
-    },
+  cards.forEach((card) => {
+    const cardTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".content03",
+        start: "top top",
+        end: "+=1200vh",
+        scrub: 1,
+      }
+    });
+
+    cardTimeline.fromTo(card.id, 
+      { 
+        x: "50vw", 
+        rotate: 0 
+      },
+      { 
+        x: card.endTranslateX, 
+        rotate: card.rotate * 2,
+        ease: "power2.in" 
+      }
+    );
   });
 
 });

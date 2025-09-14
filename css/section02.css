@@ -59,18 +59,14 @@
 }
 
 .mask-container {
-  height: 100vh;
+  height: 8vh;
   display: flex;
   justify-content: center;
   position: relative;
   z-index: 10;
-  margin-top: -80vh;
+  margin-top: -30vh;
 }
 
 .mask-container img {
   width: 150px;
-<<<<<<< Updated upstream
-  max-width: 80vw;
-=======
->>>>>>> Stashed changes
 }
