@@ -41,16 +41,21 @@ header{
     z-index: 999;
     background-color: rgba(0,0,0, 0.5);
     backdrop-filter: blur(7px);
+    position: relative;
 }
 
 header .container{
+    position: absolute;
+    display: flex;
     width: 100%;
     max-width: 1440px;
-    display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
-    padding: 1.5vh 0;
+    padding: 1vw 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* 헤더 로고 부분 */

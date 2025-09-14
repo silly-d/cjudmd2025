@@ -109,7 +109,7 @@ ScrollTrigger.create({
     animation: maskTimeline,
     trigger: ".mask-container",
     start: "center center", 
-    end: "+=1500",
+    end: "+=1000",
     scrub: 1,
     pin: true,
     onLeave: () => {
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function() {
     scrollTrigger: {
       trigger: ".ct03-wrapper",
       start: "top top",
-      end: "+=1000vh",
+      end: "+=1500vh",
       scrub: 1,
       pin: true,
     }
@@ -170,5 +170,57 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     );
   });
+});
 
+const heroReveal = gsap.utils.toArray(".content04");
+heroReveal.forEach((element) => {
+  const heroBox = element.querySelector(".hero-reveal__header");
+  const heroHeadings = element.querySelectorAll(".hero-reveal_split_item");
+  const contentEl = element.querySelector(".content05");
+
+  const heroBoxHeight = heroBox.offsetHeight;
+  const contentHeight = contentEl.offsetHeight;
+
+  // Content scroll up
+ const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: element,
+      start: "top top",
+      end: `+=${heroBoxHeight}`, // 애니메이션 길이를 헤더 높이만큼으로 설정
+      scrub: true,
+      pin: true
+    }
+  });
+
+  // Main clipPath animation
+  tl.fromTo(
+    heroBox,
+    {
+      clipPath:
+        "polygon(0 0, 100% 0, 100% 50%, 0 50%, 0 50%, 100% 50%, 100% 100%, 0 100%)"
+    },
+    {
+      clipPath:
+        "polygon(0 0, 100% 0, 100% 0%, 0 0%, 0 100%, 100% 100%, 100% 100%, 0 100%)",
+      duration: 0.4,
+      ease: "power4.inOut"
+    }
+  );
+
+  // Split animations for child items
+  if (heroHeadings.length < 2) return;
+
+  tl.fromTo(
+    heroHeadings[0],
+    { y: "0%" },
+    { y: "-30%", ease: "power3.inOut" },
+    0
+  );
+
+  tl.fromTo(
+    heroHeadings[1],
+    { y: "0%" },
+    { y: "30%", ease: "power3.inOut" },
+    0
+  );
 });
