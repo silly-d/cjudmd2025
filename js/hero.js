@@ -14,7 +14,6 @@ lenis.on('scroll', ScrollTrigger.update);
 // GSAP 플러그인 등록
 gsap.registerPlugin(ScrollTrigger);
 
-// --- 페이지 로드 시 애니메이션 ---
 window.addEventListener("load", () => {
   const items = gsap.utils.toArray(".item");
 
@@ -27,7 +26,6 @@ window.addEventListener("load", () => {
   });
 });
 
-// --- 이미지 흩어지는 효과 ---
 gsap.utils.toArray(".item").forEach(item => {
   const randomX = gsap.utils.random(-window.innerWidth, window.innerWidth);
   const randomY = gsap.utils.random(-window.innerHeight, window.innerHeight);
@@ -121,4 +119,29 @@ ScrollTrigger.create({
     onLeave: () => {
         gsap.set(".mask-container", { display: "none" });
     }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  const cards = [
+    { id: "#card-1", endTranslateX: -2000, rotate: 45 },
+    { id: "#card-2", endTranslateX: -1000, rotate: 45 },
+    { id: "#card-3", endTranslateX: -2000, rotate: 45 },
+    { id: "#card-4", endTranslateX: -1500, rotate: 45 },
+  ];
+
+  ScrollTrigger.create({
+    trigger: ".ct03-wrapper",
+    start: "top top",
+    end: "+=900vh",
+    scrub: 1,
+    pin: true,
+    onUpdate: (self) => {
+      gsap.to(".ct03-wrapper", {
+        x: `${-350 * self.progress}vw`,
+        duration: 0.5,
+        ease: "power2.out",
+      });
+    },
+  });
+
 });
