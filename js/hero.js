@@ -97,12 +97,14 @@ maskTimeline.to('.mask-container img', {
     ease: "power1.in"
 })
 .to('.mask-container img', {
-    ease: "power0.in"
+  duration: 1,
+  ease: "power0.in"
 })
 .to('body', {
-    backgroundColor: '#ffffff',
-    color: '#000'
-});
+  backgroundColor: '#ffffff',
+  color: '#121212',
+  ease: "none"
+}, "-=1");
 
 
 ScrollTrigger.create({
@@ -176,17 +178,15 @@ const heroReveal = gsap.utils.toArray(".content04");
 heroReveal.forEach((element) => {
   const heroBox = element.querySelector(".hero-reveal__header");
   const heroHeadings = element.querySelectorAll(".hero-reveal_split_item");
-  const contentEl = element.querySelector(".content05");
 
   const heroBoxHeight = heroBox.offsetHeight;
-  const contentHeight = contentEl.offsetHeight;
 
   // Content scroll up
  const tl = gsap.timeline({
     scrollTrigger: {
       trigger: element,
-      start: "top top",
-      end: `+=${heroBoxHeight}`, // 애니메이션 길이를 헤더 높이만큼으로 설정
+      start: "center center",
+      end: `+=1500`,
       scrub: true,
       pin: true
     }
@@ -196,12 +196,10 @@ heroReveal.forEach((element) => {
   tl.fromTo(
     heroBox,
     {
-      clipPath:
-        "polygon(0 0, 100% 0, 100% 50%, 0 50%, 0 50%, 100% 50%, 100% 100%, 0 100%)"
+      "clip-path": "polygon(0 0, 100% 0, 100% 50%, 0 50%, 0 50%, 100% 50%, 100% 100%, 0 100%)"
     },
     {
-      clipPath:
-        "polygon(0 0, 100% 0, 100% 0%, 0 0%, 0 100%, 100% 100%, 100% 100%, 0 100%)",
+      "clip-path": "polygon(0 0, 100% 0, 100% 0%, 0 0%, 0 100%, 100% 100%, 100% 100%, 0 100%)",
       duration: 0.4,
       ease: "power4.inOut"
     }
@@ -223,4 +221,10 @@ heroReveal.forEach((element) => {
     { y: "30%", ease: "power3.inOut" },
     0
   );
+
+
+  tl.to('body', {
+    backgroundColor: '#121212',
+    color: '#ffffff'
+  });
 });

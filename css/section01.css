@@ -13,7 +13,7 @@
 .text-left {
     margin-top: 9vw;
     align-self: flex-start;
-    font-size: 4rem;
+    font-size: 2.5vw;
     font-weight: 300;
     letter-spacing: -1px;
     text-align: left;
@@ -21,7 +21,7 @@
 
 .text-right {
     align-self: flex-end;
-    font-size: 8.5rem;
+    font-size: 5.7vw;
     text-align: right;
     font-weight: 300;
     letter-spacing: -1px;
