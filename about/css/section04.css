@@ -1,66 +1,107 @@
-.content04{ background:#000; color:#fff; padding: clamp(56px,8vw,120px) 0; }
+.content04{ background:#121212; color:#fff; padding:clamp(56px,8vw,120px) 0; }
 
 .c04-top{
-  margin: 0 0 clamp(24px,4vw,40px) 0;
+  margin:0 0 100px 0;
   text-align:center;
-  font-size: clamp(14px,1.6vw,16px);
-  color:#bfbfbf;
+  font-size:clamp(28px,1.6vw,28px);
+  font-weight: 400;
+  color:#fff;
   letter-spacing:.02em;
 }
 
 .c04-grid{
-  max-width:1200px; margin:0 auto;
-  padding: 0 clamp(20px,4vw,32px);
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 clamp(20px,4vw,32px);
   display:grid;
-  grid-template-columns: 220px 1fr 420px; /* 좌 / 중 / 우 */
-  gap: clamp(16px,3vw,48px);
-  align-items:start;
+  grid-template-columns:220px 1fr 420px;
+  gap:clamp(16px,3vw,48px);
+  align-items:center;
 }
 
-/* LEFT */
-.c04-nav{ list-style:none; margin:0; padding:0; }
-.c04-nav li+li{ margin-top:22px; }
+.c04-left{
+  position:relative;
+  align-self:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.c04-nav{
+  list-style:none; margin:0; padding:0;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+}
+.c04-nav li+li{ margin-top:76px; }
+
 .c04-nav button{
-  all:unset; display:inline-block; cursor:pointer;
-  font-weight:800; font-size: clamp(18px,2.2vw,24px);
-  color:#a8a8a8; line-height:1.2;
+  all:unset;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:max-content;
+  line-height:1;
+  cursor:pointer;
+  color:#fff;
+  font-weight:400;
+  font-size:clamp(18px,2.2vw,24px);
+  transform-origin:center center;
 }
-.c04-nav button.is-active{ color:#fff; }
-/* 활성 버튼에 괄호 */
-.c04-nav button::before, .c04-nav button::after{
-  content:""; opacity:0; transition:opacity .2s;
-}
-.c04-nav button.is-active::before{ content:"("; opacity:1; margin-right:.25em; }
-.c04-nav button.is-active::after { content:")"; opacity:1; margin-left:.25em; }
+.c04-nav button.is-active{ color:#fff; font-weight:600; transform:scale(1.65); }
 
-/* CENTER: “의 공명”이 세로로만 이동 */
-.c04-center{ position:relative; min-height: 220px; }
+:root{
+  --c04-paren-size:3em;
+  --c04-paren-weight:400;
+  --c04-paren-gap:10px;
+  --c04-of-x:-60px;
+}
+
+.c04-paren{
+  position:absolute;
+  z-index:2;
+  color:#fff;
+  line-height:1;
+  font-size:var(--c04-paren-size);
+  font-weight:var(--c04-paren-weight);
+  pointer-events:none;
+  transform:translateY(-60%);
+}
+.c04-paren--left::before{ content:"("; }
+.c04-paren--right::before{ content:")"; }
+
+.c04-center{ position:relative; align-self:center; overflow:visible; }
+
 .c04-of{
-  position:absolute; left:0; top:0; transform: translateY(0);
-  font-weight:800; font-size: clamp(18px,2.6vw,32px);
-  color:#e4e4e4; white-space:nowrap; pointer-events:none;
+  position:absolute;
+  left:var(--c04-of-x);
+  top:0;
+  white-space:nowrap;
+  pointer-events:none;
+  will-change:transform;
+  transform:translateY(0);
 }
+.c04-of-eui{ font-weight:400; font-size:clamp(48px,3vw,80px); color:#7f7f7f; margin-right:.2em; }
+.c04-of-gong{ font-weight:500; font-size:clamp(48px,3vw,80px); color:#fff; }
 
-/* RIGHT: 멤버 2열 */
+.c04-right{ align-self:start; }
 .c04-members{
   list-style:none; margin:0; padding:0;
-  display:grid; grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 12px 18px;
+  margin-left: 40px;
+  display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:80px 18px; align-content:start;
 }
 .c04-members li{
-  color:#d7d7d7; font-size: clamp(14px,1.5vw,16px);
-  opacity:0; transform: translateY(8px);
-  transition: opacity .3s ease, transform .3s ease;
+  color:#fff;
+  font-size:32px;
+  opacity:0; transform:translateY(8px);
+  transition:opacity .3s ease, transform .3s ease;
 }
-.c04-members li.show{ opacity:1; transform: translateY(0); }
+.c04-members li.show{ opacity:1; transform:translateY(0); }
 
-/* 반응형 */
-@media (max-width: 980px){
-  .c04-grid{ grid-template-columns: 180px 1fr 1fr; }
+@media (max-width:980px){
+  .c04-grid{ grid-template-columns:180px 1fr 1fr; }
 }
-@media (max-width: 760px){
-  .c04-grid{ grid-template-columns: 1fr; }
+@media (max-width:760px){
+  .c04-grid{ grid-template-columns:1fr; }
   .c04-center{ order:2; min-height:0; height:auto; }
-  .c04-of{ position:static; transform:none; margin:12px 0; text-align:center; }
+  .c04-of{ position:static; transform:none; margin:12px 0; text-align:center; left:auto; }
   .c04-right{ order:3; }
 }

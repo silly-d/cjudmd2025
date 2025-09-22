@@ -1,0 +1,108 @@
+/* ========== SECTION 06 (가로 캐러셀: 중앙 크게, 양옆 썸네일 일부만 보이게) ========== */
+.content06{ background:#121212; color:#fff; padding:clamp(40px,6vw,80px) 0; }
+
+/* 컨테이너 폭 확장 + 바깥으로 튀는 썸네일을 클립 */
+.c06-wrap{
+  max-width:100%;              /* 필요 시 1440~1500으로 조절 */
+  margin:0 auto;
+  padding:0 clamp(24px,4vw,40px);
+  overflow:hidden;               /* 양옆 썸네일이 밖으로 나간 부분 잘라줌 */
+}
+
+.c06-title{
+  margin:0 0 100px 0;
+  text-align:center;
+  font-size:clamp(28px,1.6vw,28px);
+  font-weight: 400;
+  color:#fff;
+  letter-spacing:.02em;
+}
+
+/* [왼썸] [왼괄호] [중앙] [오괄호] [오른썸] */
+.c06-stage{
+  display:grid; align-items:center; justify-items:center;
+  grid-template-columns:
+    minmax(420px,28vw)   /* 왼쪽 썸네일 보일 폭 */
+    72px                 /* 왼 괄호 */
+    minmax(760px,980px)  /* 중앙 플레이어 크게 */
+    72px                 /* 오른 괄호 */
+    minmax(420px,28vw);  /* 오른쪽 썸네일 보일 폭 */
+  gap:clamp(8px,1.6vw,16px);
+}
+
+/* 양옆 썸네일(그레이스케일) — 컨테이너보다 크게 깔아 ‘일부만’ 보이게 */
+.c06-side{
+  all:unset; display:block; cursor:pointer; width:100%;
+  border-radius:18px; overflow:hidden; background:#0b0b0b;
+  filter:grayscale(.65); opacity:.85;
+  transition:transform .2s ease, filter .2s ease, opacity .2s ease;
+  position:relative;
+  transform:scale(1.28);           /* 크롭 효과 */
+  transform-origin:center;
+}
+/* 좌/우 가장자리에서 잘려 보이도록 살짝 바깥으로 밀어냄 */
+.c06-side-left{  margin-left:-300px; }
+.c06-side-right{ margin-right:-300px; }
+
+.c06-side:hover{ transform:scale(1.16) translateY(-2px); filter:grayscale(.25); opacity:1; }
+.c06-side img{ display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; }
+
+/* 괄호(장식처럼 보이되 클릭 가능) */
+.c06-bracket{
+  all:unset; cursor:pointer; width:72px; height:176px; display:block;
+}
+.c06-bracket svg{ display:block; }
+.c06-bracket svg path{ stroke:#bfbfbf; transition:stroke .15s ease; }
+.c06-bracket:hover svg path{ stroke:#fff; }
+
+/* 중앙 플레이어(또는 썸네일) */
+.c06-current{
+  width:100%; margin:0; border-radius:20px; overflow:hidden;
+  box-shadow:0 14px 44px rgba(0,0,0,.5); background:#0b0b0b; position:relative;
+}
+.c06-current img, .c06-current iframe{
+  display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; border:0;
+}
+
+/* 간단 전환 */
+.c06-fade-enter{ animation:c06FadeIn .25s ease both; }
+.c06-fade-leave{ animation:c06FadeOut .2s ease both; }
+@keyframes c06FadeIn{ from{opacity:0; transform:translateX(12px)} to{opacity:1; transform:none} }
+@keyframes c06FadeOut{ from{opacity:1} to{opacity:0} }
+
+/* 데이터 목록 숨김 */
+.c06-data{ display:none; }
+
+/* 채널 버튼 */
+.c06-cta{ text-align:center; margin-top:clamp(16px,3vw,28px); }
+.c06-ytbtn{
+  display:inline-block; padding:12px 18px; border-radius:999px;
+  border:1px solid #3a3a3a; background:#121212; color:#eaeaea;
+  font-weight:700; font-size:clamp(13px,1.5vw,15px); text-decoration:none;
+  transition:background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.c06-ytbtn:hover{ background:#1b1b1b; border-color:#5a5a5a; transform:translateY(-1px); }
+
+/* 반응형 — 겹침 방지를 위해 스케일/마진 완화 */
+@media (max-width:1100px){
+  .c06-stage{
+    grid-template-columns:
+      minmax(180px,26vw) 60px minmax(520px,1fr) 60px minmax(180px,26vw);
+  }
+  .c06-side{ transform:scale(1.1); }
+  .c06-side-left{  margin-left:-36px; }
+  .c06-side-right{ margin-right:-36px; }
+  .c06-bracket{ width:60px; height:150px; }
+}
+
+@media (max-width:780px){
+  .c06-stage{
+    grid-template-columns:
+      minmax(140px,24vw) 48px minmax(240px,1.6fr) 48px minmax(140px,24vw);
+    gap:10px;
+  }
+  .c06-side{ transform:scale(1.06); }
+  .c06-side-left{  margin-left:-20px; }
+  .c06-side-right{ margin-right:-20px; }
+  .c06-bracket{ width:48px; height:120px; }
+}

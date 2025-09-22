@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="./css/section02.css">
     <link rel="stylesheet" href="./css/section03.css">
     <link rel="stylesheet" href="./css/section04.css">
+    <link rel="stylesheet" href="./css/section05.css">
+    <link rel="stylesheet" href="./css/section06.css">
     <!-- fontawesome 아이콘 링크 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="icon" href="img/favicon.png" type="image/x-icon">
@@ -72,7 +74,7 @@
             <div class="c02-wrap">
             <!-- LEFT: 포스터 -->
             <figure class="c02-poster">
-                <img id="c02-poster" src="../img/dong.png" alt="공( )명 포스터">
+                <img id="c02-poster" src="../img/poster.png" alt="공( )명 포스터">
                 <figcaption class="sr-only">전시 포스터</figcaption>
             </figure>
 
@@ -83,15 +85,15 @@
                 </h2>
 
                 <p class="c02-body">
-                돌아가는 원이 겹치는 원본 개개인의 작은 떨림을 상징한다.<br>
-                흔들림에 의해 존재하고 있는 선들은 우리들의 다양한 움직임을 나타내며,
-                이 각각의 떨림은 결국 하나가 되어 큰 울림으로 공명한다.
+                돌아가는 원의 형태는 학생 개개인의 작은 떨림을 상징한다.<br>
+                흔들림에 의해 흐려지고 있는 선들은 우리들의 다양한 움직임을 나타내며,<br>
+                이 각각의 떨림은 결국 하나가 되어 큰 울림으로 공명한다.<br>
                 </p>
-                <p class="c02-body">
-                각 주파의 얇고 섬세한 곡률은 정성스런 잇닿음으로<br>
-                어제 채워지지 않은 우리의 가능성을 채워주고,<br>
-                불분명해 보이던 순환 속의 빛은 내일의 발화점에서<br>
-                서로 다른 존재들이 모여 더 흔들고, 공명을 만들어내는 모습을 담고 있다.
+                <p class="c02-body2">
+                각 층 외곽의 흰 선들은 괄호를 형상화한 것으로<br>
+                아직 채워지지 않은 우리들의 가능성을 표현했고,<br>
+                흩뿌려진 노이즈는 은하 속의 밝은 별처럼 반짝이며<br>
+                서로 다른 존재들이 모여 큰 울림 즉, 공명을 만들어내는 모습을 담고있다.
                 </p>
 
                 <button class="c02-btn" id="c02-download" type="button" aria-label="포스터 다운로드">
@@ -105,10 +107,8 @@
     <section>
         <div class="content03" id="content03">
             <h2 class="c03-title" aria-label="01명의 하나의 울림">
-            <span class="c03-paren">(</span>
-            <span class="c03-num" id="c03-num">01</span>
-            <span class="c03-paren">)</span>
-            <span class="c03-copy">명의 하나의 울림</span>
+                <span class="c03-paren">(</span> <span class="c03-num" id="c03-num">01</span>
+                <span class="c03-paren">)</span> <span class="c03-copy">명의 하나의 울림</span>
             </h2>
         </div>
     </section>
@@ -145,10 +145,152 @@
         </div>
     </section>
 
+    <section class="content05" id="content05">
+    <div class="c05-wrap">
+        <h2 class="c05-title">교수진 소개</h2>
+
+        <div class="c05-accordion" id="c05-accordion" role="tablist">
+        <!-- 01 -->
+        <section class="c05-item">
+            <button class="c05-head" role="tab" aria-expanded="false" aria-controls="p-01" id="t-01">
+            <span class="c05-num">01</span>
+            <span class="c05-name">인터랙션디자인</span>
+            </button>
+            <div class="c05-panel" id="p-01" role="region" aria-labelledby="t-01" aria-hidden="true">
+            <div class="c05-inner">
+                <div class="c05-text">
+                <h3>( 유준오 교수님 )</h3>
+                <p>“디지털 세계에 차원이 다른 디자이너로 성장하길 바라며 여러분들의 건승을 기원합니다.”</p>
+                </div>
+                <div class="c05-photo">
+                <img src="../img/dong.png" alt="유준오 교수님">
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- 02 -->
+        <section class="c05-item">
+            <button class="c05-head" role="tab" aria-expanded="false" aria-controls="p-02" id="t-02">
+            <span class="c05-num">02</span>
+            <span class="c05-name">서비스경험디자인</span>
+            </button>
+            <div class="c05-panel" id="p-02" role="region" aria-labelledby="t-02" aria-hidden="true">
+            <div class="c05-inner">
+                <div class="c05-text">
+                <h3>( 장성복 교수님 )</h3>
+                <p>“디지털 세계에 차원이 다른 디자이너로 성장하길 바라며 여러분들의 건승을 기원합니다.”</p>
+                </div>
+                <div class="c05-photo">
+                <img src="../img/dong.png" alt="장성복 교수님">
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- 03 -->
+        <section class="c05-item">
+            <button class="c05-head" role="tab" aria-expanded="false" aria-controls="p-03" id="t-03">
+            <span class="c05-num">03</span>
+            <span class="c05-name">인터페이스디자인</span>
+            </button>
+            <div class="c05-panel" id="p-03" role="region" aria-labelledby="t-03" aria-hidden="true">
+            <div class="c05-inner">
+                <div class="c05-text">
+                <h3>( 이정선 교수님 )</h3>
+                <p>“디지털 세계에 차원이 다른 디자이너로 성장하길 바라며 여러분들의 건승을 기원합니다.”</p>
+                </div>
+                <div class="c05-photo">
+                <img src="../img/dong.png" alt="이정선 교수님">
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- 04 -->
+        <section class="c05-item">
+            <button class="c05-head" role="tab" aria-expanded="false" aria-controls="p-04" id="t-04">
+            <span class="c05-num">04</span>
+            <span class="c05-name">고급프로그래밍</span>
+            </button>
+            <div class="c05-panel" id="p-04" role="region" aria-labelledby="t-04" aria-hidden="true">
+            <div class="c05-inner">
+                <div class="c05-text">
+                <h3>( 정수봉 교수님 )</h3>
+                <p>“디지털 세계에 차원이 다른 디자이너로 성장하길 바라며 여러분들의 건승을 기원합니다.”</p>
+                </div>
+                <div class="c05-photo">
+                <img src="../img/dong.png" alt="정수봉 교수님">
+                </div>
+            </div>
+            </div>
+        </section>
+        </div>
+    </div>
+    </section>
+
+
+    <section>
+    <div class="content06" id="content06">
+        <div class="c06-wrap">
+        <h2 class="c06-title">1년의 여정, 하나의 공명</h2>
+
+        <!-- 가로 캐러셀: [왼쪽 썸네일] [왼 괄호] [중앙] [오른 괄호] [오른쪽 썸네일] -->
+        <div class="c06-stage" aria-label="영상 캐러셀">
+            <!-- 왼쪽 썸네일 -->
+            <button class="c06-side c06-side-left" aria-label="이전 영상 미리보기">
+            <img alt="왼쪽 썸네일">
+            </button>
+
+            <!-- 왼쪽 괄호 -->
+            <button class="c06-bracket c06-prev" aria-label="이전 영상">
+            <svg viewBox="0 0 60 160" width="100%" height="100%" aria-hidden="true">
+                <path d="M45,5 C15,40 15,120 45,155" fill="none" stroke="#bfbfbf" stroke-width="6" stroke-linecap="round"/>
+            </svg>
+            </button>
+
+            <!-- 중앙(활성 썸네일 또는 재생영역) -->
+            <figure class="c06-current" role="group" aria-label="현재 영상">
+            <!-- 처음에는 썸네일 이미지가 들어갑니다. 클릭 시 이 영역에 iframe이 들어옵니다. -->
+            </figure>
+
+            <!-- 오른쪽 괄호 -->
+            <button class="c06-bracket c06-next" aria-label="다음 영상">
+            <svg viewBox="0 0 60 160" width="100%" height="100%" aria-hidden="true">
+                <path d="M15,5 C45,40 45,120 15,155" fill="none" stroke="#bfbfbf" stroke-width="6" stroke-linecap="round"/>
+            </svg>
+            </button>
+
+            <!-- 오른쪽 썸네일 -->
+            <button class="c06-side c06-side-right" aria-label="다음 영상 미리보기">
+            <img alt="오른쪽 썸네일">
+            </button>
+        </div>
+
+        <!-- 유튜브 채널 버튼 -->
+        <div class="c06-cta">
+            <a class="c06-ytbtn" href="https://www.youtube.com/@YOUR_CHANNEL" target="_blank" rel="noopener">
+            유튜브 채널 바로가기
+            </a>
+        </div>
+
+        <!-- 데이터 정의: 원하는 만큼 추가하세요. 썸네일 경로/유튜브 주소만 수정 -->
+        <ul class="c06-data" aria-hidden="true">
+            <li data-video="https://youtu.be/0LwcvjNJTuM?si=9cAnejvthkwXb6tM" data-title="영상 1"></li>
+            <li data-video="https://youtu.be/OPf0YbXqDm0?si=GKarsgXOPlsNPaje" data-title="영상 2"></li>
+            <li data-video="https://youtu.be/LYU-8IFcDPw?si=ivGgz4jw7DyLnvQk" data-title="영상 3"></li>
+            <li data-video="https://youtu.be/1w7OgIMMRc4?si=oWuJla0H6hqej31v" data-title="영상 4"></li>
+        </ul>
+        </div>
+    </div>
+    </section>
+
     <script src="../js/content01.js" defer></script>
     <script src="../js/content02.js" defer></script>
     <script src="../js/content03.js" defer></script>
     <script src="../js/content04.js" defer></script>
+    <script src="../js/content05.js" defer></script>
+    <script src="../js/content06.js" defer></script>
 
     <footer>
         <div class="container">
