@@ -5,33 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공( )명 : 청주대학교 디지털미디어디자인학과 제5회 졸업전시회</title>
     <link rel="stylesheet" href="./css/about.css">
+    <link rel="stylesheet" href="./css/section01.css">
+    <link rel="stylesheet" href="./css/section02.css">
+    <link rel="stylesheet" href="./css/section03.css">
+    <link rel="stylesheet" href="./css/section04.css">
     <!-- fontawesome 아이콘 링크 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="icon" href="img/favicon.png" type="image/x-icon">
 </head>
 
 <body>
+    <!--dirty header-->
     <header>
         <div class="container">
             <div class="gnb-logo">
                 <a href="index.html">
-                    <img src="img/head_logo.png" alt="">
+                    <img src="../img/whead_logo.png" alt="">
                     <p>청주대학교 디지털미디어디자인학과<br>
                         제5회 졸업전시회</p>
                 </a>
             </div>
 
             <div class="gnb-menu">
-                <a href="www1/about.html">
+                <a href="./about/about.html">
                     <p>전시소개</p>
                 </a>
-                <a href="www2/project.html" id="current">
+                <a href="./project/project.html">
                     <p>프로젝트</p>
                 </a>
-                <a href="www3/designer.html">
+                <a href="./designer/designer.html">
                     <p>디자이너</p>
                 </a>
-                <a href="www4/archive.html">
+                <a href="./archive/archive.html">
                     <p>아카이브</p>
                 </a>
                 <button class="dmd2025" onclick="openExhibitionLink()">
@@ -47,12 +52,103 @@
         </div>
     </header>
 
-    <!--꺼져 시발새기야-->
     <section>
-        <div class="content01">
+    <div class="content01" id="content01">
+        <h1 class="title01" aria-label="공 괄호 명">
+        <span class="title01__char">공</span>
+        <span class="title01__paren">(</span>
 
+        <!-- 사진 슬롯 -->
+        <span class="title01__photo" id="c01-photo"></span>
+
+        <span class="title01__paren">)</span>
+        <span class="title01__char">명</span>
+        </h1>
+    </div>
+    </section>
+
+    <section>
+        <div class="content02" id="content02">
+            <div class="c02-wrap">
+            <!-- LEFT: 포스터 -->
+            <figure class="c02-poster">
+                <img id="c02-poster" src="../img/dong.png" alt="공( )명 포스터">
+                <figcaption class="sr-only">전시 포스터</figcaption>
+            </figure>
+
+            <!-- RIGHT: 카피/본문/버튼 -->
+            <div class="c02-copy">
+                <h2 class="c02-title">
+                작은 떨림이 모여<br>큰 울림으로
+                </h2>
+
+                <p class="c02-body">
+                돌아가는 원이 겹치는 원본 개개인의 작은 떨림을 상징한다.<br>
+                흔들림에 의해 존재하고 있는 선들은 우리들의 다양한 움직임을 나타내며,
+                이 각각의 떨림은 결국 하나가 되어 큰 울림으로 공명한다.
+                </p>
+                <p class="c02-body">
+                각 주파의 얇고 섬세한 곡률은 정성스런 잇닿음으로<br>
+                어제 채워지지 않은 우리의 가능성을 채워주고,<br>
+                불분명해 보이던 순환 속의 빛은 내일의 발화점에서<br>
+                서로 다른 존재들이 모여 더 흔들고, 공명을 만들어내는 모습을 담고 있다.
+                </p>
+
+                <button class="c02-btn" id="c02-download" type="button" aria-label="포스터 다운로드">
+                포스터 다운로드 <i class="fa-solid fa-arrow-down"></i>
+                </button>
+            </div>
+            </div>
         </div>
     </section>
+
+    <section>
+        <div class="content03" id="content03">
+            <h2 class="c03-title" aria-label="01명의 하나의 울림">
+            <span class="c03-paren">(</span>
+            <span class="c03-num" id="c03-num">01</span>
+            <span class="c03-paren">)</span>
+            <span class="c03-copy">명의 하나의 울림</span>
+            </h2>
+        </div>
+    </section>
+
+    <section>
+        <div class="content04" id="content04">
+            <!-- 상단 중앙 제목 -->
+            <h3 class="c04-top">졸업전시위원회</h3>
+
+            <div class="c04-grid">
+            <!-- LEFT: 부서 버튼 -->
+            <div class="c04-left">
+                <ul class="c04-nav" id="c04-nav">
+                <li><button class="is-active" data-key="임원">임원</button></li>
+                <li><button data-key="디피부">디피부</button></li>
+                <li><button data-key="기획부">기획부</button></li>
+                <li><button data-key="편집부">편집부</button></li>
+                <li><button data-key="멀티부">멀티부</button></li>
+                <li><button data-key="홍보부">홍보부</button></li>
+                <li><button data-key="포스터부">포스터부</button></li>
+                </ul>
+            </div>
+
+            <!-- CENTER: “의 공명” 트랙 (버튼 위치 따라다님) -->
+            <div class="c04-center" id="c04-center">
+                <div class="c04-of" id="c04-of">의 공명</div>
+            </div>
+
+            <!-- RIGHT: 멤버 목록 -->
+            <div class="c04-right">
+                <ul class="c04-members" id="c04-members"></ul>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../js/content01.js" defer></script>
+    <script src="../js/content02.js" defer></script>
+    <script src="../js/content03.js" defer></script>
+    <script src="../js/content04.js" defer></script>
 
     <footer>
         <div class="container">
