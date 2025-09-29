@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!acc) return;
 
   const items = Array.from(acc.querySelectorAll(".c05-item"));
-  const DEFAULT_OPEN_INDEX = -1;
+  const DEFAULT_OPEN_INDEX = 0;  // ★ 1번(인터랙션디자인) 열림 상태로 시작
 
   function setIndent(item){
     const head = item.querySelector(".c05-head");
@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // ★ 기본 열림 처리
   if (DEFAULT_OPEN_INDEX >= 0 && items[DEFAULT_OPEN_INDEX]) {
     openItem(items[DEFAULT_OPEN_INDEX]);
   }

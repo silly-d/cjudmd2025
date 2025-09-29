@@ -68,7 +68,7 @@
 
 .c05-text{ align-self:end; text-align:left; }
 .c05-text h3{ margin:0 0 8px; font-size:40px; font-weight:400; }
-.c05-text p{ margin:0; color:#d9d9d9; line-height:1.6; font-size:24px; font-weight:300; }
+.c05-text p{ margin:0; color:#d9d9d9; line-height:1.6; font-size:24px; font-weight:200; }
 
 .c05-photo{ display:flex; justify-content:flex-end; align-items:center; }
 .c05-photo img{ width:100%; max-width:340px; height:auto; display:block; margin-right: 30px;}

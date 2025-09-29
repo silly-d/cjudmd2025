@@ -63,7 +63,7 @@
   border: 1px solid #2a2a2a;
   background:#131313;
   color:#fff;
-  font-weight:700;
+  font-weight:600;
   cursor:pointer;
   transition: transform .08s ease, background .2s ease, border-color .2s ease;
 }
