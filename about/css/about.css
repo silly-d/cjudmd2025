@@ -20,38 +20,42 @@ a{
     display: block;
 }
 
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
 body {
+    width: 100%;
+    overflow-x: hidden;
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
+    background: #121212;
+    color: #fff;
+    user-select: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 header{
     width: 100%;
-    height: 9vh;
+    height: 8vh;
     z-index: 999;
-    position: fixed;
-    background-color: rgba(241,241,241, 0.5);
+    background-color: rgba(0,0,0, 0.5);
     backdrop-filter: blur(7px);
+    position: relative;
 }
 
 header .container{
+    position: absolute;
+    display: flex;
     width: 100%;
     max-width: 1440px;
-    display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
-    padding-top: 2vh;
+    padding: 1vw 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* 헤더 로고 부분 */
@@ -62,10 +66,10 @@ header .container{
 
 .gnb-logo p{
     font-weight: 500;
-    color: #000;
+    color: #fff;
     float: right;
     padding: 0 0 0 20px;
-    font-size: 1rem;
+    font-size: 0.65vw;
     line-height: 130%;
 }
 
@@ -81,7 +85,7 @@ header .container{
     gap: 30px;
     color: #000;
     margin-right: 8px;
-    font-size: 15pt;
+    font-size: 0.8vw;
 }
 
 .gnb-menu a{
@@ -98,11 +102,11 @@ header .container{
 }
 
 .gnb-menu a:hover{
-    color: #000;
+    color: #fff;
 }
 
 .dmd2025{
-    background: #f1f1f1;
+    background: #121212;
     border: #999 solid 1px;
     border-radius: 50px;
     margin-left: 2cqmin;
@@ -115,8 +119,9 @@ header .container{
 .dmd2025 p {
     margin: 0 14px 0 16px;
     padding: 14px 15px 14px 15px;
-    font-size: 14pt;
+    font-size: 0.7vw;
     font-weight: 600;
+    color: #fff;
 }
 
 
@@ -238,5 +243,6 @@ footer .container {
 
 section {
     width: 100%;
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
 }

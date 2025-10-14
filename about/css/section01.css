@@ -1,0 +1,57 @@
+/* 01 히어로 */
+.content01{
+  width:100%;
+  min-height:80vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#121212;
+}
+
+/* 줄 전체는 중앙 정렬 */
+.title01{
+  margin:0;
+  display:flex;
+  align-items:center;                 /* 세로축 중앙 */
+  gap:clamp(12px,2vw,32px);
+  color:#fff;
+  line-height:1;
+  font-size:347px;
+}
+
+/* 글자/괄호도 같은 규칙으로 */
+.title01__char,
+.title01__paren{
+  display:inline-flex;                /* 글자도 박스로 취급 */
+  align-items:center;                 /* 자체 세로 중앙 */
+  line-height:1;
+}
+.title01__char{ font-weight:600; letter-spacing:-0.02em; }
+.title01__paren{ font-weight:200; }
+
+/* 사진 슬롯 */
+.title01__photo{
+  --photo-h:0.84em;                   /* 글자 높이 기준 */
+  --photo-nudge:0.12em;               /* ↓ 필요시 한 번에 미세조정 */
+  height:var(--photo-h);
+  width:calc(var(--photo-h) * 0.75);
+  display:inline-flex;                /* 토큰들과 동일 처리 */
+  align-items:center;
+  border-radius:8px;
+  background-size:cover;
+  background-position:center;
+  vertical-align:middle;
+  transform:translateY(var(--photo-nudge));  /* 사진을 살짝 내려 균형 */
+  /* margin-top 제거! */
+}
+
+.title01__photo img{
+  position:absolute;
+  inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  opacity:0; transition:opacity 300ms ease;
+}
+.title01__photo img.is-active{ opacity:1; }
+
+#c01-photo{ background-image:url('../../img/hero/hero01.png'); }
