@@ -23,9 +23,18 @@ a{
 body {
     width: 100%;
     overflow-x: hidden;
+    width: 100%;
+    overflow-x: hidden;
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
+    background: #121212;
+    color: #fff;
+    user-select: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
     background: #121212;
     color: #fff;
     user-select: none;
@@ -37,14 +46,22 @@ body {
 
 header{
     width: 100%;
+<<<<<<< HEAD
     height: auto;
+=======
+    height: 8vh;
+>>>>>>> front/designer
     z-index: 999;
     background-color: rgba(0,0,0, 0.5);
+    background-color: rgba(0,0,0, 0.5);
     backdrop-filter: blur(7px);
+    position: relative;
     position: relative;
 }
 
 header .container{
+    position: absolute;
+    display: flex;
     position: absolute;
     display: flex;
     width: 100%;
@@ -52,6 +69,10 @@ header .container{
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
+    padding: 1vw 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 1vw 0;
     top: 50%;
     left: 50%;
@@ -69,7 +90,7 @@ header .container{
     color: #fff;
     float: right;
     padding: 0 0 0 20px;
-    font-size: 1rem;
+    font-size: 0.65vw;
     line-height: 130%;
 }
 
@@ -85,7 +106,11 @@ header .container{
     gap: 30px;
     color: #000;
     margin-right: 8px;
+<<<<<<< HEAD
     font-size: 1rem;
+=======
+    font-size: 0.8vw;
+>>>>>>> front/designer
 }
 
 .gnb-menu a{
@@ -119,8 +144,13 @@ header .container{
 .dmd2025 p {
     margin: 0 14px 0 16px;
     padding: 14px 15px 14px 15px;
+<<<<<<< HEAD
     font-size: 1rem;
+=======
+    font-size: 0.7vw;
+>>>>>>> front/designer
     font-weight: 600;
+    color: #fff;
     color: #fff;
 }
 
@@ -152,7 +182,7 @@ footer .container {
 }
 
 .foot-left p {
-    font-size: 1.1rem;
+    font-size: 0.7vw;
     color: #fff;
     line-height: 1.6;
 }
@@ -173,7 +203,7 @@ footer .container {
     display: flex;
     flex-direction: column;
     gap: 18px;
-    font-size: 1rem;
+    font-size: 0.6vw;
 }
 
 .info-left {
@@ -194,7 +224,7 @@ footer .container {
 
 .sns-icons a {
     color: #fff;
-    font-size: 2rem;
+    font-size: 1.3vw;
     transition: color 0.2s;
 }
 
@@ -205,7 +235,7 @@ footer .container {
 .copyright {
     text-align: left;
     color: #fff;
-    font-size: 1rem;
+    font-size: 0.6vw;
     opacity: 0.9;
 }
 
@@ -230,6 +260,35 @@ section {
     width: 100%;
     min-height: 100vh;
     flex: 1;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    position: absolute;
+    text-align: center;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7vw;
+}
+
+.scroll {
+    margin-top: 5px;
+    position: relative;
+    animation: 1.5s ease 0s infinite normal none running down;
+}
+
+@keyframes down {
+    0%, 40% {
+    transform: translateY(0px);
+    }
+
+    20% {
+    transform: translateY(15px);
+    }
 }
 
 .field {
