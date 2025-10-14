@@ -37,16 +37,21 @@ html, body {
 }
 
 body {
+    overflow-x: hidden;
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden; /* 가로 스크롤 방지 */
+    background: #121212;
+    color: #fff;
+    user-select: none;
+    transition: 0.1s ease;
 }
 
-header {
+header{
     width: 100%;
+    height: auto;
     z-index: 999;
-    background-color: rgba(241,241,241, 0.5);
+    background-color: rgba(0,0,0, 0.5);
     backdrop-filter: blur(7px);
 }
 
@@ -57,7 +62,7 @@ header .container {
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
-    padding: 13px 0;
+    padding: 1.5vh 0;
 }
 
 /* 헤더 로고 부분 */
@@ -67,7 +72,7 @@ header .container {
 
 .gnb-logo p {
     font-weight: 500;
-    color: #000;
+    color: #fff;
     float: right;
     padding: 0 0 0 20px;
     font-size: 1rem;
@@ -84,7 +89,7 @@ header .container {
     display: flex;
     align-items: center;
     gap: 30px;
-    color: #000;
+    color: #fff;
     margin-right: 8px;
     font-size: 1rem;
 }
@@ -99,15 +104,16 @@ header .container {
 .gnb-menu #current p {
     font-weight: 600;
     text-decoration: underline;
-    color: #000;
+    color: #fff;
 }
 
 .gnb-menu a:hover {
-    color: #000;
+    color: #fff;
 }
 
 .dmd2025 {
-    background: #f1f1f1;
+    background: #121212;
+    color: #999;
     border: #999 solid 1px;
     border-radius: 50px;
     margin-left: 2cqmin;
@@ -430,7 +436,6 @@ footer .container {
 .search-container {
     padding: 60px 20px;
     text-align: center;
-    background-color: #fff;
 }
 
 .search-title {
@@ -471,7 +476,7 @@ footer .container {
     font-size: 3.5em;
     font-weight: bold;
     margin-top: 10px;
-    color: #0f0f0f;
+    color: #eee;
 }
 
 /* --- 검색 시 줌 효과 --- */

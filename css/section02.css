@@ -67,6 +67,8 @@
   margin: -30vh 0;
 }
 
+
 .mask-container img {
   width: 150px;
+  max-width: 80vw;
 }
