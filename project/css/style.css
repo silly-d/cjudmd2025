@@ -463,7 +463,7 @@ footer .container {
 }
 
 .search-title input[type="search"]::placeholder {
-    color: #ccc;
+    color: #666;
     font-weight: 300;
 }
 
@@ -479,25 +479,20 @@ footer .container {
     color: #eee;
 }
 
-/* --- 검색 시 줌 효과 --- */
 .slide {
-    /* 기본 상태에 transition을 추가하여 원래대로 돌아올 때도 부드럽게 합니다. */
     transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
-/* 검색이 활성화되었을 때, 줌 된 슬라이드 스타일 */
 .sliders.search-active .slide.zoomed {
-    transform: translateY(-50%) scale(1.25); /* 1.5에서 1.25로 수정 */
-    z-index: 10; /* 다른 슬라이드 위에 보이도록 설정 */
+    transform: translateY(-50%) scale(1.25);
+    z-index: 10;
 }
 
-/* 검색이 활성화되었을 때, 축소된 슬라이드 스타일 */
 .sliders.search-active .slide.shrunken {
     transform: translateY(-50%) scale(0.8);
-    opacity: 0.5; /* 비선택 슬라이드를 약간 투명하게 */
+    opacity: 0.25;
 }
 
-/* 슬라이드 3D 플립 및 확대 효과 */
 .slide {
     position: relative;
     perspective: 1200px;
@@ -543,13 +538,12 @@ footer .container {
     object-fit: cover;
     opacity: 0.5;
     filter: blur(10px);
-    transform: scaleX(-1) scale(1.5); /* 좌우반전 */
+    transform: scaleX(-1) scale(1.5);
     z-index: 0;
     pointer-events: none;
     user-select: none;
 }
 
-/* 뒷면의 실제 텍스트/내용은 z-index: 1 이상으로 */
 .slide-back > *:not(.back-blur-img) {
     position: relative;
     z-index: 1;
@@ -603,7 +597,6 @@ footer .container {
 }
 
 .slide:hover:not.flipped {
-    /* hover만 했을 때 scale 효과 */
     transform: translateY(-50%) scale(0.5);
     z-index: 10;
     box-shadow: 0 8px 32px rgba(0,0,0,0.18);
@@ -626,8 +619,8 @@ footer .container {
     padding: 0;
     margin: 0;
 }
-.sl
-ide-back li {
+
+.slide-back li {
     margin: 4px 0;
     font-size: 1em;
 }
