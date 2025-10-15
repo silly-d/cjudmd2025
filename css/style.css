@@ -27,7 +27,6 @@ body {
     flex-direction: column;
     background: #121212;
     color: #fff;
-    user-select: none;
     transition: 0.1s ease;
 }
 
@@ -71,6 +70,7 @@ header .container{
 .gnb-logo a img{
     float: left;
     padding: 1% 0 0 0;
+    vertical-align: middle;
 }
 
 /* 헤더 메뉴 부분 */
@@ -93,7 +93,7 @@ header .container{
 .gnb-menu #current p{
     font-weight: 600;
     text-decoration: underline;
-    color: #000;
+    color: #fff;
 }
 
 .gnb-menu a:hover{
@@ -126,7 +126,6 @@ footer {
     background-color: #2b2b2b;
     color: #fff;
     bottom: 0;
-    z-index: -100;
 }
 
 footer .container {
@@ -202,6 +201,7 @@ footer .container {
 .sns-icons #dmdlogo{
     margin: -6px 0 0 -5px;
 }
+
 .copyright {
     margin-top: 50px;
     text-align: left;
