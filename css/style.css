@@ -1,11 +1,11 @@
 @charset "utf-8";
 
 @font-face {
-	font-family: 'Pretendard Variable';
-	font-weight: 45 920;
-	font-style: normal;
-	font-display: swap;
-	src: url('./woff2/PretendardVariable.woff2') format('woff2-variations');
+    font-family: 'Pretendard Variable';
+    font-weight: 45 920;
+    font-style: normal;
+    font-display: swap;
+    src: url('./woff2/PretendardVariable.woff2') format('woff2-variations');
 }
 
 
@@ -28,7 +28,6 @@ body {
     flex-direction: column;
     background: #121212;
     color: #fff;
-    user-select: none;
 }
 
 ::-webkit-scrollbar {
@@ -85,7 +84,7 @@ header .container{
     gap: 30px;
     color: #000;
     margin-right: 8px;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
 .gnb-menu a{
@@ -124,14 +123,12 @@ header .container{
     color: #fff;
 }
 
-
 /* footer*/
 footer {
     width: 100%;
     background-color: #2b2b2b;
     color: #fff;
     bottom: 0;
-    z-index: -100;
 }
 
 footer .container {
@@ -225,9 +222,9 @@ footer .container {
 }
 
 /* about 시작 */
-
 section {
     width: 100%;
+    height: auto;
     min-height: 100vh;
     flex: 1;
 }
@@ -242,7 +239,7 @@ section {
     bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0.7vw;
+    font-size: 1rem;
 }
 
 .scroll {
