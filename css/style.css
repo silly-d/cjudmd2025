@@ -130,6 +130,7 @@ footer {
     background-color: #2b2b2b;
     color: #fff;
     bottom: 0;
+    position: relative;
 }
 
 footer .container {
@@ -214,7 +215,6 @@ footer .container {
     margin-top: 50px;
     width: 100%;
 }
-
 
 .sns-icons {
     display: flex;
