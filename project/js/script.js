@@ -11,7 +11,7 @@ const totalSlideCount = sliderData.length;
 const state = {
   currentX: 0,
   targetX: 0,
-  slideWidth: 0, // 초기화 시 계산
+  slideWidth: 0,
   slides: [],
   isDragging: false,
   startX: 0,
@@ -24,11 +24,10 @@ const state = {
   dragDistance: 0,
   hasActuallyDragged: false,
   isMobile: false,
-  wheelSnapTimeout: null, // 스냅 기능용 타임아웃 ID
+  wheelSnapTimeout: null,
 };
 
-let glitchTimeout = null; // 기존 코드에서 사용하길래 안전하게 선언
-// 기본 노이즈 효과 함수 (원래 구현이 있다면 덮어쓰지 않음)
+let glitchTimeout = null;
 function addGlitchEffect() {
   if (!document.documentElement.classList.contains("glitch-active")) {
     document.documentElement.classList.add("glitch-active");
@@ -55,7 +54,6 @@ function createSlideElement(index) {
     slide.style.height = "350px";
   }
 
-  // --- 슬라이드 앞면 ---
   const front = document.createElement("div");
   front.className = "slide-front";
 
@@ -81,7 +79,6 @@ function createSlideElement(index) {
   overlay.appendChild(title);
   overlay.appendChild(arrow);
 
-  // 클릭 이동은 앞면에서만 동작
   front.addEventListener("click", (e) => {
     e.preventDefault();
     if (state.dragDistance < 10 && !state.hasActuallyDragged) {
@@ -89,11 +86,9 @@ function createSlideElement(index) {
     }
   });
 
-  // 앞면 조립
   front.appendChild(imageContainer);
   front.appendChild(overlay);
 
-  // --- 슬라이드 뒷면 ---
   const back = document.createElement("div");
   back.className = "slide-back";
 
@@ -106,19 +101,17 @@ function createSlideElement(index) {
       window.location.href = sliderData[dataIndex].url;
     }
   });
-  // 뒷면 흐릿한 이미지 추가
+
   const backImg = document.createElement("img");
   backImg.className = "back-blur-img";
   backImg.src = sliderData[dataIndex].img;
   backImg.alt = sliderData[dataIndex].title;
   back.appendChild(backImg);
 
-  // 제목
   const backTitle = document.createElement("h3");
   backTitle.textContent = sliderData[dataIndex].title;
   back.appendChild(backTitle);
 
-  // 참여자
   if (sliderData[dataIndex].members) {
     const member = document.createElement("div");
     member.className = "back-members";
@@ -126,7 +119,6 @@ function createSlideElement(index) {
     back.appendChild(member);
   }
 
-  // 설명
   if (sliderData[dataIndex].description) {
     const desc = document.createElement("div");
     desc.className = "back-desc";
@@ -134,7 +126,6 @@ function createSlideElement(index) {
     back.appendChild(desc);
   }
 
-  // 과목명(하단 박스)
   if (sliderData[dataIndex].subjects) {
     const subjectWrap = document.createElement("div");
     subjectWrap.className = "back-subjects";
@@ -147,11 +138,9 @@ function createSlideElement(index) {
     back.appendChild(subjectWrap);
   }
 
-  // 슬라이드에 앞/뒷면 추가
   slide.appendChild(front);
   slide.appendChild(back);
 
-  // hover 시 .flipped 클래스 토글 (PC에서만)
   slide.addEventListener("mouseenter", () => {
     slide.classList.add("flipped");
   });
@@ -185,7 +174,6 @@ function initializeSlides() {
     state.slides.push(slide);
   }
 
-  // startOffset을 크게 음수로 밀어놔서 무한 루프 형태로 보이게 함
   const startOffset = -(totalSlideCount * state.slideWidth * 2);
   state.currentX = startOffset;
   state.targetX = startOffset;
@@ -249,7 +237,6 @@ function animate() {
 }
 
 function handleWheel(e) {
-  // 세로 스크롤을 가로 이동으로 맵핑
   if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
     return;
   }
@@ -257,8 +244,6 @@ function handleWheel(e) {
   state.lastScrollTime = Date.now();
   const scrollDelta = e.deltaY * config.SCROLL_SPEED;
   state.targetX -= Math.max(Math.min(scrollDelta, config.MAX_VELOCITY), -config.MAX_VELOCITY);
-
-  // 기존 timeout 취소 후 다시 설정 — 150ms 뒤 스냅
   clearTimeout(state.wheelSnapTimeout);
   state.wheelSnapTimeout = setTimeout(() => {
     snapToCenter();
@@ -282,11 +267,6 @@ function handleTouchMove(e) {
   if (state.dragDistance > 5) {
     state.hasActuallyDragged = true;
   }
-  state.lastScrollTime = Date.now();
-  // 노이즈 효과 적용
-  addGlitchEffect();
-  clearTimeout(glitchTimeout);
-  glitchTimeout = setTimeout(removeGlitchEffect, 200);
 }
 
 function handleTouchEnd() {
@@ -294,9 +274,7 @@ function handleTouchEnd() {
   setTimeout(() => {
     state.hasActuallyDragged = false;
   }, 100);
-  removeGlitchEffect(); // 이동 종료 시 노이즈 효과 제거
-
-  // 드래그 종료 직후 타이밍 문제로 스냅이 제대로 안되는 경우가 있어서 짧은 딜레이 후 스냅
+  removeGlitchEffect();
   setTimeout(() => {
     snapToCenter();
   }, 40);
@@ -323,11 +301,6 @@ function handleMouseMove(e) {
   if (state.dragDistance > 5) {
     state.hasActuallyDragged = true;
   }
-  state.lastScrollTime = Date.now();
-  // 노이즈 효과 적용
-  addGlitchEffect();
-  clearTimeout(glitchTimeout);
-  glitchTimeout = setTimeout(removeGlitchEffect, 200);
 }
 
 function handleMouseUp() {
@@ -335,9 +308,7 @@ function handleMouseUp() {
   setTimeout(() => {
     state.hasActuallyDragged = false;
   }, 1000);
-  removeGlitchEffect(); // 이동 종료 시 노이즈 효과 제거
-
-  // 드래그 종료 후 약간 지연시켜 snap 보장
+  removeGlitchEffect();
   setTimeout(() => {
     snapToCenter();
   }, 400);
@@ -350,16 +321,11 @@ function handleResize() {
 function resetSearchZoom() {
   document.querySelector(".sliders").classList.remove("search-active");
   state.slides.forEach((s) => {
-    s.classList.remove("zoomed", "shrunken");
+    s.classList.remove("zoomed", "shrunken", "flipped");
   });
 }
 
-/**
- * Snap to center:
- * 화면 중앙에 가장 가까운 슬라이드를 찾고, 해당 슬라이드의 중심이 화면 중앙에 위치하도록 state.targetX를 설정한다.
- */
 function snapToCenter() {
-  // 드래그 중이거나 검색 모드면 스냅하지 않음
   if (state.isDragging || document.querySelector(".sliders").classList.contains("search-active")) {
     return;
   }
@@ -368,10 +334,8 @@ function snapToCenter() {
   let closestSlide = null;
   let minDistance = Infinity;
 
-  // 화면에 렌더된 슬라이드 중심을 직접 계산하여 가장 가까운 요소를 찾는다.
   state.slides.forEach((slide) => {
     const rect = slide.getBoundingClientRect();
-    // 화면 밖에 완전히 벗어난 슬라이드는 무시
     if (rect.width === 0) return;
     const slideCenter = rect.left + rect.width / 2;
     const distance = Math.abs(slideCenter - viewportCenter);
@@ -383,7 +347,6 @@ function snapToCenter() {
 
   if (!closestSlide) return;
 
-  // 선택된 슬라이드의 트랙 내 중심 좌표(픽셀)를 계산해서 targetX 보정
   const slideIndex = parseInt(closestSlide.dataset.index, 10);
   const slideCenterInTrack = slideIndex * state.slideWidth + state.slideWidth / 2;
 
@@ -419,14 +382,56 @@ document.addEventListener("search:found", (e) => {
       } else {
         s.classList.add("shrunken");
         s.classList.remove("zoomed");
-        s.classList.remove("flipped"); // 나머지는 뒷면 해제
+        s.classList.remove("flipped");
       }
     });
   }
 });
 
+function handleSearch(event) {
+  const query = event.target.value.trim().toLowerCase();
+
+  if (query === "") {
+    resetSearchZoom();
+    return;
+  }
+
+  let foundProjectIndex = -1;
+  const foundProject = sliderData.find((project, index) => {
+    if (project.keywords && Array.isArray(project.keywords)) {
+      const match = project.keywords.some((keyword) => keyword.toLowerCase().includes(query));
+      if (match) {
+        foundProjectIndex = index;
+        return true;
+      }
+    }
+    return false;
+  });
+
+  if (foundProject) {
+    const targetSlide = document.querySelector(`.slide[data-content-index="${foundProjectIndex}"]`);
+
+    if (targetSlide) {
+      const event = new CustomEvent("search:found", {
+        detail: { targetSlide: targetSlide },
+      });
+      document.dispatchEvent(event);
+    }
+  }
+}
+
 function initializeEventListeners() {
   const slider = document.querySelector(".sliders");
+
+  const searchInput = document.querySelector('.search-title input[type="search"]');
+
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      if (searchInput.value.trim() === "") {
+        resetSearchZoom();
+      }
+    });
+  }
 
   slider.addEventListener("wheel", resetSearchZoom, { passive: true });
   slider.addEventListener("mousedown", resetSearchZoom);

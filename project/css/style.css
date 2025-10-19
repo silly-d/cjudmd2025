@@ -1,4 +1,5 @@
 input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
 input::-webkit-search-results-button,
 input::-webkit-search-results-decoration {
   display: none;
@@ -20,12 +21,12 @@ body {
   z-index: 1;
   width: 100%;
   user-select: none;
-  margin-top: 30vh;
+  margin: 10vh 0;
 }
 
 .slide-track {
-  position: relative; /* position을 relative로 변경 */
-  width: 100%;
+  position: relative;
+  width: 50%;
   height: 100%;
   display: flex;
 }
@@ -37,7 +38,6 @@ body {
   margin: 0 20px;
   position: relative;
   top: 50%;
-  transform: translateY(-50%);
   border-radius: 10px;
   overflow: visible;
   display: flex;
@@ -101,8 +101,6 @@ body {
   padding: 60px 20px;
   text-align: center;
   z-index: 20;
-  padding: 60px 20px;
-  text-align: center;
 }
 
 .search-title {
@@ -151,12 +149,12 @@ body {
 }
 
 .sliders.search-active .slide.zoomed {
-  transform: translateY(-50%) scale(1.25);
+  transform: scale(1.25) rotateY(180deg);
   z-index: 10;
 }
 
 .sliders.search-active .slide.shrunken {
-  transform: translateY(-50%) scale(0.8);
+  transform: scale(0.8);
   opacity: 0.25;
 }
 
@@ -266,13 +264,13 @@ body {
 }
 
 .slide.flipped {
-  transform: translateY(-50%) scale(1.25) rotateY(180deg);
+  transform: scale(1.25) rotateY(180deg);
   z-index: 10;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
 }
 
 .slide:hover:not.flipped {
-  transform: translateY(-50%) scale(0.5);
+  transform: scale(0.5);
   z-index: 10;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
 }

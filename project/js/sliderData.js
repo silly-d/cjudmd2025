@@ -1,22 +1,24 @@
 export const sliderData = [
   {
-    title: "또와쑤깡",
+    title: "포커스티",
     img: "./img/box/project_1.png",
     url: "./project1.html",
     members: ["김보미", "임희원"],
     description: "디지털 정보의 사후처리\n잘 남기는 것에 대한 고민",
     subjects: ["인터랙션디자인", "서비스경험디자인"],
+    keywords: ["포커스티"],
   },
   {
-    title: "키키푸",
+    title: "BIAS",
     img: "./img/box/project_2.png",
     url: "./project2.html",
     members: ["서동현", "오우진", "권용우"],
     description: "디지털 정보의 사후처리\n잘 남기는 것에 대한 고민",
     subjects: ["인터랙션디자인", "서비스경험디자인"],
+    keywords: ["바이아스", "BIAS"],
   },
   {
-    title: "모글모글 어드벤처",
+    title: "RE:4·3",
     img: "./img/box/project_3.png",
     url: "./project3.html",
     members: ["유은비", "김현지", "곽초은"],
@@ -24,7 +26,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "마법의 샌드위치",
+    title: "comma ,",
     img: "./img/box/project_4.png",
     url: "/project4.html",
     members: ["김민정", "김선정", "노채린"],
@@ -32,7 +34,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "독도탐사대",
+    title: "센스테이지",
     img: "./img/box/project_5.png",
     url: "/project5.html",
     members: ["강유림"],
@@ -40,7 +42,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "저승길의 동반자 꼭두",
+    title: "슬리피즘",
     img: "./img/box/project_6.png",
     url: "/project6.html",
     members: ["조서영", "최희선", "이현서"],
@@ -48,7 +50,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "벽사야담",
+    title: "The Gaze",
     img: "./img/box/project_7.png",
     url: "/project7.html",
     members: ["김도희", "정예원", "반상우"],
@@ -56,7 +58,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "두들박스",
+    title: "디사구",
     img: "./img/box/project_8.png",
     url: "/project8.html",
     members: ["민유진", "박미소"],
@@ -64,7 +66,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "패럴림픽",
+    title: "DYING IS FOR YOU!",
     img: "./img/box/project_9.png",
     url: "/project9.html",
     members: ["조예리", "정유민"],
@@ -72,7 +74,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "백구",
+    title: "다다다 한글놀이",
     img: "./img/box/project_10.png",
     url: "/project10.html",
     members: ["이새연", "이채현", "박기연"],
@@ -80,7 +82,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "똑똑",
+    title: "시간의 레이어 : 나전Hourstory",
     img: "./img/box/project_11.png",
     url: "/project11.html",
     members: ["조범규", "윤정원"],
@@ -88,7 +90,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "똑똑",
+    title: "FLOMO",
     img: "./img/box/project_12.png",
     url: "/project12.html",
     members: ["이연우", "손예진"],
@@ -96,7 +98,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "똑똑",
+    title: "지지와 우리몸 대소동",
     img: "./img/box/project_13.png",
     url: "/project13.html",
     members: ["김지수", "김윤주"],
@@ -104,7 +106,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "똑똑",
+    title: "마음담音",
     img: "./img/box/project_14.png",
     url: "/project14.html",
     members: ["황지원", "황서진", "고현희"],
@@ -112,7 +114,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "똑똑",
+    title: "가온결",
     img: "./img/box/project_15.png",
     url: "/project15.html",
     members: ["박서희", "백진주", "이채민"],
@@ -120,7 +122,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "똑똑",
+    title: "곶자왈 위기의 숲",
     img: "./img/box/project_16.png",
     url: "/project16.html",
     members: ["오효진", "나원호"],
@@ -128,7 +130,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "똑똑",
+    title: "Not0",
     img: "./img/box/project_17.png",
     url: "/project17.html",
     members: ["이주연"],
@@ -136,7 +138,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "똑똑",
+    title: "-",
     img: "./img/box/project_18.png",
     url: "/project18.html",
     members: ["왕뢰이저"],
@@ -144,7 +146,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "똑똑",
+    title: "W.S.P",
     img: "./img/box/project_19.png",
     url: "/project19.html",
     members: ["양윤보", "박지수"],
@@ -152,7 +154,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "똑똑",
+    title: "Moony",
     img: "./img/box/project_20.png",
     url: "/project20.html",
     members: ["박순후", "김루나"],
@@ -160,7 +162,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "똑똑",
+    title: "WELCOME TO LG TWINS' K-CHEERLAND!",
     img: "./img/box/project_21.png",
     url: "/project21.html",
     members: ["이소현"],
@@ -168,7 +170,7 @@ export const sliderData = [
     subjects: ["인터랙션디자인", "서비스경험디자인"],
   },
   {
-    title: "똑똑",
+    title: "Umpha",
     img: "./img/box/project_22.png",
     url: "/project22.html",
     members: ["김현진", "최서윤"],
