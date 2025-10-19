@@ -14,7 +14,11 @@ ScrollTrigger.defaults({
     scroller: lenis.wrapper,
 })
 
-const positions = [
+function getPositions() {
+  const w = window.innerWidth;
+
+  if (w > 1400) {
+    return [
     { top: "0%", left: "15%"},
     { top: "0%", left: "30%"},
     { top: "0%", left: "45%"},
@@ -72,7 +76,11 @@ const positions = [
     { top: "360%", left: "30%"},
     { top: "360%", left: "45%"},
     { top: "360%", left: "60%"},
-];
+    ]
+  }
+}
+
+positions = getPositions();
 
 // ----------------------------
 // 기본 DOM 설정
@@ -110,9 +118,9 @@ gsap.from(".text-left", {
 
 gsap.to(".profile", {
   scale: 1,
-  width: "300px",
-  height: "400px",
-  stagger: 0.001,
+  width: () => window.innerWidth > 900 ? "200px" : "120px",
+  height: () => window.innerWidth > 900 ? "350px" : "200px",
+  stagger: 0,
   duration: 0.45,
   ease: "power2.out",
   delay: 1,
@@ -169,7 +177,10 @@ imgs.forEach((img, i) => {
 });
 
 window.addEventListener("load", adjustSectionHeightFromPositions);
+
 window.addEventListener("resize", () => {
-    adjustSectionHeightFromPositions();
-    ScrollTrigger.refresh();
+  positions = getPositions();
+  scatterAndShrink();
+  adjustSectionHeightFromPositions();
+  ScrollTrigger.refresh();
 });
