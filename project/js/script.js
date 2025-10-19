@@ -1,5 +1,7 @@
 import { sliderData } from "./sliderData.js";
 
+const lenis = new Lenis();
+
 const config = {
   SCROLL_SPEED: 1.75,
   LERP_FACTOR: 0.05,
@@ -226,7 +228,9 @@ function updateMovingState() {
   document.documentElement.style.setProperty("--slider-moving", state.isMoving ? "1" : "0");
 }
 
-function animate() {
+function animate(time) {
+  lenis.raf(time);
+
   state.currentX += (state.targetX - state.currentX) * config.LERP_FACTOR;
 
   updateMovingState();

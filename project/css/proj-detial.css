@@ -43,9 +43,10 @@
   font-size: 1.2rem;
 }
 
-.back:hover, .to-top:hover {
+.back:hover,
+.to-top:hover {
   cursor: pointer;
-  box-shadow: 0 0 5px rgba(255,255,255,0.3);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
 
 .to-top {
@@ -58,115 +59,110 @@
   height: 50px;
   border: none;
   border-radius: 100px;
-  box-shadow: 0 2px 10px 2px rgba(255,255,255,0.15);
+  box-shadow: 0 2px 10px 2px rgba(255, 255, 255, 0.15);
   transition: 0.3s ease;
   color: #fff;
   z-index: 11;
 }
 
+/* team card */
+
 .team-name {
-    text-transform: uppercase;
-    font-size: 12rem;
-    font-weight: 700;
-    line-height: 0.8;
+  text-transform: uppercase;
+  font-size: 12rem;
+  font-weight: 700;
+  line-height: 0.8;
 }
 
 .team {
-    display: flex;
-    gap: 1rem;
-    width: 100%;
-    height: 100vh;
-    padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  height: 100vh;
+  padding: 1rem;
 }
 
 .team-member {
-    flex: 1;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: #222;
-    border-radius: 1.5rem;
-    will-change: transform;
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  border-radius: 1.5rem;
+  will-change: transform;
 }
 
 .team-member:nth-child(1) {
-    z-index: 2;
+  z-index: 2;
 }
 
 .team-member:nth-child(2) {
-    z-index: 1;
+  z-index: 1;
 }
 
 .team-member:nth-child(3) {
-    z-index: 0;
-}
-
-.team-member-name-initial {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50, -50%);
-}
-
-.team-member-name-initial h1 {
-    color: #fc694c;
-    font-size: 20rem;
-    will-change: transform;
+  z-index: 0;
 }
 
 .team-member-card {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    background-color: #121212;
-    border-radius: 1.5rem;
-    will-change: transform;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  padding: 2rem;
+  display: flex;
+  gap: 5vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #121212;
+  border-radius: 1.5rem;
+  will-change: transform;
 }
 
 .team-member-img {
-    aspect-ratio: 1;
-    border-radius: 1rem;
-    margin-bottom: 1rem;
-    overflow: hidden;
-    position: relative;
+  aspect-ratio: 1;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  position: relative;
 }
 
-.team-member-img::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(0,0,0,0) 70%, #121212);
+.team-member-img::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0) 70%, #121212);
+}
+
+.team-member-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .team-member-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1rem;
-    margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
 }
 
 .team-member-info h1 {
-    font-size: 5rem;
-    color: #fff;
+  font-size: 5rem;
+  color: #fff;
 }
 
 .name-en {
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: #a9a9a9;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #a9a9a9;
 }
 
 .info-detail {
@@ -180,23 +176,23 @@
 }
 
 .team-member {
-    transform: translateY(125%);
+  transform: translateY(125%);
 }
 
 .team-member-name-initial h1 {
-    transform: scale(0);
+  transform: scale(0);
 }
 
 .team-member:nth-child(1) .team-member-card {
-    transform: translate(300%, -50%) scale(0.75) rotate(20deg);
+  transform: translate(300%, -50%) scale(0.75) rotate(20deg);
 }
 
 .team-member:nth-child(2) .team-member-card {
-    transform: translate(200%, -50%) scale(0.75) rotate(20deg);
+  transform: translate(200%, -50%) scale(0.75) rotate(20deg);
 }
 
 .team-member:nth-child(3) .team-member-card {
-    transform: translate(100%, -50%) scale(0.75) rotate(20deg);
+  transform: translate(100%, -50%) scale(0.75) rotate(20deg);
 }
 
 .more {
@@ -219,34 +215,35 @@
 }
 
 @media (max-width: 1000px) {
-    h1 {
-        font-size: 4rem;
-    }
+  h1 {
+    font-size: 4rem;
+  }
 
-    .hero h1, .outro h1 {
-        width: 100%;
-    }
+  .hero h1,
+  .outro h1 {
+    width: 100%;
+  }
 
-    .team {
-        height: 250vh;
-        flex-direction: column;
-        align-items: center;
-    }
+  .team {
+    height: 250vh;
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .team-member {
-        max-width: 400px;
-        transform: translateY(0%) !important;
-    }
+  .team-member {
+    max-width: 400px;
+    transform: translateY(0%) !important;
+  }
 
-    .team-member-name-initial h1 {
-        transform: scale(1);
-    }
+  .team-member-name-initial h1 {
+    transform: scale(1);
+  }
 
-    .team-member .team-member-card {
-        transform: translate(-50%, -50%) scale(1) rotate(0deg) !important;
-    }
+  .team-member .team-member-card {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg) !important;
+  }
 
-    .team-member-info h1 {
-        font-size: 5rem;
-    }
+  .team-member-info h1 {
+    font-size: 5rem;
+  }
 }
