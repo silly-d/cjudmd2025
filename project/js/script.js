@@ -437,6 +437,14 @@ function initializeEventListeners() {
     });
   }
 
+  slider.addEventListener("mouseenter", () => {
+    lenis.stop();
+  });
+
+  slider.addEventListener("mouseleave", () => {
+    lenis.start();
+  });
+
   slider.addEventListener("wheel", resetSearchZoom, { passive: true });
   slider.addEventListener("mousedown", resetSearchZoom);
   slider.addEventListener("touchstart", resetSearchZoom);
