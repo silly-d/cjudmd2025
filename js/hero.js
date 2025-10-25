@@ -244,19 +244,26 @@ heroReveal.forEach((element) => {
   });
 });
 
+let isTransitioning = false;
+
 ScrollTrigger.create({
   trigger: ".content05",
-  start: "top top",
-  end: "bottom bottom",
-  onLeave: () => {
-    // 페이드 아웃 효과 후 이동
-    gsap.to("body", {
-      opacity: 0,
-      duration: 1,
-      ease: "power2.inOut",
-      onComplete: () => {
-        window.location.href = "./about/about.html";
-      },
-    });
+  start: "bottom 80%",
+  onEnter: () => {
+    if (!isTransitioning) {
+      isTransitioning = true;
+
+      // 페이드 아웃 후 about.html로 이동
+      gsap.to("body", {
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.inOut",
+        onComplete: () => {
+          // sessionStorage에 플래그 저장
+          sessionStorage.setItem("fromIndex", "true");
+          window.location.href = "./about/about.html";
+        },
+      });
+    }
   },
 });
