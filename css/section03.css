@@ -34,7 +34,7 @@
   width: 500px;
   height: 300px;
   overflow: hidden;
-  box-shadow: 0 0 0.5vw rgba(0,0,0,0.2);
+  box-shadow: 0 0 0.5vw rgba(0, 0, 0, 0.2);
 }
 
 .ct03-card img {
@@ -45,20 +45,30 @@
 
 #ct03-card-1 {
   top: 50%;
-  left: 20%;
+  left: 15%;
 }
 
 #ct03-card-2 {
   top: 25%;
-  left: 40%;
+  left: 30%;
 }
 
 #ct03-card-3 {
   top: 45%;
-  left: 60%;
+  left: 45%;
 }
 
 #ct03-card-4 {
   top: 15%;
-  left: 80%;
+  left: 60%;
+}
+
+#ct03-card-5 {
+  top: 45%;
+  left: 75%;
+}
+
+#ct03-card-6 {
+  top: 15%;
+  left: 90%;
 }

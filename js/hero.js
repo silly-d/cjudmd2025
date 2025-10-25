@@ -1,6 +1,6 @@
 const lenis = new Lenis({
   duration: 1.5,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
 });
 
 function raf(time) {
@@ -9,7 +9,7 @@ function raf(time) {
 }
 requestAnimationFrame(raf);
 
-lenis.on('scroll', ScrollTrigger.update);
+lenis.on("scroll", ScrollTrigger.update);
 
 // GSAP 플러그인 등록
 gsap.registerPlugin(ScrollTrigger);
@@ -22,11 +22,11 @@ window.addEventListener("load", () => {
     scale: 0,
     opacity: 0,
     ease: "expo.out",
-    stagger: 0.1
+    stagger: 0.1,
   });
 });
 
-gsap.utils.toArray(".item").forEach(item => {
+gsap.utils.toArray(".item").forEach((item) => {
   const randomX = gsap.utils.random(-window.innerWidth, window.innerWidth);
   const randomY = gsap.utils.random(-window.innerHeight, window.innerHeight);
 
@@ -35,91 +35,106 @@ gsap.utils.toArray(".item").forEach(item => {
       trigger: item,
       start: "top 30%",
       scrub: true,
-      onToggle: self => {
+      onToggle: (self) => {
         if (self.isActive) {
           gsap.set(item, { position: "fixed", zIndex: -100 });
         } else {
           gsap.set(item, { clearProps: "all", delay: 0.1 });
         }
-      }
+      },
     },
     x: randomX,
     y: randomY,
     scale: gsap.utils.random(1, 5),
     opacity: 0,
     ease: "power2.out",
-    markers: true
+    markers: true,
   });
 });
 
-  const textAnimation = gsap.timeline({
-    scrollTrigger: {
-        trigger: ".content01",
-        start: "top top",
-        end: "+=500",
-        scrub: 1,
-    }
+const textAnimation = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".content01",
+    start: "top top",
+    end: "+=500",
+    scrub: 1,
+  },
 });
 
 textAnimation
-    .to(".text-left", { 
-        xPercent: -50,
-        opacity: 0
-    }, 0)
-    .to(".text-right", {
-        xPercent: 50,
-        opacity: 0
-    }, 0)
-    .to(".field", {
-        yPercent: -100,
-        opacity: 0
-    }, 0
+  .to(
+    ".text-left",
+    {
+      xPercent: -50,
+      opacity: 0,
+    },
+    0
+  )
+  .to(
+    ".text-right",
+    {
+      xPercent: 50,
+      opacity: 0,
+    },
+    0
+  )
+  .to(
+    ".field",
+    {
+      yPercent: -100,
+      opacity: 0,
+    },
+    0
   );
 
-  gsap.utils.toArray(".ct02-item").forEach(item => {
-    gsap.from(item, {
-        yPercent: 50, // 요소를 높이만큼 아래로 이동
-        opacity: 0,
-        ease: "power3.out",
-        scrollTrigger: {
-            trigger: item,
-            start: "top 90%",
-            end: "bottom 90%",
-            scrub: 1,
-        }
-    });
+gsap.utils.toArray(".ct02-item").forEach((item) => {
+  gsap.from(item, {
+    yPercent: 50, // 요소를 높이만큼 아래로 이동
+    opacity: 0,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: item,
+      start: "top 90%",
+      end: "bottom 90%",
+      scrub: 1,
+    },
+  });
 });
 
 const maskTimeline = gsap.timeline();
 
-maskTimeline.to('.mask-container img', {
+maskTimeline
+  .to(".mask-container img", {
     scale: 30,
-    ease: "power1.in"
-})
-.to('.mask-container img', {
-  duration: 1,
-  ease: "power0.in"
-})
-.to('body', {
-  backgroundColor: '#ffffff',
-  color: '#121212',
-  ease: "none"
-}, "-=1");
-
+    ease: "power1.in",
+  })
+  .to(".mask-container img", {
+    duration: 1,
+    ease: "power0.in",
+  })
+  .to(
+    "body",
+    {
+      backgroundColor: "#ffffff",
+      color: "#121212",
+      ease: "none",
+    },
+    "-=1"
+  );
 
 ScrollTrigger.create({
-    animation: maskTimeline,
-    trigger: ".mask-container",
-    start: "center center", 
-    end: "+=1000",
-    scrub: 1,
-    pin: true,
-    onLeave: () => {
-        gsap.set(".mask-container", { display: "none" });
-    }
+  animation: maskTimeline,
+  trigger: ".mask-container",
+  start: "center center",
+  end: "+=1000",
+  scrub: 1,
+  pin: true,
+  onLeave: () => {
+    gsap.set(".mask-container", { display: "none" });
+  },
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   gsap.registerPlugin(ScrollTrigger);
 
   const horizontalScroll = gsap.timeline({
@@ -129,25 +144,35 @@ document.addEventListener("DOMContentLoaded", function() {
       end: "+=1500vh",
       scrub: 1,
       pin: true,
-    }
+    },
   });
-  
-  horizontalScroll.from(".slogun", {
-    x: "170vw",
-    duration: 0.2,
-    ease: "power0.in"
-  }, "<");
 
-  horizontalScroll.to(".ct03-wrapper", {
-    x: "-470vw",
-    ease: "none",
-  }, "<");
+  horizontalScroll.from(
+    ".slogun",
+    {
+      x: "170vw",
+      duration: 0.2,
+      ease: "power0.in",
+    },
+    "<"
+  );
+
+  horizontalScroll.to(
+    ".ct03-wrapper",
+    {
+      x: "-470vw",
+      ease: "none",
+    },
+    "<"
+  );
 
   const cards = [
     { id: "#ct03-card-1", endTranslateX: -2000, rotate: 45 },
     { id: "#ct03-card-2", endTranslateX: -1000, rotate: -30 },
     { id: "#ct03-card-3", endTranslateX: -2000, rotate: 25 },
     { id: "#ct03-card-4", endTranslateX: -1500, rotate: -45 },
+    { id: "#ct03-card-5", endTranslateX: -2000, rotate: 25 },
+    { id: "#ct03-card-6", endTranslateX: -1500, rotate: -45 },
   ];
 
   cards.forEach((card) => {
@@ -157,18 +182,19 @@ document.addEventListener("DOMContentLoaded", function() {
         start: "top top",
         end: "+=1200vh",
         scrub: 1,
-      }
+      },
     });
 
-    cardTimeline.fromTo(card.id, 
-      { 
-        x: "50vw", 
-        rotate: 0 
+    cardTimeline.fromTo(
+      card.id,
+      {
+        x: "50vw",
+        rotate: 0,
       },
-      { 
-        x: card.endTranslateX, 
+      {
+        x: card.endTranslateX,
         rotate: card.rotate * 2,
-        ease: "power2.in" 
+        ease: "power2.in",
       }
     );
   });
@@ -182,49 +208,55 @@ heroReveal.forEach((element) => {
   const heroBoxHeight = heroBox.offsetHeight;
 
   // Content scroll up
- const tl = gsap.timeline({
+  const tl = gsap.timeline({
     scrollTrigger: {
       trigger: element,
       start: "center center",
       end: `+=1500`,
       scrub: true,
-      pin: true
-    }
+      pin: true,
+    },
   });
 
   // Main clipPath animation
   tl.fromTo(
     heroBox,
     {
-      "clip-path": "polygon(0 0, 100% 0, 100% 50%, 0 50%, 0 50%, 100% 50%, 100% 100%, 0 100%)"
+      "clip-path": "polygon(0 0, 100% 0, 100% 50%, 0 50%, 0 50%, 100% 50%, 100% 100%, 0 100%)",
     },
     {
       "clip-path": "polygon(0 0, 100% 0, 100% 0%, 0 0%, 0 100%, 100% 100%, 100% 100%, 0 100%)",
       duration: 0.4,
-      ease: "power4.inOut"
+      ease: "power4.inOut",
     }
   );
 
   // Split animations for child items
   if (heroHeadings.length < 2) return;
 
-  tl.fromTo(
-    heroHeadings[0],
-    { y: "0%" },
-    { y: "-30%", ease: "power3.inOut" },
-    0
-  );
+  tl.fromTo(heroHeadings[0], { y: "0%" }, { y: "-30%", ease: "power3.inOut" }, 0);
 
-  tl.fromTo(
-    heroHeadings[1],
-    { y: "0%" },
-    { y: "30%", ease: "power3.inOut" },
-    0
-  );
+  tl.fromTo(heroHeadings[1], { y: "0%" }, { y: "30%", ease: "power3.inOut" }, 0);
 
-
-  tl.to('body', {
-    backgroundColor: '#121212',
-    color: '#ffffff'
+  tl.to("body", {
+    backgroundColor: "#121212",
+    color: "#ffffff",
   });
+});
+
+ScrollTrigger.create({
+  trigger: ".content05",
+  start: "top top",
+  end: "bottom bottom",
+  onLeave: () => {
+    // 페이드 아웃 효과 후 이동
+    gsap.to("body", {
+      opacity: 0,
+      duration: 1,
+      ease: "power2.inOut",
+      onComplete: () => {
+        window.location.href = "./about/about.html";
+      },
+    });
+  },
 });

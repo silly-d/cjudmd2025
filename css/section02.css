@@ -1,9 +1,9 @@
 .content02 {
-    width: 100%;
-    display: grid;
-    max-width: 1440px;
-    margin: 0 auto;
-    grid-template-columns: repeat(14, 1fr);
+  width: 100%;
+  display: grid;
+  max-width: 1440px;
+  margin: 0 auto;
+  grid-template-columns: repeat(14, 1fr);
 }
 
 .ct02-item {
@@ -12,6 +12,14 @@
   padding: 30px 0;
   letter-spacing: -0.2em;
   text-align: right;
+}
+
+.ct02-item img {
+  transition: transform 0.3s ease;
+}
+
+.ct02-item img:hover {
+  transform: scale(1.05);
 }
 
 .ct02-paren {
@@ -69,4 +77,8 @@
 
 .mask-container img {
   width: 150px;
+}
+
+.ct02-satura {
+  filter: saturate(0);
 }
