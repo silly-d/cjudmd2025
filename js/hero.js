@@ -1,3 +1,4 @@
+//lenis smooth
 const lenis = new Lenis({
   duration: 1.5,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -11,17 +12,18 @@ requestAnimationFrame(raf);
 
 lenis.on("scroll", ScrollTrigger.update);
 
-// GSAP 플러그인 등록
+//gsap 설정
 gsap.registerPlugin(ScrollTrigger);
 
+//hero section
 window.addEventListener("load", () => {
   const items = gsap.utils.toArray(".item");
 
   gsap.from(items, {
-    duration: 2.5,
+    duration: 2,
     scale: 0,
     opacity: 0,
-    ease: "expo.out",
+    ease: "expo.Out",
     stagger: 0.1,
   });
 });
@@ -87,6 +89,7 @@ textAnimation
     0
   );
 
+//content02 section
 gsap.utils.toArray(".ct02-item").forEach((item) => {
   gsap.from(item, {
     yPercent: 50, // 요소를 높이만큼 아래로 이동
@@ -101,6 +104,7 @@ gsap.utils.toArray(".ct02-item").forEach((item) => {
   });
 });
 
+//content03 section
 const maskTimeline = gsap.timeline();
 
 maskTimeline
@@ -126,7 +130,7 @@ ScrollTrigger.create({
   animation: maskTimeline,
   trigger: ".mask-container",
   start: "center center",
-  end: "+=1000",
+  end: "+=800",
   scrub: 1,
   pin: true,
   onLeave: () => {
@@ -141,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
     scrollTrigger: {
       trigger: ".ct03-wrapper",
       start: "top top",
-      end: "+=1500vh",
+      end: "+=1500",
       scrub: 1,
       pin: true,
     },
@@ -150,8 +154,8 @@ document.addEventListener("DOMContentLoaded", function () {
   horizontalScroll.from(
     ".slogun",
     {
-      x: "170vw",
-      duration: 0.2,
+      x: "160vw",
+      duration: 0.8,
       ease: "power0.in",
     },
     "<"
@@ -160,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
   horizontalScroll.to(
     ".ct03-wrapper",
     {
-      x: "-470vw",
+      x: "-460vw",
       ease: "none",
     },
     "<"
@@ -200,6 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+//content04 section
 const heroReveal = gsap.utils.toArray(".content04");
 heroReveal.forEach((element) => {
   const heroBox = element.querySelector(".hero-reveal__header");
@@ -246,6 +251,7 @@ heroReveal.forEach((element) => {
 
 let isTransitioning = false;
 
+//content05 section
 ScrollTrigger.create({
   trigger: ".content05",
   start: "bottom 80%",
