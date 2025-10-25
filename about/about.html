@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./css/section06.css" />
     <!-- fontawesome 아이콘 링크 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
-    <link rel="icon" href="img/favicon.png" type="image/x-icon" />
+    <link rel="icon" href="../img/favicon.png" type="image/x-icon" />
   </head>
 
   <body>
@@ -334,5 +334,46 @@
     <script src="../about/js/content05.js" defer></script>
     <script src="../about/js/content06.js" defer></script>
     <script src="./js/main.js"></script>
+
+    <script>
+      // index.html에서 왔을 때만 페이드인
+      window.addEventListener("load", () => {
+        const fromIndex = sessionStorage.getItem("fromIndex");
+
+        if (fromIndex === "true") {
+          // index에서 왔을 때만 페이드인 애니메이션
+          document.body.style.opacity = "0";
+          gsap.to("body", {
+            opacity: 1,
+            duration: 0.8,
+            ease: "power2.inOut",
+          });
+
+          // 플래그 제거
+          sessionStorage.removeItem("fromIndex");
+        } else {
+          // 다른 페이지에서 왔을 때는 바로 표시
+          document.body.style.opacity = "1";
+        }
+      });
+
+      // 브라우저 뒤로가기 대응
+      window.addEventListener("pageshow", (event) => {
+        if (event.persisted) {
+          const fromIndex = sessionStorage.getItem("fromIndex");
+          if (fromIndex === "true") {
+            document.body.style.opacity = "0";
+            gsap.to("body", {
+              opacity: 1,
+              duration: 0.8,
+              ease: "power2.inOut",
+            });
+            sessionStorage.removeItem("fromIndex");
+          } else {
+            document.body.style.opacity = "1";
+          }
+        }
+      });
+    </script>
   </body>
 </html>
