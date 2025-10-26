@@ -20,7 +20,7 @@ window.addEventListener("load", () => {
   const items = gsap.utils.toArray(".item");
 
   gsap.from(items, {
-    duration: 2,
+    duration: 1.5,
     scale: 0,
     opacity: 0,
     ease: "expo.Out",
