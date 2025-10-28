@@ -252,8 +252,9 @@ heroReveal.forEach((element) => {
 let isTransitioning = false;
 
 //content05 section
+/*
 ScrollTrigger.create({
-  trigger: ".content05",
+  trigger: ".empty",
   start: "bottom 80%",
   onEnter: () => {
     if (!isTransitioning) {
@@ -272,4 +273,15 @@ ScrollTrigger.create({
       });
     }
   },
+});
+*/
+
+const menuToggle = document.getElementById("menu-toggle");
+
+menuToggle.addEventListener("change", function () {
+  if (this.checked) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
 });
