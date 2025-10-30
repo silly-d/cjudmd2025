@@ -12,3 +12,12 @@
 .ct05-slogun {
   font-size: 5rem;
 }
+
+/*------------*/
+/* 모바일 반응형 */
+/*------------*/
+@media (max-width: 768px) {
+  .ct05-slogun {
+    font-size: 1.2rem;
+  }
+}

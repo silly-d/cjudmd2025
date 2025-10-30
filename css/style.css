@@ -343,8 +343,14 @@ section {
 /* 모바일 반응형 */
 /*------------*/
 @media (max-width: 768px) {
-  body {
+  html {
     overflow-x: hidden;
+  }
+
+  body {
+    width: 100vw;
+    overflow-x: hidden;
+    position: relative;
   }
 
   /* mobile-header start */
@@ -358,14 +364,24 @@ section {
     background-color: rgba(0, 0, 0, 0.9);
   }
 
+  section {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    flex: 1;
+    position: relative;
+  }
+
   .gnb-logo {
     position: relative;
-    width: 400px;
+    width: 100%;
+    max-width: 300px;
     height: 60px;
   }
 
   .gnb-logo img {
     position: absolute;
+    max-width: 100%;
   }
 
   .gnb-logo img {
@@ -373,6 +389,7 @@ section {
   }
 
   .gnb-logo p {
+    font-size: 0.85rem;
     animation: fadeInOut 8s ease-in-out infinite;
     animation-delay: 4s;
     opacity: 0;
@@ -542,4 +559,10 @@ section {
     font-size: 0.85em;
   }
   /* mobile footer end */
+  .field {
+    position: absolute;
+    bottom: 17vh;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }

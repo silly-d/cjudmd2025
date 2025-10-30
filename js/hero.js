@@ -15,6 +15,9 @@ lenis.on("scroll", ScrollTrigger.update);
 //gsap 설정
 gsap.registerPlugin(ScrollTrigger);
 
+//matchMedia 설정
+const mm = gsap.matchMedia();
+
 //hero section
 window.addEventListener("load", () => {
   const items = gsap.utils.toArray(".item");
@@ -28,6 +31,7 @@ window.addEventListener("load", () => {
   });
 });
 
+//데스크탑 애니메이션
 gsap.utils.toArray(".item").forEach((item) => {
   const randomX = gsap.utils.random(-window.innerWidth, window.innerWidth);
   const randomY = gsap.utils.random(-window.innerHeight, window.innerHeight);
