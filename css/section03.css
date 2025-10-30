@@ -12,7 +12,7 @@
   white-space: nowrap;
   position: absolute;
   color: #121212;
-  font-size: 32vw;
+  font-size: 35rem;
   font-weight: 200;
   text-align: center;
   margin: 0;
@@ -34,7 +34,7 @@
   width: 500px;
   height: 300px;
   overflow: hidden;
-  box-shadow: 0 0 0.5vw rgba(0,0,0,0.2);
+  box-shadow: 0 0 0.5vw rgba(0, 0, 0, 0.2);
 }
 
 .ct03-card img {
@@ -45,20 +45,118 @@
 
 #ct03-card-1 {
   top: 50%;
-  left: 20%;
+  left: 15%;
 }
 
 #ct03-card-2 {
   top: 25%;
-  left: 40%;
+  left: 30%;
 }
 
 #ct03-card-3 {
   top: 45%;
-  left: 60%;
+  left: 45%;
 }
 
 #ct03-card-4 {
   top: 15%;
-  left: 80%;
+  left: 60%;
+}
+
+#ct03-card-5 {
+  top: 45%;
+  left: 75%;
+}
+
+#ct03-card-6 {
+  top: 15%;
+  left: 90%;
+}
+
+/*------------*/
+/* 모바일 반응형 */
+/*------------*/
+@media (max-width: 768px) {
+  .content03 {
+    width: 100%;
+    max-width: 80vw;
+    height: auto;
+    min-height: 800px;
+    position: relative;
+    margin: 0 auto;
+  }
+
+  .ct03-wrapper {
+    position: relative;
+    max-width: 100vw;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slogun {
+    position: relative;
+    width: 80vw;
+    z-index: 1;
+    color: #121212;
+    font-size: 3rem;
+    font-weight: 200;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.3;
+    top: auto;
+    left: auto;
+    transform: none;
+  }
+
+  .ct03-card {
+    position: absolute;
+    width: 200px;
+    height: 120px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+  }
+
+  .ct03-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #ct03-card-1 {
+    top: 0%;
+    left: -20%;
+    transform: rotate(-10deg);
+  }
+
+  #ct03-card-2 {
+    top: 3%;
+    left: 60%;
+    transform: rotate(20deg);
+  }
+
+  #ct03-card-3 {
+    top: 70%;
+    left: -35%;
+    transform: rotate(-10deg);
+  }
+
+  #ct03-card-4 {
+    top: 65%;
+    left: 80%;
+    transform: rotate(-30deg);
+  }
+
+  #ct03-card-5 {
+    top: 75%;
+    left: 20%;
+    transform: rotate(-5deg);
+  }
+
+  #ct03-card-6 {
+    top: 10%;
+    left: 20%;
+  }
 }

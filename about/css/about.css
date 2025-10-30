@@ -6,8 +6,17 @@
   font-style: normal;
   font-display: swap;
   src: url("./woff2/PretendardVariable.woff2") format("woff2-variations");
+  font-family: "Pretendard Variable";
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url("./woff2/PretendardVariable.woff2") format("woff2-variations");
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 * {
   margin: 0;
   padding: 0;
@@ -17,6 +26,18 @@
 a {
   text-decoration: none;
   display: block;
+a {
+  text-decoration: none;
+  display: block;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 body {
@@ -60,6 +81,9 @@ header {
 .gnb-logo {
   display: flex;
   align-items: center;
+.gnb-logo {
+  display: flex;
+  align-items: center;
 }
 
 .gnb-logo p {
@@ -87,6 +111,11 @@ header {
   font-size: 1rem;
 }
 
+.gnb-menu a {
+  color: #999;
+  text-align: center;
+  transition: 0.5s ease;
+  font-weight: 400;
 .gnb-menu a {
   color: #999;
   text-align: center;
@@ -146,9 +175,17 @@ footer {
   align-items: flex-start;
   width: 100%;
   padding-top: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  padding-top: 60px;
 }
 
 .foot-left p {
+  font-size: 1.1rem;
+  color: #fff;
+  line-height: 1.6;
   font-size: 1.1rem;
   color: #fff;
   line-height: 1.6;
@@ -159,13 +196,25 @@ footer {
   flex-direction: column;
   align-items: flex-end;
   gap: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 30px;
 }
 
 .exh-info {
   display: flex;
   gap: 40px;
+  display: flex;
+  gap: 40px;
 }
 
+.info-left,
+.info-right {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-size: 1rem;
 .info-left,
 .info-right {
   display: flex;
