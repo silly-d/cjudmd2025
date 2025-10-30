@@ -358,8 +358,10 @@ if (menuToggle) {
   menuToggle.addEventListener("change", function () {
     if (this.checked) {
       document.body.style.overflow = "hidden";
+      lenis.stop(); // Lenis 스크롤 멈춤
     } else {
       document.body.style.overflow = "";
+      lenis.start(); // Lenis 스크롤 재개
     }
   });
 }

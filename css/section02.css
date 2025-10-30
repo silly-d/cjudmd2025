@@ -99,7 +99,7 @@
 
   .ct02-item {
     display: flex;
-    transform: scale(0.5);
+    transform: scale(0.55);
     transform-origin: center;
     gap: 10vw;
     text-align: center;
