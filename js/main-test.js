@@ -273,12 +273,12 @@ mm.add("(max-width: 768px)", () => {
     });
   });
 
-  //content03 section - 모바일은 수직 스크롤
+  // 모바일 content03 section 수정
   const maskTimeline = gsap.timeline();
 
   maskTimeline
     .to(".mask-container img", {
-      scale: 15, // 모바일에서는 scale 줄임
+      scale: 15,
       ease: "power1.in",
     })
     .to(".mask-container img", {
@@ -302,8 +302,31 @@ mm.add("(max-width: 768px)", () => {
     end: "+=500",
     scrub: 1,
     pin: true,
-    onLeave: () => {
-      gsap.set(".mask-container", { display: "none" });
+    onEnterBack: () => {
+      gsap.set(".mask-container", { display: "flex" });
+    },
+    // 또는 toggleActions 사용
+    toggleActions: "play none none reverse",
+  });
+
+  // 배경색 변화를 별도로 관리 (더 나은 방법)
+  ScrollTrigger.create({
+    trigger: ".mask-container",
+    start: "bottom center",
+    end: "+=500",
+    onEnter: () => {
+      gsap.to("body", {
+        backgroundColor: "#ffffff",
+        color: "#121212",
+        duration: 0.3,
+      });
+    },
+    onLeaveBack: () => {
+      gsap.to("body", {
+        backgroundColor: "#121212", // 원래 색으로
+        color: "#ffffff",
+        duration: 0.3,
+      });
     },
   });
 
