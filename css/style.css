@@ -6,11 +6,6 @@
   font-style: normal;
   font-display: swap;
   src: url("./woff2/PretendardVariable.woff2") format("woff2-variations");
-  font-family: "Pretendard Variable";
-  font-weight: 45 920;
-  font-style: normal;
-  font-display: swap;
-  src: url("./woff2/PretendardVariable.woff2") format("woff2-variations");
 }
 
 * {
@@ -20,9 +15,6 @@
   font-family: "Pretendard Variable", sans-serif;
 }
 
-a {
-  text-decoration: none;
-  display: block;
 a {
   text-decoration: none;
   display: block;
@@ -76,9 +68,6 @@ header {
 .gnb-logo {
   display: flex;
   align-items: center;
-.gnb-logo {
-  display: flex;
-  align-items: center;
 }
 
 .gnb-logo p {
@@ -104,13 +93,6 @@ header {
   color: #000;
   margin-right: 8px;
   font-size: 1rem;
-.gnb-menu {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  color: #000;
-  margin-right: 8px;
-  font-size: 1rem;
 }
 
 .gnb-menu a {
@@ -124,14 +106,8 @@ header {
   font-weight: 600;
   text-decoration: underline;
   color: #fff;
-.gnb-menu #current p {
-  font-weight: 600;
-  text-decoration: underline;
-  color: #fff;
 }
 
-.gnb-menu a:hover {
-  color: #fff;
 .gnb-menu a:hover {
   color: #fff;
 }
