@@ -162,9 +162,9 @@ function initializeSlides() {
 
   const slideMargin = 40;
   if (state.isMobile) {
-    state.slideWidth = 150 + slideMargin;
+    state.slideWidth = 375 + slideMargin;
   } else {
-    state.slideWidth = 400 + slideMargin;
+    state.slideWidth = 375 + slideMargin;
   }
 
   const copies = 6;
@@ -211,9 +211,9 @@ function updateParallax() {
 
     const slideCenter = slideRect.left + slideRect.width / 2;
     const distanceFromCenter = slideCenter - viewportCenter;
-    const parallaxOffset = distanceFromCenter * -0.25;
+    const parallaxOffset = distanceFromCenter * -0.05;
 
-    img.style.transform = `translateX(${parallaxOffset}px) scale(2.25)`;
+    img.style.transform = `translateX(${parallaxOffset}px) scale(1.25)`;
   });
 }
 

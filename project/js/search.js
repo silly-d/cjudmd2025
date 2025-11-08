@@ -12,10 +12,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const foundProject = sliderData.find((project) => {
         const title = (project.projectTitle || project.title).toLowerCase();
-        if (title === keyword) return true;
-        if (project.members && project.members.some((name) => name.replace(/\s/g, "").toLowerCase() === keyword)) {
+        if (title === keyword || title.includes(keyword)) return true;
+        if (
+          project.members &&
+          project.members.some(
+            (name) => name.replace(/\s/g, "").toLowerCase() === keyword || name.toLowerCase().includes(keyword)
+          )
+        ) {
           return true;
         }
+        if (project.keywords && project.keywords.some((kw) => kw.toLowerCase().includes(keyword))) {
+          return true;
+        }
+
         return false;
       });
 
