@@ -3,11 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>공( )명 : 청주대학교 디지털미디어디자인학과 제5회 졸업전시회</title>
-    <link rel="stylesheet" href="./css/about.css" />
+    <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="./css/section01.css" />
     <link rel="stylesheet" href="./css/section02.css" />
     <link rel="stylesheet" href="./css/section03.css" />
@@ -15,9 +12,6 @@
     <link rel="stylesheet" href="./css/section05.css" />
     <link rel="stylesheet" href="./css/section06.css" />
     <!-- fontawesome 아이콘 링크 -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
-    <link rel="icon" href="img/favicon.png" type="image/x-icon" />
-  </head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
     <link rel="icon" href="img/favicon.png" type="image/x-icon" />
   </head>
@@ -36,7 +30,7 @@
         </div>
 
         <div class="gnb-menu">
-          <a href="../about/about.html">
+          <a href="../about/about.html" id="current">
             <p>전시소개</p>
           </a>
           <a href="../project/project.html">
@@ -58,12 +52,36 @@
             }
           </script>
         </div>
-      </div>
-          <script>
-            function openExhibitionLink() {
-              window.open("https://indd.adobe.com/view/5749a1d9-1fc3-4055-aea8-13508477998d", "_blank");
-            }
-          </script>
+
+        <div class="mobile-button">
+          <input type="checkbox" id="menu-toggle" />
+          <label for="menu-toggle" class="hamburger">
+            <span class="line line1"></span>
+            <span class="line line2"></span>
+          </label>
+
+          <div class="mobile-menu">
+            <div class="mobile-item-container">
+              <a href="./about/about.html" class="mobile-menu-item">
+                <p>전시소개</p>
+              </a>
+              <a href="./project/project.html" class="mobile-menu-item">
+                <p>프로젝트</p>
+              </a>
+              <a href="./designer/designer.html" class="mobile-menu-item">
+                <p>디자이너</p>
+              </a>
+              <a href="./archive/archive.html" class="mobile-menu-item">
+                <p>아카이브</p>
+              </a>
+              <a class="mobile-menu-item" onclick="openExhibitionLink()">
+                <p>2025 전시도록</p>
+              </a>
+              <div class="mobile-menu-footer">
+                <img src="./img/m-menu.png" alt="" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -336,6 +354,4 @@
       </div>
     </footer>
   </body>
-  </body>
 </html>
-
