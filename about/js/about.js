@@ -346,12 +346,10 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  // 각 카드 애니메이션
   cards.forEach((card, index) => {
     if (index < cards.length - 1) {
       const nextIndex = index + 1;
 
-      // 현재 카드 + 이전 모든 카드들 작아지기
       scrollTl.to(
         cards.slice(0, index + 1),
         {
@@ -372,6 +370,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
           y: 0,
+          filter: `brightness(${1 - (index + 1) * 0.05})`,
           scale: 1,
           duration: 1,
           ease: "none",

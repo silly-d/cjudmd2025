@@ -263,7 +263,7 @@ section {
   bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 1vw;
+  font-size: 1rem;
 }
 
 .scroll-icon {
