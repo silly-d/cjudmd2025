@@ -46,8 +46,6 @@
   background-size: cover;
   background-position: center;
   vertical-align: middle;
-  transform: translateY(var(--photo-nudge)); /* 사진을 살짝 내려 균형 */
-  /* margin-top 제거! */
 }
 
 .title01__photo img {

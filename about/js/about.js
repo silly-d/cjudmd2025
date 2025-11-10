@@ -12,6 +12,30 @@ requestAnimationFrame(raf);
 
 lenis.on("scroll", ScrollTrigger.update);
 
+const header = document.querySelector("header");
+const headerHeight = header.offsetHeight;
+
+let lastScrollTop = 0;
+
+window.addEventListener(
+  "scroll",
+  function () {
+    let currentScrollTop = window.scrollY || this.document.documentElement.scrollTop;
+
+    if (currentScrollTop > headerHeight) {
+      if (currentScrollTop > lastScrollTop) {
+        header.classList.add("header-hidden");
+      } else {
+        header.classList.remove("header-hidden");
+      }
+    } else {
+      header.classList.remove("header-hidden");
+    }
+    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+  },
+  false
+);
+
 // 페이드인 효과 (index.html에서 왔을 때만)
 document.addEventListener("DOMContentLoaded", () => {
   const fromIndex = sessionStorage.getItem("fromIndex");
@@ -41,12 +65,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!slot) return;
 
   const IMAGES = [
-    "../img/hero/hero01.png",
-    "../img/hero/hero02.png",
-    "../img/hero/hero03.png",
-    "../img/hero/hero04.png",
-    "../img/hero/hero05.png",
-    "../img/hero/hero06.png",
+    "../img/hero/01.png",
+    "../img/hero/02.png",
+    "../img/hero/03.png",
+    "../img/hero/04.png",
+    "../img/hero/05.png",
+    "../img/hero/06.png",
   ];
 
   let i = 0;
@@ -55,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(() => {
     i = (i + 1) % IMAGES.length;
     slot.style.backgroundImage = `url('${IMAGES[i]}')`;
-  }, 100);
+  }, 200);
 });
 
 // ============================================

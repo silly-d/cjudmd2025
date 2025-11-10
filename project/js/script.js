@@ -8,6 +8,30 @@ const config = {
   MAX_VELOCITY: 150,
 };
 
+const header = document.querySelector("header");
+const headerHeight = header.offsetHeight;
+
+let lastScrollTop = 0;
+
+window.addEventListener(
+  "scroll",
+  function () {
+    let currentScrollTop = window.scrollY || this.document.documentElement.scrollTop;
+
+    if (currentScrollTop > headerHeight) {
+      if (currentScrollTop > lastScrollTop) {
+        header.classList.add("header-hidden");
+      } else {
+        header.classList.remove("header-hidden");
+      }
+    } else {
+      header.classList.remove("header-hidden");
+    }
+    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+  },
+  false
+);
+
 const totalSlideCount = sliderData.length;
 
 const state = {

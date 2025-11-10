@@ -16,7 +16,7 @@
       <div class="head-container">
         <div class="gnb-logo">
           <a href="../index.html">
-            <img src="img/whead_logo.png" alt="" />
+            <img src="../img/whead_logo.png" alt="" />
             <p>
               청주대학교 디지털미디어디자인학과<br />
               제5회 졸업전시회
@@ -25,10 +25,10 @@
         </div>
 
         <div class="gnb-menu">
-          <a href="../about/about.html">
+          <a href="../about/about.html" id="current">
             <p>전시소개</p>
           </a>
-          <a href="../project/project.html" id="current">
+          <a href="../project/project.html">
             <p>프로젝트</p>
           </a>
           <a href="../designer/designer.html">
@@ -46,6 +46,37 @@
               window.open("https://indd.adobe.com/view/5749a1d9-1fc3-4055-aea8-13508477998d", "_blank");
             }
           </script>
+        </div>
+
+        <div class="mobile-button">
+          <input type="checkbox" id="menu-toggle" />
+          <label for="menu-toggle" class="hamburger">
+            <span class="line line1"></span>
+            <span class="line line2"></span>
+          </label>
+
+          <div class="mobile-menu">
+            <div class="mobile-item-container">
+              <a href="../about/about.html" class="mobile-menu-item">
+                <p>전시소개</p>
+              </a>
+              <a href="../project/project.html" class="mobile-menu-item">
+                <p>프로젝트</p>
+              </a>
+              <a href="../designer/designer.html" class="mobile-menu-item">
+                <p>디자이너</p>
+              </a>
+              <a href="../archive/archive.html" class="mobile-menu-item">
+                <p>아카이브</p>
+              </a>
+              <a class="mobile-menu-item" onclick="openExhibitionLink()">
+                <p>2025 전시도록</p>
+              </a>
+              <div class="mobile-menu-footer">
+                <img src="../img/m-menu.png" alt="" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </header>
