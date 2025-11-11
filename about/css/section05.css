@@ -32,6 +32,7 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+  border: 1px solid #d2d2d2;
 }
 
 .flow-inner {
@@ -89,19 +90,19 @@
 }
 
 .area-1 {
-  background: #000;
+  background: #121212;
 }
 
 .area-2 {
-  background: #000;
+  background: #121212;
 }
 
 .area-3 {
-  background: #000;
+  background: #121212;
 }
 
 .area-4 {
-  background: #000;
+  background: #121212;
 }
 
 .prof-1::before {
@@ -111,7 +112,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0) 70%, #000);
+  background: linear-gradient(rgba(0, 0, 0, 0) 70%, #121212);
 }
 
 .prof-2::before {
@@ -121,7 +122,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0) 70%, #000);
+  background: linear-gradient(rgba(0, 0, 0, 0) 70%, #121212);
 }
 
 .prof-3::before {
@@ -131,7 +132,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0) 70%, #000);
+  background: linear-gradient(rgba(0, 0, 0, 0) 70%, #121212);
 }
 
 .prof-4::before {
@@ -141,7 +142,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0) 70%, #000);
+  background: linear-gradient(rgba(0, 0, 0, 0) 70%, #121212);
 }
 
 .img-area img {

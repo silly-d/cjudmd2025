@@ -12,6 +12,14 @@
   display: block;
 }
 
+.lg-view {
+  display: block;
+}
+
+.sm-view {
+  display: none;
+}
+
 .button-overlay {
   position: absolute;
   top: 0;
@@ -214,7 +222,7 @@
   color: #fff;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 768px) {
   h1 {
     font-size: 4rem;
   }
@@ -245,5 +253,13 @@
 
   .team-member-info h1 {
     font-size: 5rem;
+  }
+
+  .lg-view {
+    display: none;
+  }
+
+  .sm-view {
+    display: block;
   }
 }
