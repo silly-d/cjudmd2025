@@ -153,7 +153,7 @@ mm.add("(min-width: 769px)", () => {
       trigger: ".ct03-wrapper",
       start: "top top",
       end: "+=1500",
-      scrub: 1,
+      scrub: 2.4,
       pin: true,
     },
   });
@@ -162,7 +162,7 @@ mm.add("(min-width: 769px)", () => {
     ".slogun",
     {
       x: "160vw",
-      duration: 0.8,
+      duration: 0.4,
       ease: "power0.in",
     },
     "<"

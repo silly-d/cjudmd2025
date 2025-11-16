@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5vh;
+  margin-top: 15svh;
 }
 
 .hero-center {
@@ -86,13 +86,26 @@
   color: #e6e6e6;
 }
 
+/* --------------- */
+/* designer header */
+/* --------------- */
+
+.designer-header {
+  width: 100%;
+  height: 30vh;
+  position: relative;
+}
+
+/* --------------- */
 /* profile section */
+/* --------------- */
 
 .designer-profile {
   width: 100%;
   height: auto;
   position: relative;
   padding: 5vh 0;
+  margin-top: 80px;
 }
 
 .landing-text {
@@ -136,13 +149,13 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  height: calc(100vh - 60px);
+  height: calc(100dvh - 60px);
   position: relative;
 }
 
 .profile {
-  width: clamp(60px, 5vw, 100px);
-  height: clamp(80px, 7vw, 140px);
+  width: clamp(100px, 20vw, 130px);
+  height: clamp(140px, 24vw, 170px);
   overflow: hidden;
   position: absolute;
   display: flex;
@@ -190,4 +203,29 @@
   opacity: 0.8;
   transition: 0.5s ease;
   filter: saturate(0.3);
+}
+
+/*------------*/
+/* 모바일 반응형 */
+/*------------*/
+
+@media (max-width: 768px) {
+  .designer-profile {
+    margin-top: 0;
+  }
+
+  .profile-gallery {
+    width: 90vw;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 10px;
+    height: auto;
+  }
+
+  .profile {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
 }
