@@ -78,21 +78,26 @@ header.header-hidden {
 .gnb-logo {
   display: flex;
   align-items: center;
+  gap: 15px;
+}
+
+.gnb-logo a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .gnb-logo p {
   font-weight: 500;
   color: #fff;
-  float: right;
-  padding-left: 15px;
   font-size: 1rem;
   line-height: 130%;
+  margin: 0;
 }
 
 .gnb-logo a img {
-  float: left;
-  padding: 1% 0 0 0;
-  vertical-align: middle;
+  display: block;
+  height: auto;
 }
 
 /* 헤더 메뉴 부분 */
@@ -559,14 +564,14 @@ section {
 
   .mobile-menu-footer {
     text-align: right;
-    padding: 8svh 5vw;
+    padding: 10svh 5vw;
     transform: translateY(30px);
     opacity: 0;
     transition: opacity 0.8s ease, transform 0.8s ease, background 0.5s ease;
   }
 
   .mobile-menu-footer img {
-    width: 200px;
+    width: 290px;
     height: auto;
   }
   /* mobile header end */

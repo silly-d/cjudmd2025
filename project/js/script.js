@@ -4,7 +4,7 @@ const lenis = new Lenis();
 
 const config = {
   SCROLL_SPEED: 1.75,
-  LERP_FACTOR: 0.05,
+  LERP_FACTOR: 0.02,
   MAX_VELOCITY: 150,
 };
 
@@ -52,6 +52,21 @@ const state = {
   isMobile: false,
   wheelSnapTimeout: null,
 };
+
+let lastWidth = window.innerWidth;
+let lastIsMobile = window.innerWidth < 1000;
+
+function handleResize() {
+  const currentWidth = window.innerWidth;
+  const currentIsMobile = currentWidth < 1000;
+
+  // 모바일↔데스크톱 전환이 일어났을 때만 초기화
+  if (currentIsMobile !== lastIsMobile) {
+    initializeSlides();
+    lastWidth = currentWidth;
+    lastIsMobile = currentIsMobile;
+  }
+}
 
 let glitchTimeout = null;
 function addGlitchEffect() {
@@ -186,7 +201,7 @@ function initializeSlides() {
 
   const slideMargin = 40;
   if (state.isMobile) {
-    state.slideWidth = 375 + slideMargin;
+    state.slideWidth = 250 + slideMargin;
   } else {
     state.slideWidth = 375 + slideMargin;
   }
@@ -289,7 +304,7 @@ function handleTouchStart(e) {
 
 function handleTouchMove(e) {
   if (!state.isDragging) return;
-  const deltaX = (e.touches[0].clientX - state.startX) * 1.5;
+  const deltaX = (e.touches[0].clientX - state.startX) * 7.5;
   state.targetX = state.lastX + deltaX;
   state.dragDistance = Math.abs(deltaX);
   if (state.dragDistance > 5) {
@@ -305,7 +320,7 @@ function handleTouchEnd() {
   removeGlitchEffect();
   setTimeout(() => {
     snapToCenter();
-  }, 40);
+  }, 100);
 }
 
 function handleMouseDown(e) {
@@ -340,10 +355,6 @@ function handleMouseUp() {
   setTimeout(() => {
     snapToCenter();
   }, 400);
-}
-
-function handleResize() {
-  initializeSlides();
 }
 
 function resetSearchZoom() {

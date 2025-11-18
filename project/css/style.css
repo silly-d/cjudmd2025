@@ -82,27 +82,12 @@ body {
   opacity: calc(1 - var(--slider-moving, 1));
 }
 
-.project-title {
-  font-weight: 500;
-  font-size: 0.8rem;
-}
-
-.project-arrow {
-  width: 16px;
-  height: 16px;
-}
-
-.project-arrow svg {
-  stroke: #000;
-  stroke-width: 2;
-}
-
 /* ----------------- Search Form ------------------- */
 .search-container {
   padding: 60px 20px;
   text-align: center;
   z-index: 20;
-  margin-top: 80px;
+  margin-top: 8svh;
 }
 
 .search-title {
@@ -145,6 +130,8 @@ body {
   margin-top: 10px;
   color: #eee;
 }
+
+/*------------ slider -------------*/
 
 .slide {
   transition: transform 0.5s ease, opacity 0.5s ease;
@@ -294,4 +281,68 @@ body {
 .slide-back li {
   margin: 4px 0;
   font-size: 1em;
+}
+
+/*------------*/
+/* 모바일 반응형 */
+/*------------*/
+@media (max-width: 768px) {
+  .search-container {
+    padding: 0 10vh;
+    z-index: 20;
+    margin-top: 5svh;
+  }
+
+  .search-title {
+    font-size: 1rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+  }
+
+  .search-subtitle {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #eee;
+  }
+
+  .search-title input[type="search"] {
+    font-size: 1em;
+    width: 35vw;
+    text-align: center;
+    padding-bottom: 5px;
+    color: #888;
+  }
+
+  .slide-back h3 {
+    color: #fff;
+    margin-top: 5svh;
+    margin-bottom: 12px;
+    font-weight: bold;
+    word-break: keep-all;
+    white-space: pre-line;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: -1px;
+  }
+
+  .back-desc {
+    font-size: 0.8rem;
+    margin-top: 5svh;
+    margin-bottom: 32px;
+    color: #fff;
+    text-align: center;
+    line-height: 1.5;
+    letter-spacing: -0.1px;
+    white-space: pre-line;
+  }
+
+  .back-members {
+    font-size: 1rem;
+    margin-bottom: 0svh;
+    color: #e0e0e0;
+  }
 }
