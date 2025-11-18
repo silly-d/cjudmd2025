@@ -158,6 +158,18 @@ if (!isMobile()) {
     delay: 0.5,
   });
 
+  gsap.fromTo(
+    ".braket-decoration",
+    { scale: 0.8, opacity: 0 },
+    {
+      scale: 1,
+      opacity: 0.5,
+      duration: 0.8,
+      ease: "power2.out",
+      delay: 0.7,
+    }
+  );
+
   gsap.to(".profile", {
     scale: 1,
     width: () => (window.innerWidth > 900 ? "250px" : "120px"),
@@ -170,10 +182,17 @@ if (!isMobile()) {
   });
 
   gsap.to(".text-left", {
-    top: "40px",
+    opacity: 0,
     ease: "power4.inOut",
-    duration: 1,
-    stagger: { amount: 0.15 },
+    duration: 0.8,
+    stagger: { amount: 0.1 },
+    delay: 2,
+  });
+
+  gsap.to(".braket-decoration", {
+    opacity: 0,
+    ease: "power4.inOut",
+    duration: 0.8,
     delay: 2,
     onComplete: () => document.querySelector(".landing-text").remove(),
   });
@@ -211,10 +230,13 @@ function scatterAndShrink() {
     duration: 1,
     ease: "power2.inOut",
     onComplete: () => {
+      document.querySelector(".content01").classList.add("slide-down");
+      document.querySelector(".designer-profile").classList.add("positioned");
+
       adjustSectionHeightFromPositions();
       setTimeout(() => {
         ScrollTrigger.refresh();
-      }, 200);
+      }, 1200);
     },
   });
 }
@@ -252,4 +274,163 @@ window.addEventListener("resize", () => {
     adjustSectionHeightFromPositions();
     ScrollTrigger.refresh();
   }
+});
+
+function getKoreanInitial(name) {
+  const initials = [
+    "ㄱ",
+    "ㄲ",
+    "ㄴ",
+    "ㄷ",
+    "ㄸ",
+    "ㄹ",
+    "ㅁ",
+    "ㅂ",
+    "ㅃ",
+    "ㅅ",
+    "ㅆ",
+    "ㅇ",
+    "ㅈ",
+    "ㅉ",
+    "ㅊ",
+    "ㅋ",
+    "ㅌ",
+    "ㅍ",
+    "ㅎ",
+  ];
+  const firstChar = name.charAt(0);
+  const code = firstChar.charCodeAt(0) - 44032;
+  if (code < 0 || code > 11171) return "";
+  return initials[Math.floor(code / 588)];
+}
+
+document.querySelectorAll(".profile").forEach((profile) => {
+  const name = profile.querySelector("p").textContent;
+  const initial = getKoreanInitial(name);
+  profile.setAttribute("data-initial", initial);
+});
+
+const sortButtons = document.querySelectorAll(".sort-btn");
+const availableInitials = new Set();
+
+document.querySelectorAll(".profile").forEach((profile) => {
+  const initial = profile.getAttribute("data-initial");
+  if (initial) availableInitials.add(initial);
+});
+
+sortButtons.forEach((btn) => {
+  const initial = btn.getAttribute("data-initial");
+  if (initial !== "all" && !availableInitials.has(initial)) {
+    btn.classList.add("disabled");
+  }
+
+  btn.addEventListener("click", () => {
+    const selectedInitial = btn.getAttribute("data-initial");
+    const gallery = document.querySelector(".profile-gallery");
+    const wrapper = document.querySelector(".profile-gallery-wrapper");
+    const allProfiles = document.querySelectorAll(".profile");
+
+    sortButtons.forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    gsap.to(allProfiles, {
+      opacity: 0,
+      scale: 0.8,
+      duration: 0.3,
+      ease: "power2.inOut",
+      onComplete: () => {
+        if (selectedInitial === "all") {
+          allProfiles.forEach((profile, i) => {
+            const parentLink = profile.closest("a");
+            parentLink.style.display = "block";
+          });
+
+          gallery.classList.remove("filtered");
+          wrapper.classList.remove("filtered-small");
+          wrapper.style.minHeight = "";
+          adjustSectionHeightFromPositions();
+
+          allProfiles.forEach((profile, i) => {
+            if (!isMobile() && positions[i]) {
+              gsap.set(profile, {
+                position: "absolute",
+                top: positions[i].top,
+                left: positions[i].left,
+                scale: 0.8,
+                opacity: 0,
+              });
+            } else {
+              gsap.set(profile, {
+                scale: 0.8,
+                opacity: 0,
+              });
+            }
+          });
+
+          gsap.to(allProfiles, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            stagger: 0.02,
+            ease: "power2.out",
+          });
+        } else {
+          let visibleCount = 0;
+          const visibleProfiles = [];
+
+          allProfiles.forEach((profile) => {
+            const profileInitial = profile.getAttribute("data-initial");
+            const parentLink = profile.closest("a");
+
+            if (profileInitial === selectedInitial) {
+              parentLink.style.display = "block";
+              visibleProfiles.push(profile);
+              visibleCount++;
+            } else {
+              parentLink.style.display = "none";
+            }
+          });
+
+          const itemsPerRow = window.innerWidth > 1400 ? 5 : window.innerWidth > 768 ? 5 : 2;
+          const rows = Math.ceil(visibleCount / itemsPerRow);
+          const cardHeight = window.innerWidth > 900 ? 350 : window.innerWidth > 768 ? 240 : 170;
+          const gap = window.innerWidth > 768 ? 40 : 30;
+
+          if (window.innerWidth > 768) {
+            if (rows < 2) {
+              wrapper.classList.add("filtered-small");
+              wrapper.style.minHeight = "auto";
+            } else {
+              wrapper.classList.remove("filtered-small");
+              const totalHeight = rows * cardHeight + (rows - 1) * gap + 50;
+              wrapper.style.minHeight = `${totalHeight}px`;
+            }
+          } else {
+            wrapper.style.minHeight = "auto";
+          }
+
+          gallery.classList.add("filtered");
+
+          gsap.set(visibleProfiles, {
+            clearProps: "position, top, left, transform",
+          });
+
+          gsap.set(visibleProfiles, {
+            opacity: 0,
+            scale: 0.8,
+          });
+
+          gsap.to(visibleProfiles, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            stagger: 0.03,
+            ease: "power2.out",
+            delay: 0.1,
+            overwrite: true,
+          });
+        }
+      },
+    });
+  });
 });

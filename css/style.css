@@ -164,7 +164,7 @@ footer {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  padding: 0 40px 40px 40px;
+  padding-bottom: 8svh;
 }
 
 .bottom-footer {
@@ -579,6 +579,7 @@ section {
   /* mobile footer start */
   .foot-container {
     margin: 0;
+    padding: 0 5vw 5svh 5vw;
   }
   .bottom-footer {
     flex-direction: column;
@@ -586,7 +587,7 @@ section {
 
   .foot-left img {
     padding-bottom: 25px;
-    width: 100px;
+    width: 200px;
   }
 
   .exh-info {

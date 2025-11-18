@@ -4,7 +4,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 15svh;
+  margin-top: -5svh;
+  transition: 1s ease;
+  opacity: 0;
+  flex-direction: column;
+}
+
+.content01.slide-down {
+  margin-top: 10svh;
+  opacity: 1;
 }
 
 .hero-center {
@@ -16,6 +24,7 @@
   text-align: center;
   gap: 12px;
   z-index: 0;
+  margin-bottom: 4svh;
 }
 
 .hero-topline {
@@ -86,6 +95,43 @@
   color: #e6e6e6;
 }
 
+.sort-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+}
+
+.sort-btn {
+  min-width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sort-btn:hover {
+  background: #fff;
+  color: #121212;
+}
+
+.sort-btn.active {
+  background: #fff;
+  color: #121212;
+}
+
+.sort-btn.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* --------------- */
 /* designer header */
 /* --------------- */
@@ -104,24 +150,54 @@
   width: 100%;
   height: auto;
   position: relative;
+  width: 100%;
+  z-index: 10;
+  transition: all 1s ease;
+}
+
+.designer-profile.positioned {
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: none;
   padding: 5vh 0;
   margin-top: 80px;
+  min-height: auto;
+  transition: all 0.5s ease;
+}
+
+.designer-profile.positioned.compact {
+  padding: 5vh 0 5vh 0;
+  min-height: auto;
 }
 
 .landing-text {
   position: absolute;
   width: 100%;
   top: 12%;
-  transform: translateY(-50%);
+  transform: translateY(-45%);
   display: flex;
   justify-content: space-around;
 }
 
-.text {
+.braket-decoration {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  width: 400px;
+  height: auto;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.landing-text .text {
   position: relative;
   width: max-content;
   height: max-content;
   padding: 10px;
+  z-index: 2;
 }
 
 .text p {
@@ -145,12 +221,46 @@
   background: #121212;
 }
 
+.profile-gallery-wrapper {
+  width: 100%;
+  margin-bottom: 10svh;
+  transition: min-height 0.3s ease;
+}
+
+.profile-gallery-wrapper.filtered-small {
+  margin-bottom: 5svh;
+}
+
+.profile-gallery-wrapper.positioned {
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: none;
+}
+
 .profile-gallery {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
   height: calc(100dvh - 60px);
   position: relative;
+  transition: all 0.5s ease;
+}
+
+.profile-gallery.filtered {
+  display: grid;
+  grid-template-columns: repeat(5, 220px);
+  gap: 40px 0;
+  justify-content: space-between;
+  height: auto;
+  transition: min-height 0.5s ease;
+}
+
+.profile-gallery.filtered .profile {
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  transform: none !important;
 }
 
 .profile {
@@ -163,13 +273,12 @@
   align-items: center;
   z-index: 3;
   cursor: pointer;
-  background: rgba(25, 25, 25, 0.5);
-  border-radius: 10px;
+  background: #161616;
 }
 
 .profile:hover img {
   transform: scale(1.05) rotate(1deg);
-  filter: saturate(1);
+  filter: saturate(1) brightness(1);
 }
 
 .profile::after {
@@ -187,13 +296,13 @@
   margin-top: calc(100% + 1rem);
   transition: opacity 0.3s ease;
   z-index: 2;
-  font-size: clamp(0.7rem, 1vw, 1.2rem);
+  font-size: 1.2rem;
   transform: translateY(80px);
   transition: transform 0.5s ease;
 }
 
 .profile:hover p {
-  transform: translateY(0);
+  transform: translateY(20px);
 }
 
 .profile img {
@@ -202,7 +311,7 @@
   object-fit: cover;
   opacity: 0.8;
   transition: 0.5s ease;
-  filter: saturate(0.3);
+  filter: saturate(0) brightness(0.9);
 }
 
 /*------------*/
@@ -210,6 +319,31 @@
 /*------------*/
 
 @media (max-width: 768px) {
+  .content01 {
+    margin-top: 5svh;
+    transition: none;
+    opacity: 1;
+  }
+
+  .sort-bar {
+    flex-wrap: wrap;
+    width: 90vw;
+    gap: 6px;
+    padding: 10px;
+    margin-bottom: 3svh;
+  }
+
+  .sort-btn {
+    min-width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+
+  .sort-label {
+    width: 100%;
+    margin-bottom: 4px;
+  }
+
   .designer-profile {
     margin-top: 0;
   }
@@ -223,9 +357,24 @@
     height: auto;
   }
 
+  .profile-gallery.filtered {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
   .profile {
     position: relative;
     width: 100%;
     height: auto;
+  }
+
+  .profile p {
+    transform: none;
+    font-size: 0.8rem;
+  }
+
+  .profile:hover p {
+    transform: none;
   }
 }

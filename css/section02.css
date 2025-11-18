@@ -26,7 +26,7 @@
 }
 
 .ct02-item img[width="500px"] {
-  width: 25vw; /* 큰 이미지 */
+  width: 22vw; /* 큰 이미지 */
 }
 
 .ct02-item img[width="260px"] {
@@ -45,7 +45,8 @@
 
 .ct02-item img[height="130px"] {
   width: auto;
-  height: 7vw;
+  height: 6vw;
+  align-items: flex-end;
 }
 
 .ct02-paren {
@@ -65,24 +66,24 @@
 }
 
 .group-3 {
-  grid-column: 2/4;
+  grid-column: 1/4;
   align-items: flex-start;
 }
 
 .group-4 {
-  grid-column: 8/15;
+  grid-column: 9/15;
   text-align: right;
 }
 
 .group-5 {
   grid-column: 9/15;
   text-align: right;
-  margin-top: -200px;
+  margin-top: -12svh;
   margin-left: 40px;
 }
 
 .group-6 {
-  grid-column: 9/15;
+  grid-column: 10/13;
   align-items: flex-end;
 }
 
@@ -90,6 +91,16 @@
   margin-top: 50px;
   grid-column: 1/15;
   align-items: baseline;
+}
+
+.group-8 {
+  grid-column: 1/4;
+  align-items: flex-start;
+}
+
+.group-9 {
+  grid-column: 10/12;
+  align-items: flex-start;
 }
 
 .mask-container {
