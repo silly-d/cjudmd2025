@@ -231,9 +231,33 @@ function scatterAndShrink() {
     ease: "power2.inOut",
     onComplete: () => {
       document.querySelector(".content01").classList.add("slide-down");
-      document.querySelector(".designer-profile").classList.add("positioned");
 
+      setTimeout(() => {
+        parenLeft.classList.add("visible");
+        parenRight.classList.add("visible");
+
+        setTimeout(() => {
+          const rect = titleWrapper.getBoundingClientRect();
+          const centerY = rect.top + rect.height / 2;
+          const gap = 20;
+
+          parenLeft.style.top = centerY + "px";
+          parenLeft.style.left = rect.left - parenLeft.offsetWidth - gap + "px";
+          parenRight.style.top = centerY + "px";
+          parenRight.style.left = rect.right + gap + "px";
+
+          parenLeft.classList.add("fixed");
+          parenRight.classList.add("fixed");
+          document.body.appendChild(parenLeft);
+          document.body.appendChild(parenRight);
+
+          parensVisible = true;
+        }, 1000);
+      }, 100);
+
+      document.querySelector(".designer-profile").classList.add("positioned");
       adjustSectionHeightFromPositions();
+
       setTimeout(() => {
         ScrollTrigger.refresh();
       }, 1200);
@@ -270,7 +294,6 @@ window.addEventListener("resize", () => {
   }
 
   if (!isMobile()) {
-    scatterAndShrink();
     adjustSectionHeightFromPositions();
     ScrollTrigger.refresh();
   }
@@ -433,4 +456,142 @@ sortButtons.forEach((btn) => {
       },
     });
   });
+});
+
+const parenLeft = document.createElement("span");
+parenLeft.className = "designer-paren designer-paren--left";
+const parenRight = document.createElement("span");
+parenRight.className = "designer-paren designer-paren--right";
+
+const titleWrapper = document.querySelector(".designer-title-wrapper");
+titleWrapper.appendChild(parenLeft);
+titleWrapper.appendChild(parenRight);
+
+let parensVisible = false;
+
+function setParenPositions() {
+  const rect = titleWrapper.getBoundingClientRect();
+  const gap = 20;
+
+  parenLeft.style.left = -parenLeft.offsetWidth - gap + "px";
+  parenLeft.style.top = "50%";
+
+  parenRight.style.left = rect.width + gap + "px";
+  parenRight.style.top = "50%";
+}
+
+setParenPositions();
+
+function moveParensToTitle() {
+  const rect = titleWrapper.getBoundingClientRect();
+  const centerY = rect.top + rect.height / 2;
+  const gap = 20;
+
+  parenLeft.style.top = centerY + "px";
+  parenLeft.style.left = rect.left - parenLeft.offsetWidth - gap + "px";
+
+  parenRight.style.top = centerY + "px";
+  parenRight.style.left = rect.right + gap + "px";
+}
+
+function moveParensToProfile(profile) {
+  const rect = profile.getBoundingClientRect();
+  const centerY = rect.top + rect.height / 2;
+  const gap = 15;
+
+  parenLeft.style.top = centerY + "px";
+  parenLeft.style.left = rect.left - parenLeft.offsetWidth - gap + "px";
+
+  parenRight.style.top = centerY + "px";
+  parenRight.style.left = rect.right + gap + "px";
+}
+
+document.querySelectorAll(".profile").forEach((profile) => {
+  profile.addEventListener("mouseenter", () => {
+    if (parensVisible) {
+      moveParensToProfile(profile);
+    }
+  });
+});
+
+document.querySelector(".profile-gallery").addEventListener("mouseleave", () => {
+  if (parensVisible) {
+    moveParensToTitle();
+  }
+});
+
+window.addEventListener("resize", () => {
+  if (!parensVisible) return;
+
+  const hoveredProfile = document.querySelector(".profile:hover");
+  if (hoveredProfile) {
+    moveParensToProfile(hoveredProfile);
+  } else {
+    moveParensToTitle();
+  }
+});
+
+window.addEventListener("scroll", () => {
+  if (!parensVisible) return;
+
+  const hoveredProfile = document.querySelector(".profile:hover");
+  if (hoveredProfile) {
+    moveParensToProfile(hoveredProfile);
+  } else {
+    moveParensToTitle();
+  }
+});
+
+// 디자이너 검색 부분
+
+const designerMap = {};
+
+document.querySelectorAll(".profile-gallery a").forEach((link) => {
+  const profile = link.querySelector(".profile");
+  const name = profile.querySelector("p").textContent.trim();
+  designerMap[name] = { link, profile };
+});
+
+const searchForm = document.getElementById("designer-search");
+const searchInput = document.getElementById("search-name");
+
+searchForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const searchName = searchInput.value.trim();
+
+  if (!searchName) {
+    return;
+  }
+
+  const result = designerMap[searchName];
+
+  if (result) {
+    const profile = result.profile;
+
+    const rect = profile.getBoundingClientRect();
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const targetY = rect.top + scrollTop - window.innerHeight / 2 + rect.height / 2;
+
+    window.scrollTo({
+      top: targetY,
+      behavior: "smooth",
+    });
+
+    setTimeout(() => {
+      profile.classList.add("highlighted");
+
+      if (parensVisible) {
+        moveParensToProfile(profile);
+      }
+
+      setTimeout(() => {
+        profile.classList.remove("highlighted");
+      }, 2400);
+    }, 1000);
+
+    searchInput.value = "";
+  } else {
+    alert(`'${searchName}'을(를) 찾을 수 없습니다.`);
+  }
 });

@@ -72,12 +72,20 @@
         <div class="hero-topline">
           <span>DMD 5th 졸업전시회</span>
         </div>
-        <h1>48명의 디자이너</h1>
+        <div class="designer-title-wrapper">
+          <h1>48명의 디자이너</h1>
+        </div>
 
         <div class="toolbar">
           <form id="designer-search" autocomplete="off">
             <input id="search-name" type="text" placeholder="이름으로 검색 (예: 김민수)" />
-            <button type="submit" class="btn">이동</button>
+            <button
+              type="button"
+              class="btn"
+              onclick="document.getElementById('designer-search').dispatchEvent(new Event('submit'))"
+            >
+              이동
+            </button>
           </form>
         </div>
       </div>
