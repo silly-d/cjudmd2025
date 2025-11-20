@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./css/section06.css" />
     <!-- fontawesome 아이콘 링크 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="icon" href="../img/favicon.png" type="image/x-icon" />
   </head>
 
@@ -121,44 +122,64 @@
             <h2 class="c02-title">작은 떨림이 모여<br />큰 울림으로</h2>
 
             <p class="c02-body">
-              돌아가는 원의 형태는 학생 개개인의 작은 떨림을 상징한다.<br />
-              흔들림에 의해 흐려지고 있는 선들은 우리들의 다양한 움직임을 나타내며,<br />
-              이 각각의 떨림은 결국 하나가 되어 큰 울림으로 공명한다.<br />
+              돌아가는 원의 형태는 학생 개개인의 작은 떨림을 상징한다. 흔들림에 의해 흐려지고 있는 선들은 우리들의
+              다양한 움직임을 나타내며, 이 각각의 떨림은 결국 하나가 되어 큰 울림으로 공명한다.
             </p>
             <p class="c02-body2">
-              각 층 외곽의 흰 선들은 괄호를 형상화한 것으로 아직 채워지지 않은<br />
-              우리들의 가능성을 표현했고, 흩뿌려진 노이즈는 은하 속의 밝은 별처럼 반짝이며<br />
-              서로 다른 존재들이 모여 큰 울림 즉, 공명을 만들어내는 모습을 담고있다.
+              각 층 외곽의 흰 선들은 괄호를 형상화한 것으로 아직 채워지지 않은 우리들의 가능성을 표현했고, 흩뿌려진
+              노이즈는 은하 속의 밝은 별처럼 반짝이며 서로 다른 존재들이 모여 큰 울림 즉, 공명을 만들어내는 모습을
+              담고있다.
             </p>
 
             <button class="c02-btn" id="c02-download" type="button" aria-label="포스터 다운로드">
-              포스터 다운로드 <i class="fa-solid fa-arrow-down"></i>
+              포스터 다운로드 <i class="fa-solid fa-download"></i>
             </button>
           </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="content03" id="content03">
-        <h2 class="c03-title" aria-label="01명의 하나의 울림">
-          <span class="c03-paren">(</span> <span class="c03-num" id="c03-num">01</span>
-          <span class="c03-paren">)</span> <span class="c03-copy">명의 하나의 울림</span>
-        </h2>
-      </div>
-    </section>
+    <div class="content03" id="content03">
+      <h2 class="c03-title" aria-label="01명의 하나의 울림">
+        <span class="c03-paren">(</span> <span class="c03-num" id="c03-num">01</span> <span class="c03-paren">)</span>
+        <span class="c03-copy">명의 하나의 울림</span>
+      </h2>
+    </div>
 
     <section>
       <div class="content04" id="content04">
         <!-- 상단 중앙 제목 -->
         <h3 class="c04-top">졸업전시위원회</h3>
 
+        <div class="c04-top-profile-container">
+          <a href="../designer/designer44.html" class="profile-link">
+            <div class="top-profile">
+              <img src="../designer/img/44.png" alt="" />
+              <p><span class="profile-title">위원장</span> 조예리</p>
+              <svg class="profile-arrow" viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7V17" />
+              </svg>
+            </div>
+          </a>
+
+          <a href="../designer/designer16.html" class="profile-link">
+            <div class="top-profile">
+              <img src="../designer/img/16.png" alt="" />
+              <p><span class="profile-title">부위원장 | 총무</span> 민유진</p>
+              <svg class="profile-arrow" viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7V17" />
+              </svg>
+            </div>
+          </a>
+        </div>
+
+        <hr class="c04-line" />
+
         <div class="c04-grid">
           <!-- LEFT: 부서 버튼 -->
           <div class="c04-left">
             <ul class="c04-nav" id="c04-nav">
-              <li><button class="is-active" data-key="임원">임원</button></li>
-              <li><button data-key="디피부">디피부</button></li>
+              <li><button class="is-active" data-key="디피부">디피부</button></li>
               <li><button data-key="기획부">기획부</button></li>
               <li><button data-key="편집부">편집부</button></li>
               <li><button data-key="멀티부">멀티부</button></li>
@@ -255,51 +276,62 @@
     </section>
 
     <section>
-      <div class="content06" id="content06">
-        <div class="c06-wrap">
-          <h2 class="c06-title">1년의 여정, 하나의 공명</h2>
-
-          <!-- 가로 캐러셀 -->
-          <div class="c06-stage" aria-label="영상 캐러셀">
-            <!-- 왼쪽 썸네일 -->
-            <button class="c06-side c06-side-left" aria-label="이전 영상 미리보기">
-              <img alt="왼쪽 썸네일" />
-            </button>
-
-            <!-- 왼쪽 괄호(텍스트) -->
-            <button class="c06-bracket c06-prev" aria-label="이전 영상">
-              <span class="c06-bracket-char">(</span>
-            </button>
-
-            <!-- 중앙(활성) -->
-            <figure class="c06-current" role="group" aria-label="현재 영상"></figure>
-
-            <!-- 오른쪽 괄호(텍스트) -->
-            <button class="c06-bracket c06-next" aria-label="다음 영상">
-              <span class="c06-bracket-char">)</span>
-            </button>
-
-            <!-- 오른쪽 썸네일 -->
-            <button class="c06-side c06-side-right" aria-label="다음 영상 미리보기">
-              <img alt="오른쪽 썸네일" />
-            </button>
+      <div class="content06">
+        <h2>1년의 여정, 하나의 공명</h2>
+        <div class="swiper-container">
+          <div class="ct06-braket-container">
+            <div class="ct06-braket-right">(</div>
+            <div class="ct06-braket-left">)</div>
+          </div>
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <iframe
+                width="1840"
+                height="1035"
+                src="https://www.youtube.com/embed/-uvIIrV_zIc"
+                title="[CJU DMD] Pick Up Lucky Message - 졸업전시를 앞둔 우리에게"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="swiper-slide">
+              <iframe
+                width="1840"
+                height="1035"
+                src="https://www.youtube.com/embed/lPKgb_QeBCM"
+                title="[CJU DMD] 본심 준비하면서 (    )했던 썰 푼다 💬 &#39;본심 합격 꿀팁&#39; DMD #5월8일"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="swiper-slide">
+              <iframe
+                src="https://www.youtube.com/embed/jvO1fbsO8fQ"
+                title=""
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="swiper-slide">
+              <iframe
+                src="https://www.youtube.com/embed/_dOJ4043IDc"
+                title=""
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
           </div>
 
-          <!-- 유튜브 채널 버튼 -->
-          <div class="c06-cta">
-            <a class="c06-ytbtn" href="https://www.youtube.com/@YOUR_CHANNEL" target="_blank" rel="noopener">
-              유튜브 채널 바로가기
-            </a>
-          </div>
-
-          <!-- 데이터 -->
-          <ul class="c06-data" aria-hidden="true">
-            <li data-video="https://youtu.be/-uvIIrV_zIc?si=lJNG-h7v1h34QfVM" data-title="영상 1"></li>
-            <li data-video="https://youtu.be/lPKgb_QeBCM?si=yEtXVbcMjzL1OmdG" data-title="영상 2"></li>
-            <li data-video="https://youtu.be/R17oghyTM8M?si=qPGIbr1VxVyYg_K7" data-title="영상 3"></li>
-            <li data-video="https://youtu.be/_dOJ4043IDc?si=OJOtrjfV1h2DYbzk" data-title="영상 4"></li>
-          </ul>
+          <div class="swiper-pagination"></div>
         </div>
+
+        <button id="youtubeBtn">유튜브 채널 바로가기<i class="fa-solid fa-angle-right"></i></button>
       </div>
     </section>
 
@@ -342,6 +374,7 @@
       </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- GSAP core -->
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1/bundled/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>

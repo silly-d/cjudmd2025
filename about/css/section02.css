@@ -1,6 +1,5 @@
 .content02 {
   width: 100%;
-  background: #121212; /* 페이지 배경과 톤 맞춤 */
   color: #fff;
 }
 
@@ -31,32 +30,30 @@
 
 /* RIGHT: Copy */
 .c02-title {
-  font-size: clamp(24px, 4vw, 40px);
-  font-weight: 400;
+  font-size: 3rem;
+  font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  margin: 0 0 68px 0;
-  color: #d9d9d9;
+  margin-bottom: 5svh;
+  color: #fff;
 }
 .c02-body {
-  font-size: clamp(14px, 1.4vw, 16px);
+  font-size: 1.1rem;
   color: #d9d9d9;
-  line-height: 1.8;
+  line-height: 1.6;
   margin: 0;
 }
 
 .c02-body2 {
-  font-size: clamp(14px, 1.4vw, 16px);
+  font-size: 1.1rem;
   color: #d9d9d9;
-  line-height: 1.8;
+  line-height: 1.6;
   margin-top: 30px;
 }
 
 /* Button */
 .c02-btn {
-  margin-top: 100px;
-  display: inline-flex;
-  align-items: center;
+  margin-top: 10svh;
   gap: 10px;
   padding: 12px 18px;
   border-radius: 999px;
@@ -89,14 +86,36 @@
 }
 
 /* Responsive: stack on narrow screens */
-@media (max-width: 960px) {
+@media (max-width: 768px) {
+  .content02 {
+    width: 90vw;
+    margin: 0 auto;
+  }
+
   .c02-wrap {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
   }
+
+  .c02-title {
+    font-size: 2.5rem;
+    margin-top: 3svh;
+    margin-bottom: 5svh;
+  }
+
   .c02-copy {
-    order: 2;
+    display: flex;
+    flex-direction: column;
   }
-  .c02-poster {
-    order: 1;
+
+  .c02-body,
+  .c02-body2 {
+    font-size: 0.9rem;
+  }
+
+  .c02-btn {
+    font-size: 1rem;
+    margin: 10svh auto;
+    text-align: center;
   }
 }

@@ -12,11 +12,11 @@
 .title01 {
   margin: 0;
   display: flex;
-  align-items: center; /* 세로축 중앙 */
-  gap: clamp(12px, 2vw, 32px);
+  align-items: center;
+  gap: 2vw;
   color: #fff;
-  line-height: 1;
-  font-size: 347px;
+  font-size: 20rem;
+  margin-top: 10svh;
 }
 
 /* 글자/괄호도 같은 규칙으로 */
@@ -26,10 +26,12 @@
   align-items: center; /* 자체 세로 중앙 */
   line-height: 1;
 }
+
 .title01__char {
   font-weight: 600;
   letter-spacing: -0.02em;
 }
+
 .title01__paren {
   font-weight: 200;
 }
@@ -63,4 +65,14 @@
 
 #c01-photo {
   background-image: url("../../img/hero/hero01.png");
+}
+
+/*------------*/
+/* 모바일 반응형 */
+/*------------*/
+@media (max-width: 768px) {
+  .title01 {
+    font-size: 7rem;
+    margin-top: 0;
+  }
 }

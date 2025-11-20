@@ -1,46 +1,144 @@
 .content04 {
   background: #121212;
   color: #fff;
-  padding: clamp(56px, 8vw, 120px) 0;
+  padding: 20svh 0;
 }
 
 .c04-top {
-  margin: 0 0 100px 0;
   text-align: center;
-  font-size: clamp(28px, 1.6vw, 28px);
-  font-weight: 400;
+  font-size: 2rem;
+  font-weight: 600;
   color: #fff;
   letter-spacing: 0.02em;
+  margin-bottom: 2svh;
 }
 
-.c04-grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 32px);
-  display: grid;
-  grid-template-columns: 220px 1fr 420px;
-  gap: clamp(16px, 3vw, 48px);
+/*------ 탑 프로필 ------*/
+
+.c04-top-profile-container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 5svh auto;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 5vw;
+}
+
+.top-profile {
+  width: 250px;
+  height: 350px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-link {
+  display: block;
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.4s ease;
+}
+
+.profile-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #222;
+  background: #151515;
+}
+
+.profile-link:hover p {
+  color: #fff;
+  transform: translateX(-85px);
+  align-items: flex-start;
+}
+
+.profile-link:hover .profile-arrow {
+  stroke: #fff;
+  transform: translate(0px, 0px) rotate(45deg);
+}
+
+.top-profile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0) 40%, #121212);
+}
+
+.profile-title {
+  font-size: 1.1rem;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.top-profile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.top-profile p {
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transition: transform 0.5s ease, color 0.5s ease;
+  color: #ccc;
+  align-items: center;
+}
+
+.profile-arrow {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  bottom: 13%;
+  left: 75%;
+  stroke: #aaa;
+  stroke-width: 2;
+  fill: none;
+  transform: rotate(90deg) translateX(90px);
+  transition: all 0.5s ease;
+  opacity: 1;
+}
+
+.c04-line {
+  width: 1440px;
+  margin: 0 auto;
+  border: 1px solid #333;
+}
+
+/*------ 부서 별 나열 ------*/
+
+.c04-grid {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 220px 300px 1fr;
+  gap: 3vw;
+  align-items: center;
+  padding: 10svh 0;
 }
 
 .c04-left {
   position: relative;
-  align-self: center;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .c04-nav {
+  height: auto;
   list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
 }
-.c04-nav li + li {
-  margin-top: 76px;
+
+.c04-nav li {
+  padding: 2svh 0;
 }
 
 .c04-nav button {
@@ -55,7 +153,54 @@
   font-weight: 400;
   font-size: clamp(18px, 2.2vw, 24px);
   transform-origin: center center;
+  position: relative;
+  padding: 10px 20px;
 }
+
+.c04-nav button::before {
+  content: "";
+  position: absolute;
+  top: 23%;
+  left: 8%;
+  right: 0;
+  bottom: 0;
+  width: 5px;
+  height: 50%;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  opacity: 0.6;
+}
+
+.c04-nav button[data-key="디피부"]::before {
+  background: #f95555;
+}
+
+.c04-nav button[data-key="기획부"]::before {
+  background: #f9db55;
+}
+
+.c04-nav button[data-key="편집부"]::before {
+  background: #55f9a6;
+}
+
+.c04-nav button[data-key="멀티부"]::before {
+  background: #55a6f9;
+}
+
+.c04-nav button[data-key="홍보부"]::before {
+  background: #db55f9;
+}
+
+.c04-nav button[data-key="포스터부"]::before {
+  background: #f9a655;
+}
+
+.c04-nav button:hover::before,
+.c04-nav button.is-active::before {
+  transform: scaleX(1);
+}
+
 .c04-nav button.is-active {
   color: #fff;
   font-weight: 600;
@@ -63,10 +208,10 @@
 }
 
 :root {
-  --c04-paren-size: 3em;
+  --c04-paren-size: 3rem;
   --c04-paren-weight: 400;
   --c04-paren-gap: 10px;
-  --c04-of-x: -60px;
+  --c04-of-x: -2vw;
 }
 
 .c04-paren {
@@ -77,36 +222,43 @@
   font-size: var(--c04-paren-size);
   font-weight: var(--c04-paren-weight);
   pointer-events: none;
-  transform: translateY(-60%);
+  transform: translateY(-50%);
+  transition: top 0.5s ease, left 0.5s ease;
 }
+
 .c04-paren--left::before {
   content: "(";
 }
+
 .c04-paren--right::before {
   content: ")";
 }
 
 .c04-center {
   position: relative;
-  align-self: center;
+  display: flex;
+  align-items: center;
   overflow: visible;
 }
 
 .c04-of {
   position: absolute;
-  left: var(--c04-of-x);
+  left: 0;
   top: 0;
   white-space: nowrap;
   pointer-events: none;
   will-change: transform;
   transform: translateY(0);
+  transition: transform 0.5s ease;
 }
+
 .c04-of-eui {
   font-weight: 400;
   font-size: clamp(48px, 3vw, 80px);
   color: #7f7f7f;
   margin-right: 0.2em;
 }
+
 .c04-of-gong {
   font-weight: 600;
   font-size: clamp(48px, 3vw, 80px);
@@ -114,19 +266,21 @@
 }
 
 .c04-right {
-  align-self: start;
+  display: flex;
+  justify-content: flex-end;
 }
+
 .c04-members {
   list-style: none;
   margin: 0;
   padding: 0;
-  margin-left: 40px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 80px 18px;
+  gap: 4vw;
   align-content: start;
   overflow: visible; /* 프리뷰가 튀어나올 수 있게 */
 }
+
 .c04-members li {
   color: #fff;
   font-size: 32px;
@@ -136,9 +290,11 @@
   position: relative; /* 프리뷰 위치 기준 */
   cursor: pointer;
 }
+
 .c04-members li.show {
   opacity: 1;
   transform: translateY(0);
+  margin-right: 3vw;
 }
 
 .c04-preview {

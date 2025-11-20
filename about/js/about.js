@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // CONTENT 01: Hero Photo Slideshow
 // ============================================
 document.addEventListener("DOMContentLoaded", () => {
+  gsap.registerPlugin(ScrollTrigger);
   const slot = document.getElementById("c01-photo");
   if (!slot) return;
 
@@ -80,8 +81,18 @@ document.addEventListener("DOMContentLoaded", () => {
     i = (i + 1) % IMAGES.length;
     slot.style.backgroundImage = `url('${IMAGES[i]}')`;
   }, 200);
-});
 
+  const textAnimation = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".content01",
+      start: "top top",
+      end: "+=500",
+      scrub: 1,
+    },
+  });
+
+  textAnimation.to(".field", { yPercent: 0, opacity: 0 }, 0);
+});
 // ============================================
 // CONTENT 02: Poster Download
 // ============================================
@@ -89,16 +100,99 @@ document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("c02-download");
   if (!btn) return;
 
-  // 다운로드 파일 경로(예시). PNG, JPG, PDF 아무거나 가능.
-  const POSTER_FILE = "../img/ct02/poster.png"; // 필요 시 poster.pdf 등으로 변경
+  const POSTER_FILE = "./img/5th-poster.png";
 
   btn.addEventListener("click", () => {
     const a = document.createElement("a");
     a.href = POSTER_FILE;
-    a.download = ""; // 파일명 자동. 특정 이름 원하면 "gongmyeong-poster.png"
+    a.download = "gongmyeong-poster.png";
     document.body.appendChild(a);
     a.click();
     a.remove();
+  });
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const poster = document.querySelector(".c02-poster");
+  const title = document.querySelector(".c02-title");
+  const body = document.querySelector(".c02-body");
+  const body2 = document.querySelector(".c02-body2");
+  const downloadBtn = document.querySelector(".c02-btn");
+
+  if (!poster || !title) return;
+
+  gsap.set([poster, title, body, body2, downloadBtn], {
+    y: 90,
+    opacity: 0,
+  });
+
+  gsap.to(poster, {
+    y: 0,
+    opacity: 1,
+    duration: 1.5,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: "#content02",
+      start: "top 50%",
+      end: "top 30%",
+      toggleActions: "play none none reverse",
+    },
+  });
+
+  gsap.to(title, {
+    y: 0,
+    opacity: 1,
+    duration: 1.5,
+    delay: 0.3,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: "#content02",
+      start: "top 48%",
+      end: "top 30%",
+      toggleActions: "play none none reverse",
+    },
+  });
+
+  gsap.to(body, {
+    y: 0,
+    opacity: 1,
+    duration: 1.5,
+    delay: 0.45,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: "#content02",
+      start: "top 46%",
+      end: "top 30%",
+      toggleActions: "play none none reverse",
+    },
+  });
+
+  gsap.to(body2, {
+    y: 0,
+    opacity: 1,
+    duration: 1.5,
+    delay: 0.6,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: "#content02",
+      start: "top 44%",
+      end: "top 30%",
+      toggleActions: "play none none reverse",
+    },
+  });
+
+  gsap.to(downloadBtn, {
+    y: 0,
+    opacity: 1,
+    duration: 1.5,
+    delay: 0.75,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: "#content02",
+      start: "top 42%",
+      end: "top 30%",
+      toggleActions: "play none none reverse",
+    },
   });
 });
 
@@ -180,10 +274,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const DATA = {
-    임원: [
-      { name: "조예리", img: "../img/miniprofile/miniprofile01.png" },
-      { name: "민유진", img: "../img/miniprofile/miniprofile02.png" },
-    ],
     디피부: [
       { name: "유은비", img: "../img/miniprofile/miniprofile03.png" },
       { name: "임희원", img: "../img/miniprofile/miniprofile04.png" },
@@ -210,6 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
       { name: "박미소", img: "../img/miniprofile/miniprofile21.png" },
       { name: "고현희", img: "../img/miniprofile/miniprofile22.png" },
       { name: "박기연", img: "../img/miniprofile/miniprofile23.png" },
+      { name: "왕뢰이저", img: "../img/miniprofile/miniprofile24.png" },
       { name: "이새연", img: "../img/miniprofile/miniprofile24.png" },
       { name: "이채민", img: "../img/miniprofile/miniprofile25.png" },
       { name: "황서진", img: "../img/miniprofile/miniprofile26.png" },
@@ -319,6 +410,17 @@ document.addEventListener("DOMContentLoaded", () => {
     renderMembers(DATA[btn.dataset.key] || []);
   });
 
+  nav.addEventListener("mouseover", (e) => {
+    const btn = e.target.closest("button[data-key]");
+    if (!btn) return;
+    moveAll(btn);
+  });
+
+  nav.addEventListener("mouseout", () => {
+    const active = nav.querySelector("button.is-active");
+    if (active) moveAll(active);
+  });
+
   window.addEventListener("resize", () => {
     syncTrackHeight();
     const active = nav.querySelector("button.is-active");
@@ -337,169 +439,126 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!flowContainer || cards.length === 0) return;
 
-  // 초기 설정
-  cards.forEach((card, index) => {
-    gsap.set(card, {
-      transformOrigin: "center top",
+  const isMobile = () => window.innerWidth <= 768;
+
+  function setupScrollAnimation() {
+    ScrollTrigger.getAll().forEach((trigger) => {
+      if (trigger.vars.trigger === ".content05") {
+        trigger.kill();
+      }
     });
 
-    if (index === 0) {
-      // 첫 번째 카드만 화면에 보임
+    cards.forEach((card, index) => {
       gsap.set(card, {
-        y: 0,
-        scale: 1,
+        transformOrigin: "center top",
       });
-    } else {
-      // 나머지는 화면 아래에 숨김
-      gsap.set(card, {
-        y: "100vh",
-        scale: 1,
-      });
-    }
-  });
 
-  const scrollTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".content05",
-      start: "-=150",
-      end: () => `+=${(cards.length - 1) * 500}`,
-      scrub: true,
-      pin: true,
-      pinSpacing: true,
-      anticipatePin: 1,
-    },
-  });
-
-  cards.forEach((card, index) => {
-    if (index < cards.length - 1) {
-      const nextIndex = index + 1;
-
-      scrollTl.to(
-        cards.slice(0, index + 1),
-        {
-          scale: "-=0.05",
-          y: "-=20",
-          duration: 1,
-          ease: "none",
-        },
-        index
-      );
-
-      // 다음 카드 올라오기
-      scrollTl.fromTo(
-        cards[nextIndex],
-        {
+      if (index === 0) {
+        gsap.set(card, {
+          y: 0,
+          scale: 1,
+        });
+      } else {
+        gsap.set(card, {
           y: "100vh",
           scale: 1,
-        },
-        {
-          y: 0,
-          filter: `brightness(${1 - (index + 1) * 0.05})`,
-          scale: 1,
-          duration: 1,
-          ease: "none",
-        },
-        index
-      );
-    }
+        });
+      }
+    });
+
+    const scrollDistance = isMobile() ? 400 : 500;
+    const startOffset = isMobile() ? "top-=100 top" : "-=150";
+
+    const scrollTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".content05",
+        start: startOffset,
+        end: () => `+=${(cards.length - 1) * scrollDistance}`,
+        scrub: true,
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+      },
+    });
+
+    cards.forEach((card, index) => {
+      if (index < cards.length - 1) {
+        const nextIndex = index + 1;
+
+        scrollTl.to(
+          cards.slice(0, index + 1),
+          {
+            scale: "-=0.05",
+            y: "-=20",
+            duration: 1,
+            ease: "none",
+          },
+          index
+        );
+
+        scrollTl.fromTo(
+          cards[nextIndex],
+          {
+            y: "100svh",
+            scale: 1,
+          },
+          {
+            y: 0,
+            filter: `brightness(${1 - (index + 1) * 0.05})`,
+            scale: 1,
+            duration: 1,
+            ease: "none",
+          },
+          index
+        );
+      }
+    });
+  }
+
+  setupScrollAnimation();
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      setupScrollAnimation();
+      ScrollTrigger.refresh();
+    }, 250);
   });
 });
 
 // ============================================
 // CONTENT 06: YouTube Video Carousel
 // ============================================
-document.addEventListener("DOMContentLoaded", () => {
-  const root = document.getElementById("content06");
-  if (!root) return;
+document.addEventListener("DOMContentLoaded", function () {
+  const swiper = new Swiper(".swiper-container", {
+    autoplay: {
+      delay: 2000,
+      disableOnInteraction: false,
+    },
+    slidesPerView: 1,
+    spaceBetween: 200,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    allowTouchMove: true,
 
-  const dataNodes = Array.from(root.querySelectorAll(".c06-data > li"));
-  if (dataNodes.length === 0) return;
+    on: {
+      reachEnd: function () {
+        setTimeout(() => {
+          swiper.slideTo(0); // 첫 번째 슬라이드로 이동
+        }, 2000);
+      },
+    },
+  });
 
-  const leftBtn = root.querySelector(".c06-side-left");
-  const rightBtn = root.querySelector(".c06-side-right");
-  const prevBr = root.querySelector(".c06-prev");
-  const nextBr = root.querySelector(".c06-next");
-  const current = root.querySelector(".c06-current");
+  // 기본 동작 방지
+  document.getElementById("next02").addEventListener("click", function (event) {
+    event.preventDefault();
+  });
 
-  // 유틸: URL에서 YouTube VIDEO_ID 추출
-  function getVideoId(url) {
-    try {
-      const u = new URL(url);
-      if (u.hostname.includes("youtu.be")) return u.pathname.slice(1);
-      if (u.hostname.includes("youtube.com")) return u.searchParams.get("v");
-      return null;
-    } catch (e) {
-      return null;
-    }
-  }
-  // 썸네일/임베드 URL
-  const thumbOf = (url) => {
-    const id = getVideoId(url);
-    return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : "";
-  };
-  const embedOf = (url) => {
-    const id = getVideoId(url);
-    return id ? `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&playsinline=1` : "";
-  };
-
-  let items = dataNodes
-    .map((li) => ({
-      video: li.getAttribute("data-video") || "",
-      title: li.getAttribute("data-title") || "영상",
-    }))
-    .filter((it) => getVideoId(it.video));
-
-  if (items.length === 0) return;
-
-  let index = 0; // 중앙 재생 영상 인덱스
-
-  function renderSides() {
-    const n = items.length;
-    const leftIdx = (index - 1 + n) % n;
-    const rightIdx = (index + 1) % n;
-
-    const limg = leftBtn.querySelector("img");
-    limg.src = thumbOf(items[leftIdx].video);
-    limg.alt = items[leftIdx].title;
-
-    const rimg = rightBtn.querySelector("img");
-    rimg.src = thumbOf(items[rightIdx].video);
-    rimg.alt = items[rightIdx].title;
-  }
-
-  function renderCenter() {
-    const src = embedOf(items[index].video);
-    // iframe 교체
-    current.innerHTML = "";
-    const iframe = document.createElement("iframe");
-    iframe.src = src;
-    iframe.title = items[index].title;
-    iframe.setAttribute("allowfullscreen", "true");
-    iframe.setAttribute(
-      "allow",
-      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    );
-    current.appendChild(iframe);
-  }
-
-  function goNext() {
-    index = (index + 1) % items.length;
-    renderSides();
-    renderCenter();
-  }
-  function goPrev() {
-    index = (index - 1 + items.length) % items.length;
-    renderSides();
-    renderCenter();
-  }
-
-  // 초기 렌더
-  renderSides();
-  renderCenter();
-
-  // 인터랙션
-  nextBr.addEventListener("click", goNext);
-  prevBr.addEventListener("click", goPrev);
-  rightBtn.addEventListener("click", goNext);
-  leftBtn.addEventListener("click", goPrev);
+  document.getElementById("prev02").addEventListener("click", function (event) {
+    event.preventDefault();
+  });
 });
