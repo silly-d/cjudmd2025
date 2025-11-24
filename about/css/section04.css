@@ -157,50 +157,6 @@
   padding: 10px 20px;
 }
 
-.c04-nav button::before {
-  content: "";
-  position: absolute;
-  top: 23%;
-  left: 8%;
-  right: 0;
-  bottom: 0;
-  width: 5px;
-  height: 50%;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-  opacity: 0.6;
-}
-
-.c04-nav button[data-key="디피부"]::before {
-  background: #f95555;
-}
-
-.c04-nav button[data-key="기획부"]::before {
-  background: #f9db55;
-}
-
-.c04-nav button[data-key="편집부"]::before {
-  background: #55f9a6;
-}
-
-.c04-nav button[data-key="멀티부"]::before {
-  background: #55a6f9;
-}
-
-.c04-nav button[data-key="홍보부"]::before {
-  background: #db55f9;
-}
-
-.c04-nav button[data-key="포스터부"]::before {
-  background: #f9a655;
-}
-
-.c04-nav button:hover::before,
-.c04-nav button.is-active::before {
-  transform: scaleX(1);
-}
-
 .c04-nav button.is-active {
   color: #fff;
   font-weight: 600;
