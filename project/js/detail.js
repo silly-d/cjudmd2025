@@ -1,11 +1,44 @@
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
 
-  const lenis = new Lenis();
-  lenis.on("scroll", ScrollTrigger.update);
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
+  const header = document.querySelector("header");
+  const headerHeight = header.offsetHeight;
+
+  let lastScrollTop = 0;
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      let currentScrollTop = window.scrollY || this.document.documentElement.scrollTop;
+
+      if (currentScrollTop > headerHeight) {
+        if (currentScrollTop > lastScrollTop) {
+          header.classList.add("header-hidden");
+        } else {
+          header.classList.remove("header-hidden");
+        }
+      } else {
+        header.classList.remove("header-hidden");
+      }
+      lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+    },
+    false
+  );
+
+  const menuToggle = document.getElementById("menu-toggle");
+
+  if (menuToggle) {
+    menuToggle.addEventListener("change", function () {
+      if (this.checked) {
+        document.body.style.overflow = "hidden";
+        lenis.stop(); // Lenis 스크롤 멈춤
+      } else {
+        document.body.style.overflow = "";
+        lenis.start(); // Lenis 스크롤 재개
+      }
+    });
+  }
+
   gsap.ticker.lagSmoothing(0);
 
   const teamSection = document.querySelector(".team");
@@ -21,15 +54,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (cardSlideInAnimation) cardSlideInAnimation.kill();
 
       teamMembers.forEach((member) => {
-        gsap.set(member, { clearProps: "all"});
-        const teamMemberInitial = member.querySelector(
-          ".team-member-name-initial h1"
-        );
+        gsap.set(member, { clearProps: "all" });
+        const teamMemberInitial = member.querySelector(".team-name");
         gsap.set(teamMemberInitial, { clearProps: "all" });
       });
 
       teamMemberCards.forEach((card) => {
-        gsap.set(card, {clearProps: "all"});
+        gsap.set(card, { clearProps: "all" });
       });
 
       return;
@@ -53,22 +84,22 @@ document.addEventListener("DOMContentLoaded", () => {
           const entranceEnd = entranceStart + entranceDuration;
 
           if (progress >= entranceStart && progress <= entranceEnd) {
-            const memberEntranceProgress =
-              (progress - entranceStart) / entranceDuration;
+            const memberEntranceProgress = (progress - entranceStart) / entranceDuration;
 
-              const entranceY = 125 - memberEntranceProgress * 125;
-              gsap.set(member, {y: `${entranceY}%`});
+            const entranceY = 125 - memberEntranceProgress * 125;
+            gsap.set(member, { y: `${entranceY}%` });
 
-              const teamMemberInitial = member.querySelector(".team-member-name-initial h1");
-              const initialLetterScaleDelay = 0.4;
-              const initialLetterScaleProgress = Math.max(0,
-                (memberEntranceProgress - initialLetterScaleDelay) / (1 - initialLetterScaleDelay)
-              );
-              gsap.set(teamMemberInitial, {scale : initialLetterScaleProgress});
+            const teamMemberInitial = member.querySelector(".team-name");
+            const initialLetterScaleDelay = 0.4;
+            const initialLetterScaleProgress = Math.max(
+              0,
+              (memberEntranceProgress - initialLetterScaleDelay) / (1 - initialLetterScaleDelay)
+            );
+            gsap.set(teamMemberInitial, { scale: initialLetterScaleProgress });
           } else if (progress > entranceEnd) {
-            gsap.set(member, { y: `0%`});
-            const teamMemberInitial = member.querySelector(".team-member-name-initial h1");
-            gsap.set(teamMemberInitial, {scale: 1});
+            gsap.set(member, { y: `0%` });
+            const teamMemberInitial = member.querySelector(".team-name");
+            gsap.set(teamMemberInitial, { scale: 1 });
           }
         });
       },
@@ -77,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cardSlideInAnimation = ScrollTrigger.create({
       trigger: teamSection,
       start: "top top",
-      ene: `+=${window.innerHeight * 3}`,
+      end: `+=${window.innerHeight * 2}`,
       pin: true,
       scrub: 1,
       onUpdate: (self) => {
@@ -120,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
               scale: scaleValue,
             });
           } else if (progress > cardScaleEnd) {
-            gsap.set((card), {
+            gsap.set(card, {
               scale: 1,
             });
           }
@@ -139,4 +170,4 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   initTeamAnimations();
-})
+});

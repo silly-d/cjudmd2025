@@ -35,20 +35,19 @@
 }
 
 .button-grid .back {
-  margin-top: 25px;
+  margin-top: 100px;
 }
 
 .back {
   background: none;
   mix-blend-mode: difference;
-  width: 100px;
-  height: 35px;
   border: none;
   border-radius: 100px;
   transition: 0.3s ease;
   color: #fff;
   z-index: 11;
   font-size: 1.2rem;
+  padding: 10px 25px;
 }
 
 .back:hover,
@@ -73,7 +72,7 @@
   z-index: 11;
 }
 
-/* team card */
+/*-------- team card --------*/
 
 .team-name {
   text-transform: uppercase;
@@ -163,7 +162,7 @@
 }
 
 .team-member-info h1 {
-  font-size: 5rem;
+  font-size: 4.5rem;
   color: #fff;
 }
 
@@ -171,6 +170,7 @@
   font-size: 1.3rem;
   font-weight: 400;
   color: #a9a9a9;
+  text-transform: capitalize;
 }
 
 .info-detail {
@@ -181,13 +181,14 @@
   text-align: left;
   margin: 50px 0;
   font-size: 1.1rem;
+  white-space: nowrap;
 }
 
 .team-member {
   transform: translateY(125%);
 }
 
-.team-member-name-initial h1 {
+.team-name {
   transform: scale(0);
 }
 
@@ -223,6 +224,33 @@
 }
 
 @media (max-width: 768px) {
+  .button-overlay {
+    width: 100vw;
+    height: 100px;
+  }
+
+  .button-grid {
+    max-width: 90vw;
+    margin: 0 auto;
+  }
+
+  .button-grid a {
+    width: 200px;
+    height: 10px;
+  }
+
+  .button-grid .back {
+    margin-top: 0px;
+  }
+
+  .back {
+    transition: none;
+    color: #fff;
+    z-index: 11;
+    font-size: 1.2rem;
+    padding: 0;
+  }
+
   h1 {
     font-size: 4rem;
   }
@@ -233,22 +261,38 @@
   }
 
   .team {
-    height: 250vh;
+    height: auto;
     flex-direction: column;
     align-items: center;
   }
 
   .team-member {
     max-width: 400px;
+    height: auto;
+    min-height: 600px;
     transform: translateY(0%) !important;
   }
 
-  .team-member-name-initial h1 {
+  .team-member-card {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 2rem 1rem;
+  }
+
+  .team-member-img {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .team-name {
     transform: scale(1);
   }
 
   .team-member .team-member-card {
-    transform: translate(-50%, -50%) scale(1) rotate(0deg) !important;
+    transform: translate(-50%, 0%) scale(1) rotate(0deg) !important;
   }
 
   .team-member-info h1 {
@@ -261,5 +305,10 @@
 
   .sm-view {
     display: block;
+    margin-top: -200px;
+  }
+
+  .empty {
+    display: none;
   }
 }

@@ -84,13 +84,14 @@ header.header-hidden {
   font-weight: 500;
   color: #fff;
   font-size: 1rem;
-  line-height: 130%;
+  line-height: 110%;
   margin: 0;
 }
 
 .gnb-logo a img {
   display: block;
   height: auto;
+  width: 210px;
 }
 
 /* 헤더 메뉴 부분 */

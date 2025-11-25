@@ -111,6 +111,8 @@
   .c02-body,
   .c02-body2 {
     font-size: 0.9rem;
+    letter-spacing: -0.3px;
+    text-align: justify;
   }
 
   .c02-btn {

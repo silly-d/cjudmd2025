@@ -2,7 +2,7 @@ export const sliderData = [
   {
     title: "Focusty",
     img: "./img/box/project_1.png",
-    url: "./project1.html",
+    url: "./project15.html",
     members: ["김보미", "임희원"],
     description: "자발적인 학습 루틴 형성을 위한\nIoT 타이머 기반 학습 보조 제품",
     keywords: ["포커스티", "focusty"],
@@ -10,7 +10,7 @@ export const sliderData = [
   {
     title: "BIAS PROJECT :\n 각자의 시점",
     img: "./img/box/project_2.png",
-    url: "./project2.html",
+    url: "./project19.html",
     members: ["서동현", "오우진", "권용우"],
     description: "시점의 차이를 물리적으로 경험함으로써\n고정된 관점에서 벗어나야 함을\n자각하는 프로젝트",
     keywords: [
@@ -28,7 +28,7 @@ export const sliderData = [
   {
     title: "RE:4·3",
     img: "./img/box/project_3.png",
-    url: "./project3.html",
+    url: "./project17.html",
     members: ["유은비", "김현지", "곽초은"],
     description: "감정의 공감을 통해 제주 4·3의 진실을\n 온전히 마주하는 전시",
     keywords: ["리사삼", "re43"],
@@ -36,7 +36,7 @@ export const sliderData = [
   {
     title: "comma ,",
     img: "./img/box/project_4.png",
-    url: "/project4.html",
+    url: "./project16.html",
     members: ["김민정", "김선정", "노채린"],
     description: "고인은 자신의 기록을 남기고,\n 추모객은 그 기억을 통해 연결되는\n 디지털 추모 서비스",
     keywords: ["콤마 ,", "콤마", "comma"],
@@ -44,7 +44,7 @@ export const sliderData = [
   {
     title: "Senstage",
     img: "./img/box/project_5.png",
-    url: "/project5.html",
+    url: "./project8.html",
     members: ["강유림"],
     description: "장애인의 공연 문화 향유를\n위한 프로젝트",
     keywords: ["센스테이지", "senstage"],
@@ -52,7 +52,7 @@ export const sliderData = [
   {
     title: "SLEEPISM",
     img: "./img/box/project_6.png",
-    url: "/project6.html",
+    url: "./project6.html",
     members: ["조서영", "최희선", "이현서"],
     description: "잠을 통해 자기 효능감을 회복하고, 실패를\n 신성하게 받아들이는 패러디 종교\n 미디어 아트 프로젝트",
     keywords: ["슬리피즘", "sleepism"],
@@ -60,7 +60,7 @@ export const sliderData = [
   {
     title: "The Gaze",
     img: "./img/box/project_7.png",
-    url: "/project7.html",
+    url: "./project13.html",
     members: ["김도희", "정예원", "반상우"],
     description: " 프로아나를 심화시키는 시선에 대한\n 관객 참여형 설치미술",
     keywords: ["그 시선", "더 게이즈", "더게이즈", "thegaze", "Thegaze"],
@@ -68,7 +68,7 @@ export const sliderData = [
   {
     title: "D49",
     img: "./img/box/project_8.png",
-    url: "/project8.html",
+    url: "./project5.html",
     members: ["민유진", "박미소"],
     description: "남겨진 흔적을 통해 업(業)을 심판하고\n 자각하게 하는 경각심의 전시 프로젝트",
     keywords: ["d49", "디사구", "D-49"],
@@ -76,7 +76,7 @@ export const sliderData = [
   {
     title: "DYING IS FOR YOU!",
     img: "./img/box/project_9.png",
-    url: "/project9.html",
+    url: "./project1.html",
     members: ["조예리", "정유민"],
     description: "디지털 정보의 사후처리\n잘 남기는 것에 대한 고민",
     keywords: [
@@ -91,7 +91,7 @@ export const sliderData = [
   {
     title: "다다다 한글놀이",
     img: "./img/box/project_10.png",
-    url: "/project10.html",
+    url: "./project3.html",
     members: ["이새연", "이채현", "박기연"],
     description: "다문화 아동의 한글 습득을 돕는\n 인터랙티브 학습 게임",
     keywords: ["다 다 다 한 글 놀 이", "다다다"],
@@ -99,7 +99,7 @@ export const sliderData = [
   {
     title: "나전 H:ourstory",
     img: "./img/box/project_11.png",
-    url: "/project11.html",
+    url: "./project12.html",
     members: ["조범규", "윤정원"],
     description: "잊혀져가는 우리나라의 '나전칠기'를\n 현대적으로 재해석한 Immersive\n Interactive Media Art 전시",
     keywords: ["나전", "나전 아워스토리", "나전 hourstory"],
@@ -107,7 +107,7 @@ export const sliderData = [
   {
     title: "FLOMO",
     img: "./img/box/project_12.png",
-    url: "/project12.html",
+    url: "./project18.html",
     members: ["이연우", "손예진"],
     description: "아스퍼거 아동의 감정 인식과 표현 향상을\n 위한 모션트래킹 기반 인터랙티브\n 감정 학습 프로젝트",
     keywords: ["flomo", "플로모"],
@@ -115,7 +115,7 @@ export const sliderData = [
   {
     title: "지지와 우리몸 대소동",
     img: "./img/box/project_13.png",
-    url: "/project13.html",
+    url: "./project7.html",
     members: ["김지수", "김윤주"],
     description: "초등학생을 위한 장내 미생물\n 3D 학습 게임 프로젝트",
     keywords: ["지지와우리몸대소동"],
@@ -123,7 +123,7 @@ export const sliderData = [
   {
     title: "마음담音",
     img: "./img/box/project_14.png",
-    url: "/project14.html",
+    url: "./project4.html",
     members: ["황지원", "황서진", "고현희"],
     description: "감정표현을 돕는 자기주장훈련법\n 기반 미디어 콘텐츠 프로젝트",
     keywords: ["마음담음"],
@@ -131,14 +131,14 @@ export const sliderData = [
   {
     title: "가온결",
     img: "./img/box/project_15.png",
-    url: "/project15.html",
+    url: "./project2.html",
     members: ["박서희", "백진주", "이채민"],
     description: "기술과 온기로 회복을 잇는 뇌졸중\n 환자 맞춤형 재활 인터페이스",
   },
   {
     title: "곶자왈 위기의 숲",
     img: "./img/box/project_16.png",
-    url: "/project16.html",
+    url: "./project14.html",
     members: ["오효진", "나원호"],
     description: "VR 게임 체험을 통해 곶자왈의 가치를\n 회복하고 APP 실천으로 이어지는\n 시민 환경보호 프로젝트",
     keywords: ["곶자왈", "곶자왈 위기의숲"],
@@ -146,7 +146,7 @@ export const sliderData = [
   {
     title: "NotZero",
     img: "./img/box/project_17.png",
-    url: "/project17.html",
+    url: "./project20.html",
     members: ["이주연"],
     description: "친환경 소비의 허상을 드러내는\n 인터렉티브 전시 프로젝트",
     keywords: ["노또", "not0", "notzero", "낫제로"],
@@ -154,14 +154,14 @@ export const sliderData = [
   {
     title: "진계",
     img: "./img/box/project_18.png",
-    url: "/project18.html",
+    url: "/project22.html",
     members: ["왕뢰이저"],
     description: "디지털 정보의 사후처리\n잘 남기는 것에 대한 고민",
   },
   {
     title: "願:솟다",
     img: "./img/box/project_19.png",
-    url: "/project19.html",
+    url: "./project21.html",
     members: ["양윤보", "박지수"],
     description: "전통 소원 구조물인 ‘솟대’를 현대적으로\n 재해석한 인터랙티브 전시 프로젝트",
     keywords: ["원솟다", "원:솟다", "솟다"],
@@ -169,7 +169,7 @@ export const sliderData = [
   {
     title: "Moony",
     img: "./img/box/project_20.png",
-    url: "/project20.html",
+    url: "./project10.html",
     members: ["박순후", "김루나"],
     description: "초등학교 저학년을 위한\n 달 학습 프로젝트",
     keywords: ["moony", "무니", "순자", "위스키빠돌이"],
@@ -177,7 +177,7 @@ export const sliderData = [
   {
     title: "LG TWINS' K-CHEERLAND!",
     img: "./img/box/project_21.png",
-    url: "/project21.html",
+    url: "./project11.html",
     members: ["이소현"],
     description: "k-야구 경기를 처음 직관하는 외국인을\n 위한 k-야구 응원 체험존 프로젝트",
     keywords: ["lgtwinskcheerland", "lg twins k-cheerland", "엘지", "엘지 트윈스 케이치어랜드"],
@@ -185,7 +185,7 @@ export const sliderData = [
   {
     title: "Umpha",
     img: "./img/box/project_22.png",
-    url: "/project22.html",
+    url: "./project9.html",
     members: ["김현진", "최서윤"],
     description: "청각장애 무용수를 위한\n 음악 다감각화 프로젝트",
     keywords: ["umpha", "음파"],
