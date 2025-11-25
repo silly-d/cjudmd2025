@@ -131,6 +131,10 @@
   margin-bottom: 3svh;
 }
 
+.sort-btn img {
+  width: 1.1rem;
+}
+
 .sort-btn {
   min-width: 40px;
   height: 40px;
@@ -143,6 +147,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  vertical-align: middle;
 }
 
 .sort-btn:hover {
@@ -334,8 +339,8 @@
   border-radius: 2px;
   pointer-events: none;
   opacity: 0;
-  animation: highlightPulse 2s ease-in-out infinite;
-  filter: blur(20px);
+  animation: highlightPulse 2s ease-in-out;
+  filter: blur(40px);
 }
 
 @keyframes highlightPulse {
@@ -408,9 +413,13 @@
     opacity: 1;
   }
 
+  #search-name {
+    width: 60vw;
+  }
+
   .sort-bar {
     flex-wrap: wrap;
-    width: 90vw;
+    width: 80vw;
     gap: 6px;
     padding: 10px;
     margin-bottom: 3svh;

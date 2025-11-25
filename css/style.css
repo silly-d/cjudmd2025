@@ -28,13 +28,6 @@ body {
   flex-direction: column;
   background: #121212;
   color: #fff;
-  width: 100%;
-  overflow-x: hidden;
-  flex: 1 0 auto;
-  display: flex;
-  flex-direction: column;
-  background: #121212;
-  color: #fff;
 }
 
 body::selection {
@@ -209,8 +202,6 @@ footer {
 .info-right {
   color: #fff;
   text-align: left;
-  color: #fff;
-  text-align: left;
 }
 
 .info-right a {
@@ -249,18 +240,20 @@ footer {
   width: 100%;
 }
 
-.sns-icons {
-  display: flex;
-  gap: 24px;
-  margin-top: 0;
-}
-
 /* section */
 section {
   width: 100%;
   height: auto;
   min-height: 100svh;
   flex: 1;
+}
+
+.pc-br {
+  display: block;
+}
+
+.mobile-br {
+  display: none;
 }
 
 /* scroll-down */
@@ -335,18 +328,9 @@ section {
   gap: 8px;
   cursor: pointer;
   padding: 10px;
-}
-
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-  cursor: pointer;
-  padding: 10px;
   position: relative;
-  width: 30px; /* 고정 너비 */
-  height: 26px; /* 고정 높이 */
+  width: 30px;
+  height: 26px;
 }
 
 .line {
@@ -417,9 +401,17 @@ section {
   section {
     width: 100%;
     height: auto;
-    min-height: 100svh;
+    min-height: 100vh;
     flex: 1;
     position: relative;
+  }
+
+  .pc-br {
+    display: none;
+  }
+
+  .mobile-br {
+    display: block;
   }
 
   .gnb-logo {
@@ -432,9 +424,6 @@ section {
   .gnb-logo img {
     position: absolute;
     max-width: 100%;
-  }
-
-  .gnb-logo img {
     animation: fadeInOut 8s ease-in-out infinite;
   }
 
@@ -482,7 +471,7 @@ section {
     top: -21%;
     right: -100%;
     width: 100%;
-    height: 100svh;
+    height: 100vh;
     background: rgba(18, 18, 18, 1);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -504,9 +493,8 @@ section {
   }
 
   .mobile-menu-item {
-    padding: 3svh 5vw;
+    padding: 25px 5vw;
     border-bottom: 1px solid #333;
-    transition: background 0.3s ease;
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s ease, transform 0.8s ease, background 0.5s ease;
@@ -543,13 +531,13 @@ section {
   }
 
   .mobile-menu-item:first-child {
-    margin-top: 12svh;
+    margin-top: 100px;
     border-top: 1px solid #333;
   }
 
   .mobile-menu-item p {
     color: #fff;
-    font-size: 2.4rem;
+    font-size: 2rem;
     font-weight: 600;
     margin: 0;
   }
@@ -564,7 +552,7 @@ section {
 
   .mobile-menu-footer {
     text-align: right;
-    padding: 10svh 5vw;
+    padding: 80px 5vw;
     transform: translateY(30px);
     opacity: 0;
     transition: opacity 0.8s ease, transform 0.8s ease, background 0.5s ease;
@@ -579,7 +567,7 @@ section {
   /* mobile footer start */
   .foot-container {
     margin: 0;
-    padding: 0 5vw 5svh 5vw;
+    padding: 0 5vw 40px 5vw;
   }
   .bottom-footer {
     flex-direction: column;
@@ -612,7 +600,7 @@ section {
   /* mobile footer end */
   .field {
     position: absolute;
-    bottom: 17vh;
+    bottom: 120px;
     left: 50%;
     transform: translateX(-50%);
   }
