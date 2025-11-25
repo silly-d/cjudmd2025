@@ -16,6 +16,17 @@
   overflow: hidden;
 }
 
+.ct01-right-info a,
+.team-info a {
+  color: #fff;
+  transition: text-shadow 0.4s ease;
+}
+
+.ct01-right-info a:hover,
+.team-info a:hover {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
 /* ct01-left */
 
 .ct01-left {
@@ -104,6 +115,7 @@
   font-size: 1.5rem;
   color: rgba(255, 255, 255, 0.3);
   font-weight: 400;
+  text-transform: capitalize;
 }
 
 .ct01-right-info,
@@ -113,6 +125,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   text-align: left;
+  white-space: nowrap;
 }
 
 .ct01-right-info {
