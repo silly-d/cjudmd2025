@@ -149,6 +149,11 @@
   gap: 8px;
 }
 
+.ct01-right-info h4,
+.team-info h4 {
+  color: #999;
+}
+
 /*-------- content01 end --------*/
 
 /*-------- content02 start --------*/
@@ -292,7 +297,7 @@
     height: auto;
     position: relative;
     margin: 0 auto;
-    padding: 30px 0;
+    padding: 10px 0 0 0;
   }
 
   /*---------- content01 start ----------*/
@@ -445,16 +450,17 @@
   .team-info a {
     word-break: break-all;
     overflow-wrap: break-word;
+    font-weight: 400;
   }
 
   .more {
-    width: 100px;
-    height: 40px;
+    width: 80px;
+    height: 30px;
     border-radius: 1000px;
     background: none;
     border: 1px solid #999;
     align-self: flex-end;
-    margin-top: -35px;
+    margin-top: -3svh;
   }
 
   .more a {
