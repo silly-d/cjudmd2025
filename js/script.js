@@ -1,34 +1,7 @@
-const header = document.querySelector("header");
-const headerHeight = header.offsetHeight;
-
-let lastScrollTop = 0;
-
-window.addEventListener(
-  "scroll",
-  function () {
-    let currentScrollTop = window.scrollY || this.document.documentElement.scrollTop;
-
-    if (currentScrollTop > headerHeight) {
-      if (currentScrollTop > lastScrollTop) {
-        header.classList.add("header-hidden");
-      } else {
-        header.classList.remove("header-hidden");
-      }
-    } else {
-      header.classList.remove("header-hidden");
-    }
-    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-  },
-  false
-);
-
-//gsap 설정
 gsap.registerPlugin(ScrollTrigger);
 
-// matchMedia 설정
 const mm = gsap.matchMedia();
 
-//hero section
 window.addEventListener("load", () => {
   const items = gsap.utils.toArray(".item");
 
@@ -41,9 +14,7 @@ window.addEventListener("load", () => {
   });
 });
 
-// 데스크탑 애니메이션
 mm.add("(min-width: 769px)", () => {
-  // item 애니메이션
   gsap.utils.toArray(".item").forEach((item) => {
     const randomX = gsap.utils.random(-window.innerWidth, window.innerWidth);
     const randomY = gsap.utils.random(-window.innerHeight, window.innerHeight);
@@ -69,7 +40,6 @@ mm.add("(min-width: 769px)", () => {
     });
   });
 
-  // text animation
   const textAnimation = gsap.timeline({
     scrollTrigger: {
       trigger: ".content01",
@@ -84,7 +54,6 @@ mm.add("(min-width: 769px)", () => {
     .to(".text-right", { xPercent: 50, opacity: 0 }, 0)
     .to(".field", { yPercent: -100, opacity: 0 }, 0);
 
-  //content02 section
   gsap.utils.toArray(".ct02-item").forEach((item) => {
     gsap.from(item, {
       yPercent: 50,
@@ -99,7 +68,6 @@ mm.add("(min-width: 769px)", () => {
     });
   });
 
-  //content03 section - mask
   const maskTimeline = gsap.timeline();
 
   maskTimeline
@@ -133,7 +101,6 @@ mm.add("(min-width: 769px)", () => {
     },
   });
 
-  // horizontal scroll
   const horizontalScroll = gsap.timeline({
     scrollTrigger: {
       trigger: ".ct03-wrapper",
@@ -163,7 +130,6 @@ mm.add("(min-width: 769px)", () => {
     "<"
   );
 
-  // cards animation
   const cards = [
     { id: "#ct03-card-1", endTranslateX: -2000, rotate: 45 },
     { id: "#ct03-card-2", endTranslateX: -1000, rotate: -30 },
@@ -190,7 +156,6 @@ mm.add("(min-width: 769px)", () => {
     );
   });
 
-  //content04 section
   const heroReveal = gsap.utils.toArray(".content04");
   heroReveal.forEach((element) => {
     const heroBox = element.querySelector(".hero-reveal__header");
@@ -229,19 +194,11 @@ mm.add("(min-width: 769px)", () => {
     });
   });
 
-  return () => {
-    // cleanup function
-  };
+  return () => {};
 });
 
-// 모바일 애니메이션
 mm.add("(max-width: 768px)", () => {
-  // 모바일에서는 item 애니메이션 단순화
-
   gsap.utils.toArray(".item").forEach((item) => {
-    const randomX = gsap.utils.random(-window.innerWidth, window.innerWidth);
-    const randomY = gsap.utils.random(-window.innerHeight, window.innerHeight);
-
     gsap.to(item, {
       scrollTrigger: {
         trigger: item,
@@ -253,7 +210,6 @@ mm.add("(max-width: 768px)", () => {
     });
   });
 
-  // 모바일 text animation (더 짧은 거리)
   const textAnimation = gsap.timeline({
     scrollTrigger: {
       trigger: ".content01",
@@ -268,7 +224,6 @@ mm.add("(max-width: 768px)", () => {
     .to(".text-right", { xPercent: 30, opacity: 0 }, 0)
     .to(".field", { yPercent: -50, opacity: 0 }, 0);
 
-  //content02 section - 모바일
   gsap.utils.toArray(".ct02-item").forEach((item) => {
     gsap.from(item, {
       yPercent: 30,
@@ -283,7 +238,6 @@ mm.add("(max-width: 768px)", () => {
     });
   });
 
-  // 모바일 content03 section 수정
   const maskTimeline = gsap.timeline();
 
   maskTimeline
@@ -315,11 +269,9 @@ mm.add("(max-width: 768px)", () => {
     onEnterBack: () => {
       gsap.set(".mask-container", { display: "flex" });
     },
-    // 또는 toggleActions 사용
     toggleActions: "play none none reverse",
   });
 
-  // 배경색 변화를 별도로 관리 (더 나은 방법)
   ScrollTrigger.create({
     trigger: ".mask-container",
     start: "bottom center",
@@ -333,14 +285,13 @@ mm.add("(max-width: 768px)", () => {
     },
     onLeaveBack: () => {
       gsap.to("body", {
-        backgroundColor: "#121212", // 원래 색으로
+        backgroundColor: "#121212",
         color: "#ffffff",
         duration: 0.3,
       });
     },
   });
 
-  //content04 section - 모바일
   const heroReveal = gsap.utils.toArray(".content04");
   heroReveal.forEach((element) => {
     const heroBox = element.querySelector(".hero-reveal__header");
@@ -350,7 +301,7 @@ mm.add("(max-width: 768px)", () => {
       scrollTrigger: {
         trigger: element,
         start: "center center",
-        end: `+=1800`, // 모바일에서는 짧게
+        end: `+=1800`,
         scrub: true,
         pin: true,
       },
@@ -379,27 +330,9 @@ mm.add("(max-width: 768px)", () => {
     });
   });
 
-  return () => {
-    // cleanup function
-  };
+  return () => {};
 });
 
-// 메뉴 토글 (공통)
-const menuToggle = document.getElementById("menu-toggle");
-
-if (menuToggle) {
-  menuToggle.addEventListener("change", function () {
-    if (this.checked) {
-      document.body.style.overflow = "hidden";
-      lenis.stop(); // Lenis 스크롤 멈춤
-    } else {
-      document.body.style.overflow = "";
-      lenis.start(); // Lenis 스크롤 재개
-    }
-  });
-}
-
-// 리사이즈 시 ScrollTrigger 새로고침
 let resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
@@ -408,8 +341,7 @@ window.addEventListener("resize", () => {
   }, 250);
 });
 
-//content05 section
-let isTransitioning = false; // 상단에 선언했다면 이 줄은 삭제
+let isTransitioning = false;
 
 ScrollTrigger.create({
   trigger: ".content05",
@@ -418,13 +350,11 @@ ScrollTrigger.create({
     if (!isTransitioning) {
       isTransitioning = true;
 
-      // 페이드 아웃 후 about.html로 이동
       gsap.to("body", {
         opacity: 0,
         duration: 0.8,
         ease: "power2.inOut",
         onComplete: () => {
-          // sessionStorage에 플래그 저장
           sessionStorage.setItem("fromIndex", "true");
           window.location.href = "./about/about.html";
         },

@@ -1,40 +1,71 @@
-let lenis = null;
+window.lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  autoResize: false,
+});
 
-function initSmoothScroll() {
-  const isMobile = window.innerWidth < 768; // 기준 너비 (원하는대로 수정)
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
 
-  // 1. 모바일 환경이면
-  if (isMobile) {
-    if (lenis) {
-      // 이미 실행 중이라면 파괴(Kill)
-      lenis.destroy();
-      lenis = null;
+requestAnimationFrame(raf);
 
-      // GSAP Ticker에서 Lenis 제거 (중요: 에러 방지)
-      gsap.ticker.remove(lenisRaf);
+if (typeof ScrollTrigger !== "undefined") {
+  lenis.on("scroll", ScrollTrigger.update);
+}
+
+const header = document.querySelector("header");
+const headerHeight = header.offsetHeight;
+let lastScrollTop = 0;
+
+window.addEventListener("scroll", function () {
+  let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+
+  if (currentScrollTop > headerHeight) {
+    if (currentScrollTop > lastScrollTop) {
+      header.classList.add("header-hidden");
+    } else {
+      header.classList.remove("header-hidden");
     }
+  } else {
+    header.classList.remove("header-hidden");
   }
-  // 2. 데스크탑 환경이고, Lenis가 아직 없다면
-  else if (!lenis) {
-    lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
+  lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+});
 
-    lenis.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add(lenisRaf); // 함수 분리
-    gsap.ticker.lagSmoothing(0);
-  }
+const menuToggle = document.getElementById("menu-toggle");
+
+if (menuToggle) {
+  menuToggle.addEventListener("change", function () {
+    if (this.checked) {
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+      window.lenis.stop();
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      window.lenis.start();
+    }
+  });
 }
 
-// GSAP Ticker용 함수 분리 (remove를 위해)
-function lenisRaf(time) {
-  if (lenis) lenis.raf(time * 1000);
-}
+const setScreenSize = () => {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+};
 
-// 초기 실행 및 리사이즈 감지
-initSmoothScroll();
+setScreenSize();
+
+let resizeTimer;
 window.addEventListener("resize", () => {
-  initSmoothScroll();
-  ScrollTrigger.refresh(); // 리사이즈 후 좌표 재계산
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    if (window.innerWidth !== document.documentElement.clientWidth) {
+      setScreenSize();
+      window.lenis.resize();
+    }
+  }, 100);
 });

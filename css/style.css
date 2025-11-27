@@ -1,13 +1,5 @@
 @charset "utf-8";
 
-@font-face {
-  font-family: "Pretendard Variable";
-  font-weight: 45 920;
-  font-style: normal;
-  font-display: swap;
-  src: url("./woff2/PretendardVariable.woff2") format("woff2-variations");
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -61,7 +53,7 @@ header.header-hidden {
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  padding: 1svh 0;
+  padding: 20px 0;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -158,7 +150,7 @@ footer {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  padding-bottom: 8svh;
+  padding-bottom: calc(var(--vh, 1vh) * 8);
 }
 
 .bottom-footer {
@@ -245,7 +237,7 @@ footer {
 section {
   width: 100%;
   height: auto;
-  min-height: 100svh;
+  min-height: calc(var(--vh, 1vh) * 100);
   flex: 1;
 }
 
@@ -392,6 +384,18 @@ section {
     padding: 0 5vw;
   }
 
+  .gnb-logo p {
+    font-size: 1rem;
+    line-height: 130%;
+    margin: 0;
+  }
+
+  .gnb-logo a img {
+    display: block;
+    height: auto;
+    width: 190px;
+  }
+
   header {
     width: 100%;
     height: 85px;
@@ -402,9 +406,10 @@ section {
   section {
     width: 100%;
     height: auto;
-    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
     flex: 1;
     position: relative;
+    padding: 0;
   }
 
   .pc-br {
@@ -570,6 +575,7 @@ section {
     margin: 0;
     padding: 0 5vw 40px 5vw;
   }
+
   .bottom-footer {
     flex-direction: column;
   }

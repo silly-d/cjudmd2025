@@ -258,8 +258,11 @@ function scatterAndShrink() {
       document.querySelector(".designer-profile").classList.add("positioned");
       adjustSectionHeightFromPositions();
 
+      if (window.lenis) window.lenis.resize();
+
       setTimeout(() => {
         ScrollTrigger.refresh();
+        if (window.lenis) window.lenis.resize();
       }, 1200);
     },
   });
