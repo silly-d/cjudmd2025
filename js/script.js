@@ -1,7 +1,12 @@
+// js/script.js
+
+// 1. 중복 코드 삭제 (Lenis, Header, Menu, Resize 등은 smooth-scroll.js에서 처리됨)
+// 2. GSAP 플러그인 등록
 gsap.registerPlugin(ScrollTrigger);
 
 const mm = gsap.matchMedia();
 
+// 로드 시 애니메이션
 window.addEventListener("load", () => {
   const items = gsap.utils.toArray(".item");
 
@@ -14,7 +19,9 @@ window.addEventListener("load", () => {
   });
 });
 
+// PC 버전 애니메이션 (min-width: 769px)
 mm.add("(min-width: 769px)", () => {
+  // 아이템 분산 효과
   gsap.utils.toArray(".item").forEach((item) => {
     const randomX = gsap.utils.random(-window.innerWidth, window.innerWidth);
     const randomY = gsap.utils.random(-window.innerHeight, window.innerHeight);
@@ -40,6 +47,7 @@ mm.add("(min-width: 769px)", () => {
     });
   });
 
+  // 메인 텍스트 애니메이션
   const textAnimation = gsap.timeline({
     scrollTrigger: {
       trigger: ".content01",
@@ -54,6 +62,7 @@ mm.add("(min-width: 769px)", () => {
     .to(".text-right", { xPercent: 50, opacity: 0 }, 0)
     .to(".field", { yPercent: -100, opacity: 0 }, 0);
 
+  // Content 02 아이템 등장
   gsap.utils.toArray(".ct02-item").forEach((item) => {
     gsap.from(item, {
       yPercent: 50,
@@ -68,6 +77,7 @@ mm.add("(min-width: 769px)", () => {
     });
   });
 
+  // 마스크 애니메이션
   const maskTimeline = gsap.timeline();
 
   maskTimeline
@@ -101,6 +111,7 @@ mm.add("(min-width: 769px)", () => {
     },
   });
 
+  // 가로 스크롤 섹션
   const horizontalScroll = gsap.timeline({
     scrollTrigger: {
       trigger: ".ct03-wrapper",
@@ -156,6 +167,7 @@ mm.add("(min-width: 769px)", () => {
     );
   });
 
+  // 텍스트 리빌 (PC)
   const heroReveal = gsap.utils.toArray(".content04");
   heroReveal.forEach((element) => {
     const heroBox = element.querySelector(".hero-reveal__header");
@@ -197,6 +209,7 @@ mm.add("(min-width: 769px)", () => {
   return () => {};
 });
 
+// 모바일 버전 애니메이션 (max-width: 768px)
 mm.add("(max-width: 768px)", () => {
   gsap.utils.toArray(".item").forEach((item) => {
     gsap.to(item, {
@@ -333,14 +346,7 @@ mm.add("(max-width: 768px)", () => {
   return () => {};
 });
 
-let resizeTimer;
-window.addEventListener("resize", () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    ScrollTrigger.refresh();
-  }, 250);
-});
-
+// 마지막 섹션 페이지 전환 효과
 let isTransitioning = false;
 
 ScrollTrigger.create({

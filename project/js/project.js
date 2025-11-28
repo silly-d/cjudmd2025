@@ -1,7 +1,5 @@
 import { sliderData } from "./sliderData.js";
 
-const lenis = new Lenis();
-
 const config = {
   SCROLL_SPEED: 1.75,
   LERP_FACTOR: 0.02,
@@ -9,7 +7,7 @@ const config = {
 };
 
 const header = document.querySelector("header");
-const headerHeight = header.offsetHeight;
+const headerHeight = header ? header.offsetHeight : 0;
 
 let lastScrollTop = 0;
 
@@ -268,8 +266,6 @@ function updateMovingState() {
 }
 
 function animate(time) {
-  lenis.raf(time);
-
   state.currentX += (state.targetX - state.currentX) * config.LERP_FACTOR;
 
   updateMovingState();
@@ -354,7 +350,7 @@ function handleMouseUp() {
   removeGlitchEffect();
   setTimeout(() => {
     snapToCenter();
-  }, 400);
+  }, 100);
 }
 
 function resetSearchZoom() {
@@ -473,11 +469,11 @@ function initializeEventListeners() {
   }
 
   slider.addEventListener("mouseenter", () => {
-    lenis.stop();
+    if (window.lenis) window.lenis.stop();
   });
 
   slider.addEventListener("mouseleave", () => {
-    lenis.start();
+    if (window.lenis) window.lenis.start();
   });
 
   slider.addEventListener("wheel", resetSearchZoom, { passive: true });
