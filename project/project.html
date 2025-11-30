@@ -90,11 +90,19 @@
         &nbsp;)명
       </h1>
       <p class="search-subtitle">21개의 울림</p>
+
+      <div class="view-control">
+        <button id="view-toggle-btn" class="btn-view" aria-label="View Mode Toggle">
+          <i class="fa-solid fa-border-all"> <span>전체보기</span></i>
+        </button>
+      </div>
     </div>
 
-    <div class="sliders">
+    <div class="sliders" id="view-slider">
       <div class="slide-track"></div>
     </div>
+
+    <div class="project-grid-container" id="view-grid" style="display: none"></div>
 
     <footer>
       <div class="foot-container">

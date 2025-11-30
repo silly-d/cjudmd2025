@@ -86,7 +86,9 @@
   gap: 1rem;
   width: 100%;
   height: 100vh;
+  min-height: 0;
   padding: 1rem;
+  flex: 0 0 auto;
 }
 
 .team-member {
@@ -271,6 +273,7 @@
     height: auto;
     min-height: 600px;
     transform: translateY(0%) !important;
+    background: none;
   }
 
   .team-member-card {

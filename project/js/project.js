@@ -2,8 +2,8 @@ import { sliderData } from "./sliderData.js";
 
 const config = {
   SCROLL_SPEED: 1.75,
-  LERP_FACTOR: 0.02,
-  MAX_VELOCITY: 150,
+  LERP_FACTOR: 0.07,
+  MAX_VELOCITY: 100,
 };
 
 const header = document.querySelector("header");
@@ -265,6 +265,8 @@ function updateMovingState() {
   document.documentElement.style.setProperty("--slider-moving", state.isMoving ? "1" : "0");
 }
 
+let reqId;
+
 function animate(time) {
   state.currentX += (state.targetX - state.currentX) * config.LERP_FACTOR;
 
@@ -272,7 +274,7 @@ function animate(time) {
   updateSlidePositions();
   updateParallax();
 
-  requestAnimationFrame(animate);
+  reqId = requestAnimationFrame(animate);
 }
 
 function handleWheel(e) {
@@ -454,6 +456,147 @@ function handleSearch(event) {
     }
   }
 }
+
+// [추가] 그리드 뷰 렌더링 함수
+function renderGrid() {
+  const gridContainer = document.getElementById("view-grid");
+  // 이미 렌더링 되었으면 중복 실행 방지
+  if (gridContainer.children.length > 0) return;
+
+  sliderData.forEach((data, index) => {
+    // 기존 createSlideElement 함수를 재활용하거나 유사하게 생성
+    // 단, 그리드용이므로 이벤트 리스너(드래그 등)는 최소화하는 것이 좋음
+
+    // 여기서는 기존 createSlideElement를 활용하되,
+    // 생성 후 클래스나 속성을 살짝 조정하는 방식을 씁니다.
+    // 주의: createSlideElement 내부의 모바일 분기처리가 슬라이더 전용일 수 있으므로
+    // 그리드용 요소를 새로 만드는 것이 깔끔할 수 있습니다.
+
+    const slide = document.createElement("div");
+    slide.className = "slide"; // CSS 재활용
+    slide.dataset.index = index;
+
+    // --- 내부 구조 (Front/Back) 생성 (기존 로직 복사) ---
+    const front = document.createElement("div");
+    front.className = "slide-front";
+
+    // 이미지
+    const imgContainer = document.createElement("div");
+    imgContainer.className = "slide-image";
+    const img = document.createElement("img");
+    img.src = data.img;
+    img.alt = data.title;
+    imgContainer.appendChild(img);
+
+    // 오버레이
+    const overlay = document.createElement("div");
+    overlay.className = "slide-overlay";
+    overlay.innerHTML = `
+      <p class="project-title">${data.title}</p>
+      <div class="project-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+    `;
+
+    front.appendChild(imgContainer);
+    front.appendChild(overlay);
+
+    // 뒷면
+    const back = document.createElement("div");
+    back.className = "slide-back";
+
+    // 뒷면 내용 채우기 (기존 로직과 동일)
+    const backImg = document.createElement("img");
+    backImg.className = "back-blur-img";
+    backImg.src = data.img;
+    back.appendChild(backImg);
+
+    const backTitle = document.createElement("h3");
+    backTitle.textContent = data.title;
+    back.appendChild(backTitle);
+
+    if (data.members) {
+      const mem = document.createElement("div");
+      mem.className = "back-members";
+      mem.textContent = data.members.join(" · ");
+      back.appendChild(mem);
+    }
+    // ... description, subjects 등 추가 ...
+
+    slide.appendChild(front);
+    slide.appendChild(back);
+
+    // --- 그리드 전용 이벤트 ---
+    // 클릭 시 링크 이동
+    slide.addEventListener("click", () => {
+      window.location.href = data.url;
+    });
+
+    // 호버 시 플립 효과 (CSS class 제어)
+    slide.addEventListener("mouseenter", () => slide.classList.add("flipped"));
+    slide.addEventListener("mouseleave", () => slide.classList.remove("flipped"));
+
+    gridContainer.appendChild(slide);
+  });
+}
+
+// [추가/수정] 뷰 토글 로직
+const toggleBtn = document.getElementById("view-toggle-btn");
+const sliderView = document.getElementById("view-slider");
+const gridView = document.getElementById("view-grid");
+const btnIcon = toggleBtn.querySelector("i");
+const btnText = toggleBtn.querySelector("span");
+
+let isGridView = false;
+
+toggleBtn.addEventListener("click", () => {
+  isGridView = !isGridView;
+
+  if (isGridView) {
+    // [그리드 모드로 전환]
+    // 1. 슬라이더 애니메이션 즉시 중단 (중요: 백그라운드 계산 방지)
+    if (reqId) cancelAnimationFrame(reqId);
+
+    // 2. 그리드 렌더링
+    renderGrid();
+
+    // 3. 화면 전환
+    sliderView.style.display = "none";
+
+    gridView.style.display = "grid";
+    // 그리드는 투명도 0에서 1로 부드럽게 등장
+    gsap.fromTo(gridView, { opacity: 0 }, { opacity: 1, duration: 0.5 });
+
+    // 4. 버튼 및 스크롤 설정
+    btnIcon.className = "fa-solid fa-layer-group";
+    btnText.textContent = "슬라이드 보기";
+    if (window.lenis) window.lenis.start();
+  } else {
+    // [슬라이드 모드로 전환]
+
+    // 1. 그리드 숨김
+    gridView.style.display = "none";
+
+    // 2. 슬라이더 보이게 설정 (중요: 투명도는 아직 0)
+    sliderView.style.display = "block";
+    gsap.set(sliderView, { opacity: 0 }); // GSAP으로 강제 0 설정
+
+    // 3. ★ 핵심 해결책: 애니메이션 루프 돌리기 전에 위치 강제 업데이트
+    // display: block이 된 직후에 위치를 다시 계산해야 요소들이 제자리로 옵니다.
+    updateSlidePositions();
+    updateParallax();
+
+    // 4. 투명도 애니메이션 시작 (0 -> 1)
+    gsap.to(sliderView, { opacity: 1, duration: 0.5, clearProps: "opacity" });
+
+    // 5. 버튼 설정
+    btnIcon.className = "fa-solid fa-border-all";
+    btnText.textContent = "전체보기";
+
+    // 6. 애니메이션 루프 재시작
+    if (reqId) cancelAnimationFrame(reqId); // 혹시 모를 중복 방지
+    state.lastCurrentX = state.currentX; // 속도 계산 튀는 것 방지
+    animate();
+  }
+});
 
 function initializeEventListeners() {
   const slider = document.querySelector(".sliders");

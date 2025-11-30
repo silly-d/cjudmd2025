@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Pretendard Variable", sans-serif;
+  font-family: "Pretendard", sans-serif;
 }
 
 a {
@@ -237,7 +237,7 @@ footer {
 section {
   width: 100%;
   height: auto;
-  min-height: calc(var(--vh, 1vh) * 50);
+  min-height: 100vh;
   flex: 1;
 }
 
