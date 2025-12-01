@@ -1,55 +1,68 @@
 // js/smooth-scroll.js
 
-// 1. autoResize를 true로 변경하여 페이지 높이 변화를 실시간으로 감지하게 합니다.
-window.lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  autoResize: true, // ★ 중요: false -> true로 변경
-});
+// 1. 모바일 감지
+const isMobile =
+  /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
-function raf(time) {
-  window.lenis.raf(time);
-  requestAnimationFrame(raf);
-}
-
-requestAnimationFrame(raf);
-
-if (typeof ScrollTrigger !== "undefined") {
-  window.lenis.on("scroll", ScrollTrigger.update);
-
-  // GSAP ScrollTrigger가 Lenis 스크롤을 사용하도록 설정
-  gsap.ticker.add((time) => {
-    window.lenis.raf(time * 1000);
+// PC일 때만 Lenis 초기화
+if (!isMobile) {
+  window.lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    autoResize: true,
   });
 
-  gsap.ticker.lagSmoothing(0);
+  // GSAP <-> Lenis 연동 (PC에서만 실행)
+  if (typeof ScrollTrigger !== "undefined") {
+    ScrollTrigger.config({
+      ignoreMobileResize: true,
+    });
+  }
 }
 
-// 2. 페이지의 모든 리소스(이미지 등)가 로드된 후 강제로 높이 재계산
+// RAF 루프 (안전장치 추가)
+function raf(time) {
+  if (!isMobile && window.lenis) {
+    window.lenis.raf(time);
+  }
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// 2. 페이지 로드 시 높이 재계산 (안전장치 추가)
 window.addEventListener("load", () => {
-  window.lenis.resize();
+  // window.lenis가 있을 때만 실행 (?.)
+  window.lenis?.resize();
   if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
 });
 
-// 3. ResizeObserver를 사용하여 DOM(body)의 크기가 변할 때마다 Lenis 업데이트
-// (이미지가 늦게 뜨거나, 아코디언 메뉴 등으로 높이가 변할 때 필수)
+// 3. ResizeObserver 개선: '너비'가 변할 때만 리프레시 (중요!)
+// 모바일 주소창 때문에 높이만 바뀌는 경우를 무시하여 덜컥거림 방지
+let lastWidth = window.innerWidth;
+
 const resizeObserver = new ResizeObserver(() => {
-  window.lenis.resize();
-  if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+  const width = window.innerWidth;
+
+  // 너비가 달라졌을 때만 실행 (모바일 가로모드 전환, PC 창 크기 조절 등)
+  if (width !== lastWidth) {
+    window.lenis?.resize(); // 안전장치 추가
+    if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+    lastWidth = width;
+  }
 });
 resizeObserver.observe(document.body);
 
-// --- 아래는 기존 헤더 및 모바일 메뉴 로직 (유지) ---
+// --- 아래는 기존 헤더 및 모바일 메뉴 로직 ---
 
 const header = document.querySelector("header");
-const headerHeight = header ? header.offsetHeight : 0; // header가 없을 경우 대비 안전장치 추가
+const headerHeight = header ? header.offsetHeight : 0;
 let lastScrollTop = 0;
 
 window.addEventListener("scroll", function () {
   let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
 
   if (header) {
-    // header가 존재할 때만 실행
     if (currentScrollTop > headerHeight) {
       if (currentScrollTop > lastScrollTop) {
         header.classList.add("header-hidden");
@@ -68,39 +81,39 @@ const menuToggle = document.getElementById("menu-toggle");
 if (menuToggle) {
   menuToggle.addEventListener("change", function () {
     if (this.checked) {
-      // 모바일 메뉴 열림: 스크롤 잠금 (의도된 기능)
+      // 모바일 메뉴 열림
       document.body.style.overflow = "hidden";
+      // 모바일에서는 position: fixed 하면 스크롤 위치가 날아갈 수 있으니 주의 필요
+      // 일단 기존 로직 유지하되 Lenis 에러 방지
       document.body.style.position = "fixed";
       document.body.style.width = "100%";
-      window.lenis.stop(); // Lenis 정지
+
+      window.lenis?.stop(); // Lenis가 있을 때만 정지
     } else {
-      // 모바일 메뉴 닫힘: 스크롤 해제
+      // 모바일 메뉴 닫힘
       document.body.style.overflow = "";
       document.body.style.position = "";
       document.body.style.width = "";
-      window.lenis.start(); // Lenis 재개
-      window.lenis.resize(); // 혹시 모를 위치 어긋남 방지
+
+      window.lenis?.start(); // Lenis가 있을 때만 재개
+      window.lenis?.resize();
     }
   });
 }
 
-// 화면 크기 계산 (VH)
-const setScreenSize = () => {
-  const vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty("--vh", `${vh}px`);
-};
+// 윈도우 리사이즈 이벤트 (디바운싱 적용)
 
-setScreenSize();
-
-// 윈도우 리사이즈 이벤트
 let resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
-    if (window.innerWidth !== document.documentElement.clientWidth) {
-      setScreenSize();
-      window.lenis.resize();
+    // 너비가 실제로 변했을 때만 실행
+    if (window.innerWidth !== lastWidth) {
+      // setScreenSize(); <--- 삭제 (정의되지 않은 함수 호출 에러 방지)
+
+      window.lenis?.resize();
       if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+      lastWidth = window.innerWidth;
     }
   }, 100);
 });

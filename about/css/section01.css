@@ -71,6 +71,11 @@
 /* 모바일 반응형 */
 /*------------*/
 @media (max-width: 768px) {
+  .content01 {
+    width: 100%;
+    height: 100%;
+  }
+
   .title01 {
     font-size: 7rem;
     margin-top: 0;

@@ -1,4 +1,6 @@
-const isMobile = () => window.innerWidth <= 768;
+// 변수명 충돌 방지를 위해 즉시 실행 함수(IIFE) 혹은 로컬 스코프 사용 권장
+// 여기서는 함수명을 변경하여 충돌을 피합니다.
+const checkIsMobileLayout = () => window.innerWidth <= 768;
 
 function getPositions() {
   const w = window.innerWidth;
@@ -10,55 +12,46 @@ function getPositions() {
       { top: "0%", left: "42%" },
       { top: "0%", left: "63%" },
       { top: "0%", left: "84%" },
-
       { top: "40%", left: "0%" },
       { top: "40%", left: "21%" },
       { top: "40%", left: "42%" },
       { top: "40%", left: "63%" },
       { top: "40%", left: "84%" },
-
       { top: "80%", left: "0%" },
       { top: "80%", left: "21%" },
       { top: "80%", left: "42%" },
       { top: "80%", left: "63%" },
       { top: "80%", left: "84%" },
-
       { top: "120%", left: "0%" },
       { top: "120%", left: "21%" },
       { top: "120%", left: "42%" },
       { top: "120%", left: "63%" },
       { top: "120%", left: "84%" },
-
       { top: "160%", left: "0%" },
       { top: "160%", left: "21%" },
       { top: "160%", left: "42%" },
       { top: "160%", left: "63%" },
       { top: "160%", left: "84%" },
-
       { top: "200%", left: "0%" },
       { top: "200%", left: "21%" },
       { top: "200%", left: "42%" },
       { top: "200%", left: "63%" },
       { top: "200%", left: "84%" },
-
       { top: "240%", left: "0%" },
       { top: "240%", left: "21%" },
       { top: "240%", left: "42%" },
       { top: "240%", left: "63%" },
       { top: "240%", left: "84%" },
-
       { top: "280%", left: "0%" },
       { top: "280%", left: "21%" },
       { top: "280%", left: "42%" },
       { top: "280%", left: "63%" },
       { top: "280%", left: "84%" },
-
       { top: "320%", left: "0%" },
       { top: "320%", left: "21%" },
       { top: "320%", left: "42%" },
       { top: "320%", left: "63%" },
       { top: "320%", left: "84%" },
-
       { top: "360%", left: "21%" },
       { top: "360%", left: "42%" },
       { top: "360%", left: "63%" },
@@ -70,55 +63,46 @@ function getPositions() {
       { top: "0%", left: "42%" },
       { top: "0%", left: "63%" },
       { top: "0%", left: "84%" },
-
       { top: "40%", left: "0%" },
       { top: "40%", left: "21%" },
       { top: "40%", left: "42%" },
       { top: "40%", left: "63%" },
       { top: "40%", left: "84%" },
-
       { top: "80%", left: "0%" },
       { top: "80%", left: "21%" },
       { top: "80%", left: "42%" },
       { top: "80%", left: "63%" },
       { top: "80%", left: "84%" },
-
       { top: "120%", left: "0%" },
       { top: "120%", left: "21%" },
       { top: "120%", left: "42%" },
       { top: "120%", left: "63%" },
       { top: "120%", left: "84%" },
-
       { top: "160%", left: "0%" },
       { top: "160%", left: "21%" },
       { top: "160%", left: "42%" },
       { top: "160%", left: "63%" },
       { top: "160%", left: "84%" },
-
       { top: "200%", left: "0%" },
       { top: "200%", left: "21%" },
       { top: "200%", left: "42%" },
       { top: "200%", left: "63%" },
       { top: "200%", left: "84%" },
-
       { top: "240%", left: "0%" },
       { top: "240%", left: "21%" },
       { top: "240%", left: "42%" },
       { top: "240%", left: "63%" },
       { top: "240%", left: "84%" },
-
       { top: "280%", left: "0%" },
       { top: "280%", left: "21%" },
       { top: "280%", left: "42%" },
       { top: "280%", left: "63%" },
       { top: "280%", left: "84%" },
-
       { top: "320%", left: "0%" },
       { top: "320%", left: "21%" },
       { top: "320%", left: "42%" },
       { top: "320%", left: "63%" },
       { top: "320%", left: "84%" },
-
       { top: "360%", left: "21%" },
       { top: "360%", left: "42%" },
       { top: "360%", left: "63%" },
@@ -128,7 +112,8 @@ function getPositions() {
   }
 }
 
-positions = getPositions();
+// let으로 변경 (재할당 가능하도록)
+let positions = getPositions();
 
 const imgs = document.querySelectorAll(".profile");
 const overlay = document.createElement("div");
@@ -143,7 +128,8 @@ overlay.style.cursor = "pointer";
 overlay.style.background = "rgba(0,0,0,0)";
 document.body.appendChild(overlay);
 
-if (!isMobile()) {
+// isMobile -> checkIsMobileLayout() 으로 함수명 변경
+if (!checkIsMobileLayout()) {
   gsap.set(".profile", {
     top: "45%",
     left: "50%",
@@ -194,7 +180,10 @@ if (!isMobile()) {
     ease: "power4.inOut",
     duration: 0.8,
     delay: 2,
-    onComplete: () => document.querySelector(".landing-text").remove(),
+    onComplete: () => {
+      const landingText = document.querySelector(".landing-text");
+      if (landingText) landingText.remove();
+    },
   });
 } else {
   const landingText = document.querySelector(".landing-text");
@@ -208,7 +197,7 @@ if (!isMobile()) {
 }
 
 function adjustSectionHeightFromPositions() {
-  if (isMobile()) return;
+  if (checkIsMobileLayout()) return;
 
   const wrapper = document.querySelector(".profile-gallery-wrapper");
   if (!wrapper || !positions.length) return;
@@ -218,7 +207,7 @@ function adjustSectionHeightFromPositions() {
 }
 
 function scatterAndShrink() {
-  if (isMobile()) return;
+  if (checkIsMobileLayout()) return;
 
   gsap.to(".profile", {
     top: (i) => positions[i].top,
@@ -258,11 +247,12 @@ function scatterAndShrink() {
       document.querySelector(".designer-profile").classList.add("positioned");
       adjustSectionHeightFromPositions();
 
-      if (window.lenis) window.lenis.resize();
+      // Lenis 안전 호출
+      window.lenis?.resize();
 
       setTimeout(() => {
-        ScrollTrigger.refresh();
-        if (window.lenis) window.lenis.resize();
+        if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+        window.lenis?.resize();
       }, 1200);
     },
   });
@@ -274,18 +264,19 @@ overlay.addEventListener("click", () => {
 });
 
 imgs.forEach((img, i) => {
-  if (!isMobile() && positions[i]) {
+  if (!checkIsMobileLayout() && positions[i]) {
     img.setAttribute("data-original-position", JSON.stringify(positions[i]));
     img.setAttribute("data-enlarged", "false");
   }
 });
 
 window.addEventListener("load", () => {
-  if (!isMobile()) {
+  if (!checkIsMobileLayout()) {
     adjustSectionHeightFromPositions();
   }
 });
 
+// 리사이즈 로직 유지
 window.addEventListener("resize", () => {
   const wasMobile = positions.length === 0;
   positions = getPositions();
@@ -296,12 +287,13 @@ window.addEventListener("resize", () => {
     return;
   }
 
-  if (!isMobile()) {
+  if (!checkIsMobileLayout()) {
     adjustSectionHeightFromPositions();
-    ScrollTrigger.refresh();
+    if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
   }
 });
 
+// 초성 검색 로직 유지
 function getKoreanInitial(name) {
   const initials = [
     "ㄱ",
@@ -377,7 +369,7 @@ sortButtons.forEach((btn) => {
           adjustSectionHeightFromPositions();
 
           allProfiles.forEach((profile, i) => {
-            if (!isMobile() && positions[i]) {
+            if (!checkIsMobileLayout() && positions[i]) {
               gsap.set(profile, {
                 position: "absolute",
                 top: positions[i].top,
@@ -401,6 +393,7 @@ sortButtons.forEach((btn) => {
             ease: "power2.out",
           });
         } else {
+          // ... 기존 필터링 로직 ...
           let visibleCount = 0;
           const visibleProfiles = [];
 
@@ -461,18 +454,23 @@ sortButtons.forEach((btn) => {
   });
 });
 
+// --- 괄호(Parentheses) 로직 ---
+
 const parenLeft = document.createElement("span");
 parenLeft.className = "designer-paren designer-paren--left";
 const parenRight = document.createElement("span");
 parenRight.className = "designer-paren designer-paren--right";
 
 const titleWrapper = document.querySelector(".designer-title-wrapper");
-titleWrapper.appendChild(parenLeft);
-titleWrapper.appendChild(parenRight);
+if (titleWrapper) {
+  titleWrapper.appendChild(parenLeft);
+  titleWrapper.appendChild(parenRight);
+}
 
 let parensVisible = false;
 
 function setParenPositions() {
+  if (!titleWrapper) return;
   const rect = titleWrapper.getBoundingClientRect();
   const gap = 20;
 
@@ -486,6 +484,7 @@ function setParenPositions() {
 setParenPositions();
 
 function moveParensToTitle() {
+  if (!titleWrapper) return;
   const rect = titleWrapper.getBoundingClientRect();
   const centerY = rect.top + rect.height / 2;
   const gap = 20;
@@ -509,6 +508,7 @@ function moveParensToProfile(profile) {
   parenRight.style.left = rect.right + gap + "px";
 }
 
+// 괄호 이벤트 핸들러들
 document.querySelectorAll(".profile").forEach((profile) => {
   profile.addEventListener("mouseenter", () => {
     if (parensVisible) {
@@ -517,35 +517,39 @@ document.querySelectorAll(".profile").forEach((profile) => {
   });
 });
 
-document.querySelector(".profile-gallery").addEventListener("mouseleave", () => {
-  if (parensVisible) {
+const profileGallery = document.querySelector(".profile-gallery");
+if (profileGallery) {
+  profileGallery.addEventListener("mouseleave", () => {
+    if (parensVisible) {
+      moveParensToTitle();
+    }
+  });
+}
+
+// 스크롤 이벤트: Lenis와 Native 모두 대응
+function handleScrollForParens() {
+  if (!parensVisible) return;
+  const hoveredProfile = document.querySelector(".profile:hover");
+  if (hoveredProfile) {
+    moveParensToProfile(hoveredProfile);
+  } else {
     moveParensToTitle();
   }
-});
+}
+
+// Native scroll
+window.addEventListener("scroll", handleScrollForParens);
+
+// Lenis scroll (Lenis가 있다면 동기화)
+if (window.lenis) {
+  window.lenis.on("scroll", handleScrollForParens);
+}
 
 window.addEventListener("resize", () => {
-  if (!parensVisible) return;
-
-  const hoveredProfile = document.querySelector(".profile:hover");
-  if (hoveredProfile) {
-    moveParensToProfile(hoveredProfile);
-  } else {
-    moveParensToTitle();
-  }
+  handleScrollForParens();
 });
 
-window.addEventListener("scroll", () => {
-  if (!parensVisible) return;
-
-  const hoveredProfile = document.querySelector(".profile:hover");
-  if (hoveredProfile) {
-    moveParensToProfile(hoveredProfile);
-  } else {
-    moveParensToTitle();
-  }
-});
-
-// 디자이너 검색 부분
+// --- 디자이너 검색 (수정됨) ---
 
 const designerMap = {};
 
@@ -558,43 +562,50 @@ document.querySelectorAll(".profile-gallery a").forEach((link) => {
 const searchForm = document.getElementById("designer-search");
 const searchInput = document.getElementById("search-name");
 
-searchForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+if (searchForm) {
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-  const searchName = searchInput.value.trim();
+    const searchName = searchInput.value.trim();
+    if (!searchName) return;
 
-  if (!searchName) {
-    return;
-  }
+    const result = designerMap[searchName];
 
-  const result = designerMap[searchName];
+    if (result) {
+      const profile = result.profile;
 
-  if (result) {
-    const profile = result.profile;
+      // 위치 계산 (Lenis 스크롤 호환)
+      const rect = profile.getBoundingClientRect();
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-    const rect = profile.getBoundingClientRect();
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const targetY = rect.top + scrollTop - window.innerHeight / 2 + rect.height / 2;
+      // 현재 화면 중앙으로 오도록 계산
+      const targetY = rect.top + scrollTop - window.innerHeight / 2 + rect.height / 2;
 
-    window.scrollTo({
-      top: targetY,
-      behavior: "smooth",
-    });
-
-    setTimeout(() => {
-      profile.classList.add("highlighted");
-
-      if (parensVisible) {
-        moveParensToProfile(profile);
+      // ★ 중요 수정: Lenis가 있으면 Lenis로 스크롤, 없으면 window 스크롤
+      if (window.lenis && !checkIsMobileLayout()) {
+        window.lenis.scrollTo(targetY, { duration: 1.5, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+      } else {
+        window.scrollTo({
+          top: targetY,
+          behavior: "smooth",
+        });
       }
 
       setTimeout(() => {
-        profile.classList.remove("highlighted");
-      }, 2400);
-    }, 1000);
+        profile.classList.add("highlighted");
 
-    searchInput.value = "";
-  } else {
-    alert(`'${searchName}'을(를) 찾을 수 없습니다.`);
-  }
-});
+        if (parensVisible) {
+          moveParensToProfile(profile);
+        }
+
+        setTimeout(() => {
+          profile.classList.remove("highlighted");
+        }, 2400);
+      }, 1000); // 스크롤 이동 시간 고려 딜레이
+
+      searchInput.value = "";
+    } else {
+      alert(`'${searchName}'을(를) 찾을 수 없습니다.`);
+    }
+  });
+}
