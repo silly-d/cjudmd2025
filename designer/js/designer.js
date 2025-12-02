@@ -1,5 +1,3 @@
-// 변수명 충돌 방지를 위해 즉시 실행 함수(IIFE) 혹은 로컬 스코프 사용 권장
-// 여기서는 함수명을 변경하여 충돌을 피합니다.
 const checkIsMobileLayout = () => window.innerWidth <= 768;
 
 function getPositions() {
@@ -112,7 +110,6 @@ function getPositions() {
   }
 }
 
-// let으로 변경 (재할당 가능하도록)
 let positions = getPositions();
 
 const imgs = document.querySelectorAll(".profile");
@@ -128,7 +125,6 @@ overlay.style.cursor = "pointer";
 overlay.style.background = "rgba(0,0,0,0)";
 document.body.appendChild(overlay);
 
-// isMobile -> checkIsMobileLayout() 으로 함수명 변경
 if (!checkIsMobileLayout()) {
   gsap.set(".profile", {
     top: "45%",
@@ -247,7 +243,6 @@ function scatterAndShrink() {
       document.querySelector(".designer-profile").classList.add("positioned");
       adjustSectionHeightFromPositions();
 
-      // Lenis 안전 호출
       window.lenis?.resize();
 
       setTimeout(() => {
@@ -276,7 +271,6 @@ window.addEventListener("load", () => {
   }
 });
 
-// 리사이즈 로직 유지
 window.addEventListener("resize", () => {
   const wasMobile = positions.length === 0;
   positions = getPositions();
@@ -293,7 +287,6 @@ window.addEventListener("resize", () => {
   }
 });
 
-// 초성 검색 로직 유지
 function getKoreanInitial(name) {
   const initials = [
     "ㄱ",
@@ -393,7 +386,6 @@ sortButtons.forEach((btn) => {
             ease: "power2.out",
           });
         } else {
-          // ... 기존 필터링 로직 ...
           let visibleCount = 0;
           const visibleProfiles = [];
 
@@ -454,8 +446,6 @@ sortButtons.forEach((btn) => {
   });
 });
 
-// --- 괄호(Parentheses) 로직 ---
-
 const parenLeft = document.createElement("span");
 parenLeft.className = "designer-paren designer-paren--left";
 const parenRight = document.createElement("span");
@@ -465,6 +455,9 @@ const titleWrapper = document.querySelector(".designer-title-wrapper");
 if (titleWrapper) {
   titleWrapper.appendChild(parenLeft);
   titleWrapper.appendChild(parenRight);
+} else {
+  document.body.appendChild(parenLeft);
+  document.body.appendChild(parenRight);
 }
 
 let parensVisible = false;
@@ -485,6 +478,12 @@ setParenPositions();
 
 function moveParensToTitle() {
   if (!titleWrapper) return;
+
+  if (parenLeft.parentElement !== document.body) {
+    document.body.appendChild(parenLeft);
+    document.body.appendChild(parenRight);
+  }
+
   const rect = titleWrapper.getBoundingClientRect();
   const centerY = rect.top + rect.height / 2;
   const gap = 20;
@@ -494,21 +493,31 @@ function moveParensToTitle() {
 
   parenRight.style.top = centerY + "px";
   parenRight.style.left = rect.right + gap + "px";
+
+  parenLeft.classList.remove("heavy");
+  parenRight.classList.remove("heavy");
 }
 
 function moveParensToProfile(profile) {
+  if (parenLeft.parentElement !== document.body) {
+    document.body.appendChild(parenLeft);
+    document.body.appendChild(parenRight);
+  }
+
   const rect = profile.getBoundingClientRect();
   const centerY = rect.top + rect.height / 2;
-  const gap = 15;
+  const gap = 20;
 
   parenLeft.style.top = centerY + "px";
   parenLeft.style.left = rect.left - parenLeft.offsetWidth - gap + "px";
 
   parenRight.style.top = centerY + "px";
   parenRight.style.left = rect.right + gap + "px";
+
+  parenLeft.classList.add("heavy");
+  parenRight.classList.add("heavy");
 }
 
-// 괄호 이벤트 핸들러들
 document.querySelectorAll(".profile").forEach((profile) => {
   profile.addEventListener("mouseenter", () => {
     if (parensVisible) {
@@ -526,7 +535,6 @@ if (profileGallery) {
   });
 }
 
-// 스크롤 이벤트: Lenis와 Native 모두 대응
 function handleScrollForParens() {
   if (!parensVisible) return;
   const hoveredProfile = document.querySelector(".profile:hover");
@@ -537,10 +545,8 @@ function handleScrollForParens() {
   }
 }
 
-// Native scroll
 window.addEventListener("scroll", handleScrollForParens);
 
-// Lenis scroll (Lenis가 있다면 동기화)
 if (window.lenis) {
   window.lenis.on("scroll", handleScrollForParens);
 }
@@ -549,24 +555,23 @@ window.addEventListener("resize", () => {
   handleScrollForParens();
 });
 
-// --- 디자이너 검색 (수정됨) ---
-
 const designerMap = {};
 
 document.querySelectorAll(".profile-gallery a").forEach((link) => {
   const profile = link.querySelector(".profile");
-  const name = profile.querySelector("p").textContent.trim();
+  const name = profile.querySelector("p").textContent.trim().replace(/\s+/g, "");
   designerMap[name] = { link, profile };
 });
 
-const searchForm = document.getElementById("designer-search");
-const searchInput = document.getElementById("search-name");
+const searchForm = document.querySelector(".search-form");
+const searchInput = document.querySelector(".search-form input");
 
-if (searchForm) {
+if (searchForm && searchInput) {
   searchForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const searchName = searchInput.value.trim();
+    const searchName = searchInput.value.trim().replace(/\s+/g, "");
+
     if (!searchName) return;
 
     const result = designerMap[searchName];
@@ -574,38 +579,29 @@ if (searchForm) {
     if (result) {
       const profile = result.profile;
 
-      // 위치 계산 (Lenis 스크롤 호환)
       const rect = profile.getBoundingClientRect();
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-      // 현재 화면 중앙으로 오도록 계산
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const targetY = rect.top + scrollTop - window.innerHeight / 2 + rect.height / 2;
 
-      // ★ 중요 수정: Lenis가 있으면 Lenis로 스크롤, 없으면 window 스크롤
       if (window.lenis && !checkIsMobileLayout()) {
-        window.lenis.scrollTo(targetY, { duration: 1.5, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-      } else {
-        window.scrollTo({
-          top: targetY,
-          behavior: "smooth",
+        window.lenis.scrollTo(targetY, {
+          duration: 1.5,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         });
+      } else {
+        window.scrollTo({ top: targetY, behavior: "smooth" });
       }
 
-      setTimeout(() => {
-        profile.classList.add("highlighted");
-
-        if (parensVisible) {
-          moveParensToProfile(profile);
-        }
-
-        setTimeout(() => {
-          profile.classList.remove("highlighted");
-        }, 2400);
-      }, 1000); // 스크롤 이동 시간 고려 딜레이
+      profile.classList.add("highlighted");
 
       searchInput.value = "";
+      searchInput.blur();
+
+      setTimeout(() => {
+        profile.classList.remove("highlighted");
+      }, 2500);
     } else {
-      alert(`'${searchName}'을(를) 찾을 수 없습니다.`);
+      alert(`'${searchInput.value}' 디자이너를 찾을 수 없습니다.`);
     }
   });
 }

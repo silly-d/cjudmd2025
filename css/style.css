@@ -407,7 +407,6 @@ section {
   section {
     width: 100%;
     height: auto;
-    min-height: 0;
     position: relative;
     padding: 0;
     flex: none;

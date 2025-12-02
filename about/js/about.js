@@ -1,29 +1,42 @@
-// 페이드인 효과 (index.html에서 왔을 때만)
 document.addEventListener("DOMContentLoaded", () => {
+  // 1. 공통 설정 (GSAP 플러그인 등록 등)
+  gsap.registerPlugin(ScrollTrigger);
+
+  // 2. 초기 로드 애니메이션 (Fade In)
+  initPageTransition();
+
+  // 3. 각 섹션별 기능 초기화
+  initHeroSection(); // Content 01
+  initPosterSection(); // Content 02
+  initCounterSection(); // Content 03
+  initTeamSection(); // Content 04
+  initProfessorSection(); // Content 05
+  initYoutubeSection(); // Content 06
+});
+
+// ============================================
+// 0. Page Transition (Fade In)
+// ============================================
+function initPageTransition() {
   const fromIndex = sessionStorage.getItem("fromIndex");
 
   if (fromIndex === "true") {
-    // index에서 왔을 때만 페이드인
     gsap.set("body", { opacity: 0 });
     gsap.to("body", {
       opacity: 1,
       duration: 0.8,
       ease: "power2.inOut",
     });
-
-    // 플래그 제거 (한 번만 실행)
     sessionStorage.removeItem("fromIndex");
   } else {
-    // 다른 페이지에서 왔을 때는 즉시 표시
     gsap.set("body", { opacity: 1 });
   }
-});
+}
 
 // ============================================
-// CONTENT 01: Hero Photo Slideshow
+// 1. CONTENT 01: Hero Photo Slideshow
 // ============================================
-document.addEventListener("DOMContentLoaded", () => {
-  gsap.registerPlugin(ScrollTrigger);
+function initHeroSection() {
   const slot = document.getElementById("c01-photo");
   if (!slot) return;
 
@@ -44,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     slot.style.backgroundImage = `url('${IMAGES[i]}')`;
   }, 200);
 
+  // 텍스트 애니메이션
   const textAnimation = gsap.timeline({
     scrollTrigger: {
       trigger: ".content01",
@@ -54,27 +68,27 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   textAnimation.to(".field", { yPercent: 0, opacity: 0 }, 0);
-});
+}
+
 // ============================================
-// CONTENT 02: Poster Download
+// 2. CONTENT 02: Poster Download & Animation
 // ============================================
-document.addEventListener("DOMContentLoaded", () => {
+function initPosterSection() {
+  // 다운로드 기능
   const btn = document.getElementById("c02-download");
-  if (!btn) return;
+  if (btn) {
+    const POSTER_FILE = "./img/5th-poster.png";
+    btn.addEventListener("click", () => {
+      const a = document.createElement("a");
+      a.href = POSTER_FILE;
+      a.download = "gongmyeong-poster.png";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    });
+  }
 
-  const POSTER_FILE = "./img/5th-poster.png";
-
-  btn.addEventListener("click", () => {
-    const a = document.createElement("a");
-    a.href = POSTER_FILE;
-    a.download = "gongmyeong-poster.png";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  });
-
-  gsap.registerPlugin(ScrollTrigger);
-
+  // GSAP 애니메이션
   const poster = document.querySelector(".c02-poster");
   const title = document.querySelector(".c02-title");
   const body = document.querySelector(".c02-body");
@@ -88,11 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     opacity: 0,
   });
 
-  gsap.to(poster, {
-    y: 0,
-    opacity: 1,
-    duration: 1.5,
-    ease: "power3.out",
+  const tl = gsap.timeline({
     scrollTrigger: {
       trigger: "#content02",
       start: "top 50%",
@@ -101,72 +111,23 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  gsap.to(title, {
-    y: 0,
-    opacity: 1,
-    duration: 1.5,
-    delay: 0.3,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: "#content02",
-      start: "top 48%",
-      end: "top 30%",
-      toggleActions: "play none none reverse",
-    },
-  });
-
-  gsap.to(body, {
-    y: 0,
-    opacity: 1,
-    duration: 1.5,
-    delay: 0.45,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: "#content02",
-      start: "top 46%",
-      end: "top 30%",
-      toggleActions: "play none none reverse",
-    },
-  });
-
-  gsap.to(body2, {
-    y: 0,
-    opacity: 1,
-    duration: 1.5,
-    delay: 0.6,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: "#content02",
-      start: "top 44%",
-      end: "top 30%",
-      toggleActions: "play none none reverse",
-    },
-  });
-
-  gsap.to(downloadBtn, {
-    y: 0,
-    opacity: 1,
-    duration: 1.5,
-    delay: 0.75,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: "#content02",
-      start: "top 42%",
-      end: "top 30%",
-      toggleActions: "play none none reverse",
-    },
-  });
-});
+  tl.to(poster, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" })
+    .to(title, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.3)
+    .to(body, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.45)
+    .to(body2, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.6)
+    .to(downloadBtn, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.75);
+}
 
 // ============================================
-// CONTENT 03: Number Count-up Animation
+// 3. CONTENT 03: Number Count-up Animation
 // ============================================
-document.addEventListener("DOMContentLoaded", () => {
+function initCounterSection() {
   const section = document.getElementById("content03");
   const title = document.querySelector(".c03-title");
   const numEl = document.getElementById("c03-num");
   if (!section || !title || !numEl) return;
 
+  // 헤더 높이 계산 (CSS 변수 세팅)
   const header = document.querySelector("header");
   function setHeaderH() {
     if (header) document.documentElement.style.setProperty("--header-h", header.offsetHeight + "px");
@@ -193,13 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(timer);
         title.setAttribute("data-final", title.textContent.trim());
         title.classList.add("ripple");
-        title.addEventListener(
-          "animationend",
-          () => {
-            title.classList.remove("ripple");
-          },
-          { once: true }
-        );
+        title.addEventListener("animationend", () => title.classList.remove("ripple"), { once: true });
       }
     }, speed);
   }
@@ -217,17 +172,18 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   io.observe(section);
-});
+}
 
 // ============================================
-// CONTENT 04: Team Members Navigation
+// 4. CONTENT 04: Team Members Navigation
 // ============================================
-document.addEventListener("DOMContentLoaded", () => {
+function initTeamSection() {
   const nav = document.getElementById("c04-nav");
   const left = nav?.closest(".c04-left");
   const track = document.getElementById("c04-center");
   const ofEl = document.getElementById("c04-of");
   const list = document.getElementById("c04-members");
+
   if (!nav || !left || !track || !ofEl || !list) return;
 
   if (!ofEl.dataset.inited) {
@@ -235,6 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ofEl.dataset.inited = "1";
   }
 
+  // 데이터 정의
   const DATA = {
     디피부: [
       { name: "유은비", img: "../img/miniprofile/miniprofile03.png" },
@@ -306,7 +263,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function syncTrackHeight() {
     const h = nav.offsetHeight;
     track.style.height = h + "px";
-
     const pad = ofEl.offsetHeight ? ofEl.offsetHeight / 2 : 0;
     track.style.paddingTop = pad + "px";
     track.style.paddingBottom = pad + "px";
@@ -314,7 +270,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function moveAll(btn) {
     const gap = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--c04-paren-gap")) || 10;
-
     const leftRect = left.getBoundingClientRect();
     const btnRect = btn.getBoundingClientRect();
     const trackRect = track.getBoundingClientRect();
@@ -341,13 +296,10 @@ document.addEventListener("DOMContentLoaded", () => {
     arr.forEach((member, i) => {
       const li = document.createElement("li");
       li.textContent = member.name;
-
-      // 프리뷰 박스 추가
       const preview = document.createElement("div");
       preview.className = "c04-preview";
-      preview.style.backgroundImage = `url('${member.img}')`; // 멤버별 이미지
+      preview.style.backgroundImage = `url('${member.img}')`;
       li.appendChild(preview);
-
       list.appendChild(li);
       setTimeout(() => li.classList.add("show"), i * 60);
     });
@@ -361,6 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
       requestAnimationFrame(() => moveAll(first));
     }
   }
+
   init();
 
   nav.addEventListener("click", (e) => {
@@ -388,14 +341,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const active = nav.querySelector("button.is-active");
     if (active) requestAnimationFrame(() => moveAll(active));
   });
-});
+}
 
 // ============================================
-// CONTENT 05: Professor Cards Stack
+// 5. CONTENT 05: Professor Cards Stack
 // ============================================
-document.addEventListener("DOMContentLoaded", () => {
-  gsap.registerPlugin(ScrollTrigger);
-
+function initProfessorSection() {
   const flowContainer = document.querySelector(".ct05-flow-container");
   const cards = gsap.utils.toArray(".flow-area");
 
@@ -404,6 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const isMobile = () => window.innerWidth <= 768;
 
   function setupScrollAnimation() {
+    // 기존 트리거 제거 (리사이즈 대응)
     ScrollTrigger.getAll().forEach((trigger) => {
       if (trigger.vars.trigger === ".content05") {
         trigger.kill();
@@ -411,20 +363,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     cards.forEach((card, index) => {
-      gsap.set(card, {
-        transformOrigin: "center top",
-      });
-
+      gsap.set(card, { transformOrigin: "center top" });
       if (index === 0) {
-        gsap.set(card, {
-          y: 0,
-          scale: 1,
-        });
+        gsap.set(card, { y: 0, scale: 1 });
       } else {
-        gsap.set(card, {
-          y: "100vh",
-          scale: 1,
-        });
+        gsap.set(card, { y: "100vh", scale: 1 });
       }
     });
 
@@ -446,7 +389,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cards.forEach((card, index) => {
       if (index < cards.length - 1) {
         const nextIndex = index + 1;
-
         scrollTl.to(
           cards.slice(0, index + 1),
           {
@@ -460,10 +402,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         scrollTl.fromTo(
           cards[nextIndex],
-          {
-            y: "100svh",
-            scale: 1,
-          },
+          { y: "100svh", scale: 1 },
           {
             y: 0,
             filter: `brightness(${1 - (index + 1) * 0.05})`,
@@ -487,12 +426,15 @@ document.addEventListener("DOMContentLoaded", () => {
       ScrollTrigger.refresh();
     }, 250);
   });
-});
+}
 
 // ============================================
-// CONTENT 06: YouTube Video Carousel
+// 6. CONTENT 06: YouTube Video Carousel
 // ============================================
-document.addEventListener("DOMContentLoaded", function () {
+function initYoutubeSection() {
+  const swiperEl = document.querySelector(".swiper-container");
+  if (!swiperEl) return;
+
   const swiper = new Swiper(".swiper-container", {
     autoplay: {
       delay: 2000,
@@ -505,22 +447,20 @@ document.addEventListener("DOMContentLoaded", function () {
       clickable: true,
     },
     allowTouchMove: true,
-
     on: {
       reachEnd: function () {
         setTimeout(() => {
-          swiper.slideTo(0); // 첫 번째 슬라이드로 이동
+          swiper.slideTo(0);
         }, 2000);
       },
     },
   });
 
-  // 기본 동작 방지
-  document.getElementById("next02").addEventListener("click", function (event) {
-    event.preventDefault();
-  });
-
-  document.getElementById("prev02").addEventListener("click", function (event) {
-    event.preventDefault();
-  });
-});
+  // HTML에 id="next02", "prev02" 버튼이 없으므로 해당 이벤트 리스너 제거함.
+  /*
+  const nextBtn = document.getElementById("next02");
+  const prevBtn = document.getElementById("prev02");
+  if(nextBtn) nextBtn.addEventListener("click", (e) => e.preventDefault());
+  if(prevBtn) prevBtn.addEventListener("click", (e) => e.preventDefault());
+  */
+}

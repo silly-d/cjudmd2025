@@ -19,10 +19,16 @@ body {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 60px 20px;
+  padding: 40px 20px 0 20px;
   text-align: center;
   z-index: 20;
-  margin-top: 90px;
+  margin-top: 60px;
+}
+
+.hero-topline {
+  font-size: 0.95rem;
+  color: #bdbdbd;
+  margin-bottom: 10px;
 }
 
 .search-title {
@@ -131,7 +137,7 @@ body {
   z-index: 1;
   width: 100%;
   user-select: none;
-  margin: 10vh 0;
+  margin: 5vh 0 10vh 0;
 }
 
 .slide-track {
