@@ -108,7 +108,7 @@ body {
   margin: 50px auto;
   padding: 0 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 40px 30px;
 }
 
@@ -122,12 +122,20 @@ body {
   margin: 0;
   opacity: 1 !important;
   visibility: visible !important;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
   perspective: 1000px;
 }
 
 .project-grid-container .slide:hover {
   transform: none; /* 슬라이더의 scale(0.5) 효과 제거 */
   z-index: 10;
+}
+
+.project-grid-container .slide.flipped {
+  transform: rotatey(180deg) scale(1.2) !important;
+  z-index: 100;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
 /*--------  sliders  --------*/
@@ -200,10 +208,6 @@ body {
 
 /*------------ slider -------------*/
 
-.slide {
-  transition: transform 0.5s ease, opacity 0.5s ease;
-}
-
 .sliders.search-active .slide.zoomed {
   transform: scale(1.25) rotateY(180deg);
   z-index: 10;
@@ -218,7 +222,7 @@ body {
   position: relative;
   perspective: 1200px;
   transform-style: preserve-3d;
-  transition: transform 0.5s ease, box-shadow 0.4s ease;
+  transition: transform 0.5s ease, box-shadow 0.4s ease, opacity 0.5s ease;
 }
 
 .slide-front,
@@ -285,7 +289,7 @@ body {
 }
 
 .back-desc {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-top: 40px;
   margin-bottom: 32px;
   color: #fff;
