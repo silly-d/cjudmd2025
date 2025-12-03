@@ -2,6 +2,8 @@
   background: #121212;
   color: #fff;
   padding: 20svh 0;
+  position: relative;
+  z-index: 1;
 }
 
 .c04-top {
@@ -31,6 +33,18 @@
   display: flex;
   position: relative;
   overflow: hidden;
+}
+
+.jang-gyo {
+  position: absolute;
+  z-index: -1;
+  transform: translate(0, 300px);
+  transition: transform 0.5s ease;
+  opacity: 0.1;
+}
+
+.profile-link:hover .jang-gyo {
+  transform: translate(-50px, 0) rotate(-13deg);
 }
 
 .profile-link {
@@ -115,8 +129,8 @@
   max-width: 1440px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 220px 300px 1fr;
-  gap: 3vw;
+  grid-template-columns: 240px 250px 400px 1fr;
+  gap: 2vw;
   align-items: center;
   padding: 10svh 0;
 }
@@ -197,6 +211,67 @@
   overflow: visible;
 }
 
+.c04-bg {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  width: 75%;
+  height: 45%;
+  transform: translate(-50%, -48%);
+  z-index: -2;
+  background-color: #121212;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: background-image 0.5s ease-in-out;
+}
+
+.c04-overlay {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  width: 77%;
+  height: 47%;
+  transform: translate(-50%, -48%);
+  z-index: -1;
+  background: linear-gradient(#121212, rgba(18, 18, 18, 0), rgba(18, 18, 18, 0), #121212),
+    linear-gradient(to left, #121212, rgba(18, 18, 18, 0), rgba(18, 18, 18, 0), #121212);
+  pointer-events: none;
+  backdrop-filter: blur(1px) brightness(0.35);
+}
+
+.c04-content-wrapper {
+  position: relative;
+  z-index: 10; /* 오버레이 위 */
+  width: 100%;
+  height: 100%;
+}
+
+.c04-preview-area {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.member-preview {
+  width: 320px;
+  height: 450px;
+  background: rgba(0, 0, 0, 0.7);
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  opacity: 0;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.01);
+  transition: opacity 0.3s ease, transform 0.3s ease, background-image 0.3s ease;
+}
+
+.member-preview.active {
+  opacity: 1;
+}
+
 .c04-of {
   position: absolute;
   left: 0;
@@ -211,7 +286,7 @@
 .c04-of-eui {
   font-weight: 400;
   font-size: clamp(48px, 3vw, 80px);
-  color: #7f7f7f;
+  color: rgba(255, 255, 255, 00.5s);
   margin-right: 0.2em;
 }
 
@@ -232,18 +307,14 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 4vw;
+  gap: 40px;
   align-content: start;
   overflow: visible; /* 프리뷰가 튀어나올 수 있게 */
 }
 
 .c04-members li {
   color: #fff;
-  font-size: 32px;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  position: relative; /* 프리뷰 위치 기준 */
+  font-size: 1.8rem;
   cursor: pointer;
 }
 
@@ -251,26 +322,15 @@
   opacity: 1;
   transform: translateY(0);
   margin-right: 3vw;
+  padding: 20px;
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .c04-preview {
-  position: absolute;
-  top: 0; /* 이름 상단에 맞춤 */
-  right: 100%; /* 이름 왼쪽으로 붙임 */
-  transform: translateX(-20px); /* 이름과 간격 벌림 */
-  width: 240px;
-  height: 280px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  z-index: 30;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.25s ease;
+  display: none;
 }
 
-.c04-members li:hover .c04-preview {
+.c04-members li:hover .member-preview {
   opacity: 1;
 }
 

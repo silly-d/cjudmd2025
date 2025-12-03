@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // 1. 공통 설정 (GSAP 플러그인 등록 등)
   gsap.registerPlugin(ScrollTrigger);
 
+  ScrollTrigger.config({
+    ignoreMobileResize: true,
+  });
+
   // 2. 초기 로드 애니메이션 (Fade In)
   initPageTransition();
 
@@ -74,21 +78,21 @@ function initHeroSection() {
 // 2. CONTENT 02: Poster Download & Animation
 // ============================================
 function initPosterSection() {
-  // 다운로드 기능
+  // 1. 다운로드 버튼 기능 (기존 유지)
   const btn = document.getElementById("c02-download");
   if (btn) {
-    const POSTER_FILE = "./img/5th-poster.png";
+    const POSTER_FILE = "./img/5th-poster.jpg";
     btn.addEventListener("click", () => {
       const a = document.createElement("a");
       a.href = POSTER_FILE;
-      a.download = "gongmyeong-poster.png";
+      a.download = "dmd-5th-poster.jpg";
       document.body.appendChild(a);
       a.click();
       a.remove();
     });
   }
 
-  // GSAP 애니메이션
+  // 2. 요소 선택
   const poster = document.querySelector(".c02-poster");
   const title = document.querySelector(".c02-title");
   const body = document.querySelector(".c02-body");
@@ -97,25 +101,43 @@ function initPosterSection() {
 
   if (!poster || !title) return;
 
-  gsap.set([poster, title, body, body2, downloadBtn], {
-    y: 90,
-    opacity: 0,
+  // 애니메이션 대상들을 배열로 묶어두면 편합니다
+  const aniTargets = [poster, title, body, body2, downloadBtn];
+
+  // 3. GSAP Media Query 설정
+  let mm = gsap.matchMedia();
+
+  // ------------------------------------------------
+  // (A) PC 화면 (800px 이상) - 기존의 디테일한 시퀀스 유지
+  // ------------------------------------------------
+  mm.add("(min-width: 800px)", () => {
+    // 초기 상태 설정
+    gsap.set(aniTargets, { y: 90, opacity: 0 });
+
+    // ★ 중요: 타임라인을 반드시 이 안에서 생성해야 합니다.
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#content02",
+        start: "top 50%", // 화면 절반쯤 오면 시작
+        end: "top 30%",
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    // 순차적 등장 애니메이션
+    tl.to(poster, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" })
+      .to(title, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.3)
+      .to(body, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.45)
+      .to(body2, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.6)
+      .to(downloadBtn, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.75);
   });
 
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#content02",
-      start: "top 50%",
-      end: "top 30%",
-      toggleActions: "play none none reverse",
-    },
+  // ------------------------------------------------
+  // (B) 모바일 화면 (799px 이하) - 단순화하여 버벅임/튐 방지
+  // ------------------------------------------------
+  mm.add("(max-width: 799px)", () => {
+    gsap.set(aniTargets, { y: 0, opacity: 1 });
   });
-
-  tl.to(poster, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" })
-    .to(title, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.3)
-    .to(body, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.45)
-    .to(body2, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.6)
-    .to(downloadBtn, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.75);
 }
 
 // ============================================
@@ -184,6 +206,17 @@ function initTeamSection() {
   const ofEl = document.getElementById("c04-of");
   const list = document.getElementById("c04-members");
 
+  const bgElement = document.getElementById("c04-bg");
+
+  const DEPT_IMAGES = {
+    디피부: "./img/01.jpg",
+    기획부: "./img/02.jpg",
+    편집부: "./img/03.jpg",
+    멀티부: "./img/04.jpg",
+    홍보부: "./img/05.jpg",
+    포스터부: "./img/06.jpg",
+  };
+
   if (!nav || !left || !track || !ofEl || !list) return;
 
   if (!ofEl.dataset.inited) {
@@ -194,62 +227,62 @@ function initTeamSection() {
   // 데이터 정의
   const DATA = {
     디피부: [
-      { name: "유은비", img: "../img/miniprofile/miniprofile03.png" },
-      { name: "임희원", img: "../img/miniprofile/miniprofile04.png" },
-      { name: "김보미", img: "../img/miniprofile/miniprofile05.png" },
-      { name: "김현진", img: "../img/miniprofile/miniprofile06.png" },
-      { name: "박서희", img: "../img/miniprofile/miniprofile07.png" },
-      { name: "백진주", img: "../img/miniprofile/miniprofile08.png" },
-      { name: "윤정원", img: "../img/miniprofile/miniprofile09.png" },
-      { name: "이연우", img: "../img/miniprofile/miniprofile10.png" },
-      { name: "조범규", img: "../img/miniprofile/miniprofile11.png" },
-      { name: "최서윤", img: "../img/miniprofile/miniprofile12.png" },
+      { name: "유은비", url: "../designer/designer30.html", img: "../designer/img/30.png" },
+      { name: "임희원", url: "../designer/designer39.html", img: "../designer/img/39.png" },
+      { name: "김보미", url: "../designer/designer8.html", img: "../designer/img/8.png" },
+      { name: "김현진", url: "../designer/designer13.html", img: "../designer/img/13.png" },
+      { name: "박서희", url: "../designer/designer19.html", img: "../designer/img/19.png" },
+      { name: "백진주", url: "../designer/designer23.html", img: "../designer/img/23.png" },
+      { name: "윤정원", url: "../designer/designer31.html", img: "../designer/img/31.png" },
+      { name: "이연우", url: "../designer/designer34.html", img: "../designer/img/34.png" },
+      { name: "조범규", url: "../designer/designer42.html", img: "../designer/img/42.png" },
+      { name: "최서윤", url: "../designer/designer45.html", img: "../designer/img/45.png" },
     ],
     기획부: [
-      { name: "김도희", img: "../img/miniprofile/miniprofile13.png" },
-      { name: "반상우", img: "../img/miniprofile/miniprofile14.png" },
-      { name: "김윤주", img: "../img/miniprofile/miniprofile15.png" },
-      { name: "김현지", img: "../img/miniprofile/miniprofile16.png" },
-      { name: "박순후", img: "../img/miniprofile/miniprofile17.png" },
-      { name: "손예진", img: "../img/miniprofile/miniprofile18.png" },
-      { name: "이현서", img: "../img/miniprofile/miniprofile19.png" },
+      { name: "김도희", url: "../designer/designer5.html", img: "../designer/img/5.png" },
+      { name: "반상우", url: "../designer/designer22.html", img: "../designer/img/22.png" },
+      { name: "김윤주", url: "../designer/designer10.html", img: "../designer/img/10.png" },
+      { name: "김현지", url: "../designer/designer12.html", img: "../designer/img/12.png" },
+      { name: "박순후", url: "../designer/designer20.html", img: "../designer/img/20.png" },
+      { name: "손예진", url: "../designer/designer25.html", img: "../designer/img/25.png" },
+      { name: "이현서", url: "../designer/designer38.html", img: "../designer/img/38.png" },
     ],
     편집부: [
-      { name: "정유민", img: "../img/miniprofile/miniprofile20.png" },
-      { name: "박미소", img: "../img/miniprofile/miniprofile21.png" },
-      { name: "고현희", img: "../img/miniprofile/miniprofile22.png" },
-      { name: "박기연", img: "../img/miniprofile/miniprofile23.png" },
-      { name: "왕뢰이저", img: "../img/miniprofile/miniprofile24.png" },
-      { name: "이새연", img: "../img/miniprofile/miniprofile24.png" },
-      { name: "이채민", img: "../img/miniprofile/miniprofile25.png" },
-      { name: "황서진", img: "../img/miniprofile/miniprofile26.png" },
+      { name: "정유민", url: "../designer/designer41.html", img: "../designer/img/41.png" },
+      { name: "박미소", url: "../designer/designer18.html", img: "../designer/img/18.png" },
+      { name: "고현희", url: "../designer/designer2.html", img: "../designer/img/2.png" },
+      { name: "박기연", url: "../designer/designer17.html", img: "../designer/img/17.png" },
+      { name: "왕뢰이저", url: "../project/project29.html", img: "../designer/img/29.png" },
+      { name: "이새연", url: "../designer/designer32.html", img: "../designer/img/32.png" },
+      { name: "이채민", url: "../designer/designer36.html", img: "../designer/img/36.png" },
+      { name: "황서진", url: "../designer/designer47.html", img: "../designer/img/47.png" },
     ],
     멀티부: [
-      { name: "권용우", img: "../img/miniprofile/miniprofile27.png" },
-      { name: "조서영", img: "../img/miniprofile/miniprofile28.png" },
-      { name: "김선정", img: "../img/miniprofile/miniprofile29.png" },
-      { name: "김지수", img: "../img/miniprofile/miniprofile30.png" },
-      { name: "곽초은", img: "../img/miniprofile/miniprofile31.png" },
-      { name: "오효진", img: "../img/miniprofile/miniprofile32.png" },
-      { name: "황지원", img: "../img/miniprofile/miniprofile33.png" },
+      { name: "권용우", url: "../designer/designer4.html", img: "../designer/img/4.png" },
+      { name: "조서영", url: "../designer/designer43.html", img: "../designer/img/43.png" },
+      { name: "김선정", url: "../designer/designer9.html", img: "../designer/img/9.png" },
+      { name: "김지수", url: "../designer/designer11.html", img: "../designer/img/11.png" },
+      { name: "곽초은", url: "../designer/designer3.html", img: "../designer/img/3.png" },
+      { name: "오효진", url: "../designer/designer.html", img: "../designer/img/28.png" },
+      { name: "황지원", url: "../designer/designer.html", img: "../designer/img/48.png" },
     ],
     홍보부: [
-      { name: "최희선", img: "../img/miniprofile/miniprofile34.png" },
-      { name: "오우진", img: "../img/miniprofile/miniprofile35.png" },
-      { name: "김루나", img: "../img/miniprofile/miniprofile36.png" },
-      { name: "박지수", img: "../img/miniprofile/miniprofile37.png" },
-      { name: "양윤보", img: "../img/miniprofile/miniprofile38.png" },
-      { name: "이주연", img: "../img/miniprofile/miniprofile39.png" },
-      { name: "정예원", img: "../img/miniprofile/miniprofile40.png" },
+      { name: "최희선", url: "../designer/designer46.html", img: "../designer/img/46.png" },
+      { name: "오우진", url: "../designer/designer27.html", img: "../designer/img/27.png" },
+      { name: "김루나", url: "../designer/designer6.html", img: "../designer/img/6.png" },
+      { name: "박지수", url: "../designer/designer21.html", img: "../designer/img/21.png" },
+      { name: "양윤보", url: "../designer/designer26.html", img: "../designer/img/26.png" },
+      { name: "이주연", url: "../designer/designer35.html", img: "../designer/img/35.png" },
+      { name: "정예원", url: "../designer/designer40.html", img: "../designer/img/40.png" },
     ],
     포스터부: [
-      { name: "서동현", img: "../img/miniprofile/miniprofile41.png" },
-      { name: "강유림", img: "../img/miniprofile/miniprofile42.png" },
-      { name: "김민정", img: "../img/miniprofile/miniprofile43.png" },
-      { name: "나원호", img: "../img/miniprofile/miniprofile44.png" },
-      { name: "노채린", img: "../img/miniprofile/miniprofile45.png" },
-      { name: "이소현", img: "../img/miniprofile/miniprofile46.png" },
-      { name: "이채현", img: "../img/miniprofile/miniprofile47.png" },
+      { name: "서동현", url: "../designer/designer24.html", img: "../designer/img/24.png" },
+      { name: "강유림", url: "../designer/designer1.html", img: "../designer/img/1.png" },
+      { name: "김민정", url: "../designer/designer7.html", img: "../designer/img/7.png" },
+      { name: "나원호", url: "../designer/designer14.html", img: "../designer/img/14.png" },
+      { name: "노채린", url: "../designer/designer15.html", img: "../designer/img/15.png" },
+      { name: "이소현", url: "../designer/designer33.html", img: "../designer/img/33.png" },
+      { name: "이채현", url: "../designer/designer37.html", img: "../designer/img/37.png" },
     ],
   };
 
@@ -291,17 +324,60 @@ function initTeamSection() {
     ofEl.style.transform = `translateY(${clamped}px)`;
   }
 
-  function renderMembers(arr) {
+  const previewBox = document.getElementById("member-preview");
+
+  function renderMembers(key) {
+    const members = DATA[key] || [];
+    const deptBg = DEPT_IMAGES[key]; // 부서 배경 이미지
+
     list.innerHTML = "";
-    arr.forEach((member, i) => {
+
+    // 1. [배경 설정] 탭 클릭 시 전체 배경을 '부서 단체 사진'으로 변경
+    if (bgElement) {
+      if (deptBg) {
+        bgElement.style.backgroundImage = `url('${deptBg}')`;
+      } else {
+        bgElement.style.backgroundImage = "none";
+      }
+    }
+
+    // 2. [박스 초기화] 탭 바뀌면 개인 사진 박스는 일단 숨김
+    if (previewBox) {
+      previewBox.classList.remove("active");
+      previewBox.style.backgroundImage = "";
+    }
+
+    members.forEach((member, i) => {
       const li = document.createElement("li");
       li.textContent = member.name;
-      const preview = document.createElement("div");
-      preview.className = "c04-preview";
-      preview.style.backgroundImage = `url('${member.img}')`;
-      li.appendChild(preview);
+
+      // 3. [호버 이벤트] 마우스 올리면 -> 가운데 박스에 개인 사진 띄움
+      li.addEventListener("mouseenter", () => {
+        if (previewBox) {
+          previewBox.style.backgroundImage = `url('${member.img}')`;
+          previewBox.classList.add("active");
+        }
+      });
+
+      li.addEventListener("click", () => {
+        // 데이터에 url이 있는 경우에만 이동
+        if (member.url) {
+          window.location.href = member.url;
+        } else {
+          alert("준비 중인 페이지입니다."); // url이 없을 때 처리 (선택사항)
+        }
+      });
+
+      // 4. [호버 해제] 마우스 떼면 -> 가운데 박스 다시 숨김
+      // (배경은 부서 사진 그대로 유지됨)
+      li.addEventListener("mouseleave", () => {
+        if (previewBox) {
+          previewBox.classList.remove("active");
+        }
+      });
+
       list.appendChild(li);
-      setTimeout(() => li.classList.add("show"), i * 60);
+      requestAnimationFrame(() => li.classList.add("show"));
     });
   }
 
@@ -309,7 +385,8 @@ function initTeamSection() {
     syncTrackHeight();
     const first = nav.querySelector("button.is-active") || nav.querySelector("button");
     if (first) {
-      renderMembers(DATA[first.dataset.key] || []);
+      // [수정] 배열 대신 키(데이터셋 값)를 넘김
+      renderMembers(first.dataset.key);
       requestAnimationFrame(() => moveAll(first));
     }
   }
@@ -322,7 +399,9 @@ function initTeamSection() {
     nav.querySelectorAll("button").forEach((b) => b.classList.remove("is-active"));
     btn.classList.add("is-active");
     moveAll(btn);
-    renderMembers(DATA[btn.dataset.key] || []);
+
+    // [수정] 배열 대신 키(데이터셋 값)를 넘김
+    renderMembers(btn.dataset.key);
   });
 
   nav.addEventListener("mouseover", (e) => {
@@ -431,36 +510,89 @@ function initProfessorSection() {
 // ============================================
 // 6. CONTENT 06: YouTube Video Carousel
 // ============================================
+
 function initYoutubeSection() {
   const swiperEl = document.querySelector(".swiper-container");
   if (!swiperEl) return;
 
+  // 1. Swiper 초기화
   const swiper = new Swiper(".swiper-container", {
+    // [중요] Iframe 클릭 간섭 방지 설정
+    touchStartPreventDefault: false,
+    preventClicks: false,
+    preventClicksPropagation: false,
+
     autoplay: {
-      delay: 2000,
+      delay: 3000,
       disableOnInteraction: false,
     },
-    slidesPerView: 1,
-    spaceBetween: 200,
+
+    // [수정] 양쪽 슬라이드가 보이도록 설정
+    slidesPerView: "auto", // 1 대신 auto로 설정하여 CSS 너비를 따르게 함
+    centeredSlides: true, // 활성 슬라이드를 항상 가운데 배치
+    spaceBetween: 50, // 간격을 200에서 50~100 정도로 줄임 (너무 넓으면 양쪽이 안 보임)
+    loop: true, // 무한 루프
+
+    // 괄호 버튼 연결
+    navigation: {
+      nextEl: ".ct06-braket-left",
+      prevEl: ".ct06-braket-right",
+    },
+
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
     },
     allowTouchMove: true,
-    on: {
-      reachEnd: function () {
-        setTimeout(() => {
-          swiper.slideTo(0);
-        }, 2000);
-      },
-    },
   });
 
-  // HTML에 id="next02", "prev02" 버튼이 없으므로 해당 이벤트 리스너 제거함.
-  /*
-  const nextBtn = document.getElementById("next02");
-  const prevBtn = document.getElementById("prev02");
-  if(nextBtn) nextBtn.addEventListener("click", (e) => e.preventDefault());
-  if(prevBtn) prevBtn.addEventListener("click", (e) => e.preventDefault());
-  */
+  // 2. YouTube API 스크립트 로드
+  if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+    const tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName("script")[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  }
+
+  // 3. YouTube API 준비 시 실행
+  window.onYouTubeIframeAPIReady = function () {
+    const slides = document.querySelectorAll(".swiper-slide iframe");
+
+    slides.forEach((iframe, index) => {
+      // 3-1. enablejsapi=1 파라미터 강제 주입
+      let src = iframe.getAttribute("src");
+      if (src) {
+        if (src.indexOf("enablejsapi=1") === -1) {
+          src += (src.indexOf("?") === -1 ? "?" : "&") + "enablejsapi=1";
+          iframe.setAttribute("src", src);
+        }
+      }
+
+      // 3-2. 고유 ID 부여 (API 연결용)
+      // Swiper loop: true일 경우 복제된 슬라이드 때문에 ID 중복이 발생할 수 있으므로
+      // 랜덤 문자열이나 index를 조합해 안전하게 ID 생성
+      const currentId = iframe.getAttribute("id");
+      const iframeId = currentId || "yt-player-" + index + "-" + Math.floor(Math.random() * 10000);
+      iframe.setAttribute("id", iframeId);
+
+      // 3-3. 플레이어 객체 생성
+      // 약간의 지연 시간을 주어 src가 업데이트된 후 로드되도록 함
+      setTimeout(() => {
+        new YT.Player(iframeId, {
+          events: {
+            onStateChange: function (event) {
+              // 1: 재생중 (PLAYING)
+              if (event.data === YT.PlayerState.PLAYING) {
+                swiper.autoplay.stop(); // 슬라이드 멈춤
+              }
+              // 2: 일시정지(PAUSED) or 0: 종료(ENDED)
+              else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                swiper.autoplay.start(); // 슬라이드 재개
+              }
+            },
+          },
+        });
+      }, 500);
+    });
+  };
 }

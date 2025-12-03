@@ -11,11 +11,11 @@ const headerHeight = header ? header.offsetHeight : 0;
 
 let lastScrollTop = 0;
 
+// 헤더 스크롤 이벤트
 window.addEventListener(
   "scroll",
   function () {
     let currentScrollTop = window.scrollY || this.document.documentElement.scrollTop;
-
     if (currentScrollTop > headerHeight) {
       if (currentScrollTop > lastScrollTop) {
         header.classList.add("header-hidden");
@@ -57,8 +57,6 @@ let lastIsMobile = window.innerWidth < 1000;
 function handleResize() {
   const currentWidth = window.innerWidth;
   const currentIsMobile = currentWidth < 1000;
-
-  // 모바일↔데스크톱 전환이 일어났을 때만 초기화
   if (currentIsMobile !== lastIsMobile) {
     initializeSlides();
     lastWidth = currentWidth;
@@ -66,12 +64,6 @@ function handleResize() {
   }
 }
 
-let glitchTimeout = null;
-function addGlitchEffect() {
-  if (!document.documentElement.classList.contains("glitch-active")) {
-    document.documentElement.classList.add("glitch-active");
-  }
-}
 function removeGlitchEffect() {
   document.documentElement.classList.remove("glitch-active");
 }
@@ -80,10 +72,10 @@ function checkMobile() {
   state.isMobile = window.innerWidth < 1000;
 }
 
+// 슬라이드 생성 함수
 function createSlideElement(index) {
   const slide = document.createElement("div");
   slide.className = "slide";
-
   const dataIndex = index % totalSlideCount;
   slide.dataset.index = index;
   slide.dataset.contentIndex = dataIndex;
@@ -93,6 +85,7 @@ function createSlideElement(index) {
     slide.style.height = "350px";
   }
 
+  // --- Front ---
   const front = document.createElement("div");
   front.className = "slide-front";
 
@@ -110,41 +103,20 @@ function createSlideElement(index) {
   title.textContent = sliderData[dataIndex].title;
   const arrow = document.createElement("div");
   arrow.className = "project-arrow";
-  arrow.innerHTML = `
-    <svg viewBox="0 0 24 24">
-        <path d="M7 17L17 7M17 7H7M17 7V17"/>
-    </svg>
-    `;
+  arrow.innerHTML = `<svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>`;
   overlay.appendChild(title);
   overlay.appendChild(arrow);
-
-  front.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (state.dragDistance < 10 && !state.hasActuallyDragged) {
-      window.location.href = sliderData[dataIndex].url;
-    }
-  });
 
   front.appendChild(imageContainer);
   front.appendChild(overlay);
 
+  // --- Back ---
   const back = document.createElement("div");
   back.className = "slide-back";
-
-  slide.appendChild(front);
-  slide.appendChild(back);
-
-  slide.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (state.dragDistance < 10 && !state.hasActuallyDragged) {
-      window.location.href = sliderData[dataIndex].url;
-    }
-  });
 
   const backImg = document.createElement("img");
   backImg.className = "back-blur-img";
   backImg.src = sliderData[dataIndex].img;
-  backImg.alt = sliderData[dataIndex].title;
   back.appendChild(backImg);
 
   const backTitle = document.createElement("h3");
@@ -180,12 +152,16 @@ function createSlideElement(index) {
   slide.appendChild(front);
   slide.appendChild(back);
 
-  slide.addEventListener("mouseenter", () => {
-    slide.classList.add("flipped");
+  // 이벤트
+  slide.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (state.dragDistance < 10 && !state.hasActuallyDragged) {
+      window.location.href = sliderData[dataIndex].url;
+    }
   });
-  slide.addEventListener("mouseleave", () => {
-    slide.classList.remove("flipped");
-  });
+
+  slide.addEventListener("mouseenter", () => slide.classList.add("flipped"));
+  slide.addEventListener("mouseleave", () => slide.classList.remove("flipped"));
 
   return slide;
 }
@@ -194,15 +170,10 @@ function initializeSlides() {
   const track = document.querySelector(".slide-track");
   track.innerHTML = "";
   state.slides = [];
-
   checkMobile();
 
   const slideMargin = 40;
-  if (state.isMobile) {
-    state.slideWidth = 250 + slideMargin;
-  } else {
-    state.slideWidth = 375 + slideMargin;
-  }
+  state.slideWidth = state.isMobile ? 250 + slideMargin : 375 + slideMargin;
 
   const copies = 6;
   const totalSlides = totalSlideCount * copies;
@@ -229,27 +200,20 @@ function updateSlidePositions() {
     state.currentX += sequenceWidth;
     state.targetX += sequenceWidth;
   }
-
   track.style.transform = `translate3d(${state.currentX}px, 0, 0)`;
 }
 
 function updateParallax() {
   const viewportCenter = window.innerWidth / 2;
-
   state.slides.forEach((slide) => {
     const img = slide.querySelector("img");
     if (!img) return;
-
     const slideRect = slide.getBoundingClientRect();
-
-    if (slideRect.right < -500 || slideRect.left > window.innerWidth + 500) {
-      return;
-    }
+    if (slideRect.right < -500 || slideRect.left > window.innerWidth + 500) return;
 
     const slideCenter = slideRect.left + slideRect.width / 2;
     const distanceFromCenter = slideCenter - viewportCenter;
     const parallaxOffset = distanceFromCenter * -0.05;
-
     img.style.transform = `translateX(${parallaxOffset}px) scale(1.25)`;
   });
 }
@@ -257,38 +221,30 @@ function updateParallax() {
 function updateMovingState() {
   state.velocity = Math.abs(state.currentX - state.lastCurrentX);
   state.lastCurrentX = state.currentX;
-
   const isSlowEnough = state.velocity < 0.1;
   const hasBeenStillLongEnough = Date.now() - state.lastScrollTime > 200;
   state.isMoving = state.hasActuallyDragged || !isSlowEnough || !hasBeenStillLongEnough;
-
   document.documentElement.style.setProperty("--slider-moving", state.isMoving ? "1" : "0");
 }
 
 let reqId;
-
-function animate(time) {
+function animate() {
   state.currentX += (state.targetX - state.currentX) * config.LERP_FACTOR;
-
   updateMovingState();
   updateSlidePositions();
   updateParallax();
-
   reqId = requestAnimationFrame(animate);
 }
 
+// --- 마우스/터치 이벤트 핸들러들 ---
 function handleWheel(e) {
-  if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-    return;
-  }
+  if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
   e.preventDefault();
   state.lastScrollTime = Date.now();
   const scrollDelta = e.deltaY * config.SCROLL_SPEED;
   state.targetX -= Math.max(Math.min(scrollDelta, config.MAX_VELOCITY), -config.MAX_VELOCITY);
   clearTimeout(state.wheelSnapTimeout);
-  state.wheelSnapTimeout = setTimeout(() => {
-    snapToCenter();
-  }, 1000);
+  state.wheelSnapTimeout = setTimeout(snapToCenter, 1000);
 }
 
 function handleTouchStart(e) {
@@ -305,9 +261,7 @@ function handleTouchMove(e) {
   const deltaX = (e.touches[0].clientX - state.startX) * 7.5;
   state.targetX = state.lastX + deltaX;
   state.dragDistance = Math.abs(deltaX);
-  if (state.dragDistance > 5) {
-    state.hasActuallyDragged = true;
-  }
+  if (state.dragDistance > 5) state.hasActuallyDragged = true;
 }
 
 function handleTouchEnd() {
@@ -316,9 +270,7 @@ function handleTouchEnd() {
     state.hasActuallyDragged = false;
   }, 100);
   removeGlitchEffect();
-  setTimeout(() => {
-    snapToCenter();
-  }, 100);
+  setTimeout(snapToCenter, 100);
 }
 
 function handleMouseDown(e) {
@@ -339,9 +291,7 @@ function handleMouseMove(e) {
   state.targetX += deltaX;
   state.lastMouseX = e.clientX;
   state.dragDistance += Math.abs(deltaX);
-  if (state.dragDistance > 5) {
-    state.hasActuallyDragged = true;
-  }
+  if (state.dragDistance > 5) state.hasActuallyDragged = true;
 }
 
 function handleMouseUp() {
@@ -350,9 +300,7 @@ function handleMouseUp() {
     state.hasActuallyDragged = false;
   }, 1000);
   removeGlitchEffect();
-  setTimeout(() => {
-    snapToCenter();
-  }, 100);
+  setTimeout(snapToCenter, 100);
 }
 
 function resetSearchZoom() {
@@ -363,10 +311,7 @@ function resetSearchZoom() {
 }
 
 function snapToCenter() {
-  if (state.isDragging || document.querySelector(".sliders").classList.contains("search-active")) {
-    return;
-  }
-
+  if (state.isDragging || document.querySelector(".sliders").classList.contains("search-active")) return;
   const viewportCenter = window.innerWidth / 2;
   let closestSlide = null;
   let minDistance = Infinity;
@@ -383,10 +328,8 @@ function snapToCenter() {
   });
 
   if (!closestSlide) return;
-
   const slideIndex = parseInt(closestSlide.dataset.index, 10);
   const slideCenterInTrack = slideIndex * state.slideWidth + state.slideWidth / 2;
-
   state.targetX = viewportCenter - slideCenterInTrack;
 }
 
@@ -394,20 +337,15 @@ document.addEventListener("search:found", (e) => {
   const { targetSlide } = e.detail;
   if (targetSlide && targetSlide.dataset.index) {
     const slideIndex = parseInt(targetSlide.dataset.index, 10);
-
     const slideCenterInTrack = slideIndex * state.slideWidth + state.slideWidth / 2;
     const viewportCenter = window.innerWidth / 2;
-
     const idealTargetX = viewportCenter - slideCenterInTrack;
-
     const sequenceWidth = state.slideWidth * totalSlideCount;
     const diff = idealTargetX - state.targetX;
     const sequencesAway = Math.round(diff / sequenceWidth);
-
     const closestTargetX = idealTargetX - sequencesAway * sequenceWidth;
 
     state.targetX = closestTargetX;
-
     document.querySelector(".sliders").classList.add("search-active");
     const targetContentIndex = targetSlide.dataset.contentIndex;
 
@@ -425,112 +363,60 @@ document.addEventListener("search:found", (e) => {
   }
 });
 
-function handleSearch(event) {
-  const query = event.target.value.trim().toLowerCase();
+// ===============================================
+// [통합] 검색 및 그리드 뷰 처리 (Search & Grid Logic)
+// ===============================================
 
-  if (query === "") {
-    resetSearchZoom();
-    return;
-  }
-
-  let foundProjectIndex = -1;
-  const foundProject = sliderData.find((project, index) => {
-    if (project.keywords && Array.isArray(project.keywords)) {
-      const match = project.keywords.some((keyword) => keyword.toLowerCase().includes(query));
-      if (match) {
-        foundProjectIndex = index;
-        return true;
-      }
-    }
-    return false;
-  });
-
-  if (foundProject) {
-    const targetSlide = document.querySelector(`.slide[data-content-index="${foundProjectIndex}"]`);
-
-    if (targetSlide) {
-      const event = new CustomEvent("search:found", {
-        detail: { targetSlide: targetSlide },
-      });
-      document.dispatchEvent(event);
-    }
-  }
-}
-
-// [추가] 그리드 뷰 렌더링 함수
+// 그리드 렌더링
 function renderGrid() {
   const gridContainer = document.getElementById("view-grid");
-  // 이미 렌더링 되었으면 중복 실행 방지
   if (gridContainer.children.length > 0) return;
 
   sliderData.forEach((data, index) => {
-    // 기존 createSlideElement 함수를 재활용하거나 유사하게 생성
-    // 단, 그리드용이므로 이벤트 리스너(드래그 등)는 최소화하는 것이 좋음
-
-    // 여기서는 기존 createSlideElement를 활용하되,
-    // 생성 후 클래스나 속성을 살짝 조정하는 방식을 씁니다.
-    // 주의: createSlideElement 내부의 모바일 분기처리가 슬라이더 전용일 수 있으므로
-    // 그리드용 요소를 새로 만드는 것이 깔끔할 수 있습니다.
-
     const slide = document.createElement("div");
-    slide.className = "slide"; // CSS 재활용
+    slide.className = "slide";
     slide.dataset.index = index;
 
-    // --- 내부 구조 (Front/Back) 생성 (기존 로직 복사) ---
+    // 앞면
     const front = document.createElement("div");
     front.className = "slide-front";
-
-    // 이미지
-    const imgContainer = document.createElement("div");
-    imgContainer.className = "slide-image";
-    const img = document.createElement("img");
-    img.src = data.img;
-    img.alt = data.title;
-    imgContainer.appendChild(img);
-
-    // 오버레이
-    const overlay = document.createElement("div");
-    overlay.className = "slide-overlay";
-    overlay.innerHTML = `
-      <p class="project-title">${data.title}</p>
-      <div class="project-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+    front.innerHTML = `
+      <div class="slide-image"><img src="${data.img}" alt="${data.title}"></div>
+      <div class="slide-overlay">
+        <p class="project-title">${data.title}</p>
+        <div class="project-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
+      </div>
     `;
-
-    front.appendChild(imgContainer);
-    front.appendChild(overlay);
 
     // 뒷면
     const back = document.createElement("div");
     back.className = "slide-back";
 
-    // 뒷면 내용 채우기 (기존 로직과 동일)
-    const backImg = document.createElement("img");
-    backImg.className = "back-blur-img";
-    backImg.src = data.img;
-    back.appendChild(backImg);
+    // 뒷면 컨텐츠 조립
+    let backContent = `
+      <img class="back-blur-img" src="${data.img}">
+      <h3>${data.title}</h3>
+    `;
+    if (data.members) backContent += `<div class="back-members">${data.members.join(" · ")}</div>`;
+    if (data.description) backContent += `<div class="back-desc">${data.description.replace(/\n/g, "<br>")}</div>`;
 
-    const backTitle = document.createElement("h3");
-    backTitle.textContent = data.title;
-    back.appendChild(backTitle);
-
-    if (data.members) {
-      const mem = document.createElement("div");
-      mem.className = "back-members";
-      mem.textContent = data.members.join(" · ");
-      back.appendChild(mem);
+    let subjectsHtml = "";
+    if (data.subjects) {
+      subjectsHtml = `<div class="back-subjects">${data.subjects
+        .map((s) => `<span class="subject-box">${s}</span>`)
+        .join("")}</div>`;
     }
-    // ... description, subjects 등 추가 ...
+    backContent += subjectsHtml;
+
+    back.innerHTML = backContent;
 
     slide.appendChild(front);
     slide.appendChild(back);
 
-    // --- 그리드 전용 이벤트 ---
-    // 클릭 시 링크 이동
+    // 이벤트
     slide.addEventListener("click", () => {
       window.location.href = data.url;
     });
-
-    // 호버 시 플립 효과 (CSS class 제어)
     slide.addEventListener("mouseenter", () => slide.classList.add("flipped"));
     slide.addEventListener("mouseleave", () => slide.classList.remove("flipped"));
 
@@ -538,91 +424,185 @@ function renderGrid() {
   });
 }
 
-// [추가/수정] 뷰 토글 로직
+// 뷰 토글 변수
+let isGridView = false;
 const toggleBtn = document.getElementById("view-toggle-btn");
 const sliderView = document.getElementById("view-slider");
 const gridView = document.getElementById("view-grid");
-const btnIcon = toggleBtn.querySelector("i");
-const btnText = toggleBtn.querySelector("span");
 
-let isGridView = false;
+// 뷰 토글 이벤트
+if (toggleBtn) {
+  toggleBtn.addEventListener("click", () => {
+    isGridView = !isGridView;
+    const btnIcon = toggleBtn.querySelector("i");
+    const btnText = toggleBtn.querySelector("span");
 
-toggleBtn.addEventListener("click", () => {
-  isGridView = !isGridView;
+    if (isGridView) {
+      if (reqId) cancelAnimationFrame(reqId);
+      renderGrid();
+      sliderView.style.display = "none";
+      gridView.style.display = "grid";
+      gsap.fromTo(gridView, { opacity: 0 }, { opacity: 1, duration: 0.5 });
 
-  if (isGridView) {
-    // [그리드 모드로 전환]
-    // 1. 슬라이더 애니메이션 즉시 중단 (중요: 백그라운드 계산 방지)
-    if (reqId) cancelAnimationFrame(reqId);
+      btnIcon.className = "fa-solid fa-layer-group";
+      btnText.textContent = "슬라이드 보기";
+      if (window.lenis) window.lenis.start();
+    } else {
+      gridView.style.display = "none";
+      sliderView.style.display = "block";
+      gsap.set(sliderView, { opacity: 0 });
+      updateSlidePositions();
+      updateParallax();
+      gsap.to(sliderView, { opacity: 1, duration: 0.5, clearProps: "opacity" });
 
-    // 2. 그리드 렌더링
-    renderGrid();
+      btnIcon.className = "fa-solid fa-border-all";
+      btnText.textContent = "전체보기";
+      state.lastCurrentX = state.currentX;
+      animate();
+    }
+  });
+}
 
-    // 3. 화면 전환
-    sliderView.style.display = "none";
+// [핵심] 통합 검색 핸들러 (search.js의 로직을 흡수)
+function handleSearch(event) {
+  if (event.type === "submit") event.preventDefault();
 
-    gridView.style.display = "grid";
-    // 그리드는 투명도 0에서 1로 부드럽게 등장
-    gsap.fromTo(gridView, { opacity: 0 }, { opacity: 1, duration: 0.5 });
+  const inputEl =
+    event.target.tagName === "INPUT" ? event.target : document.querySelector('.search-title input[type="search"]');
+  const query = inputEl ? inputEl.value.trim().toLowerCase() : "";
 
-    // 4. 버튼 및 스크롤 설정
-    btnIcon.className = "fa-solid fa-layer-group";
-    btnText.textContent = "슬라이드 보기";
-    if (window.lenis) window.lenis.start();
-  } else {
-    // [슬라이드 모드로 전환]
-
-    // 1. 그리드 숨김
-    gridView.style.display = "none";
-
-    // 2. 슬라이더 보이게 설정 (중요: 투명도는 아직 0)
-    sliderView.style.display = "block";
-    gsap.set(sliderView, { opacity: 0 }); // GSAP으로 강제 0 설정
-
-    // 3. ★ 핵심 해결책: 애니메이션 루프 돌리기 전에 위치 강제 업데이트
-    // display: block이 된 직후에 위치를 다시 계산해야 요소들이 제자리로 옵니다.
-    updateSlidePositions();
-    updateParallax();
-
-    // 4. 투명도 애니메이션 시작 (0 -> 1)
-    gsap.to(sliderView, { opacity: 1, duration: 0.5, clearProps: "opacity" });
-
-    // 5. 버튼 설정
-    btnIcon.className = "fa-solid fa-border-all";
-    btnText.textContent = "전체보기";
-
-    // 6. 애니메이션 루프 재시작
-    if (reqId) cancelAnimationFrame(reqId); // 혹시 모를 중복 방지
-    state.lastCurrentX = state.currentX; // 속도 계산 튀는 것 방지
-    animate();
+  // 검색어 없음 -> 초기화
+  if (!query) {
+    if (isGridView) {
+      document.querySelectorAll(".project-grid-container .slide").forEach((c) => {
+        c.style.display = "";
+        c.classList.remove("grid-highlight");
+      });
+    } else {
+      resetSearchZoom();
+    }
+    return;
   }
-});
+
+  // --- 검색 로직 (search.js에서 가져온 강력한 찾기) ---
+  // 1. 전체 데이터에서 찾기
+  let foundProjectIndex = -1;
+  const foundProject = sliderData.find((project, index) => {
+    // 1. 제목 검색
+    const title = (project.projectTitle || project.title).toLowerCase();
+    if (title === query || title.includes(query)) {
+      foundProjectIndex = index;
+      return true;
+    }
+    // 2. 팀원 이름 검색
+    if (
+      project.members &&
+      project.members.some(
+        (name) => name.replace(/\s/g, "").toLowerCase().includes(query) || name.toLowerCase().includes(query)
+      )
+    ) {
+      foundProjectIndex = index;
+      return true;
+    }
+    // 3. 키워드 검색
+    if (project.keywords && project.keywords.some((kw) => kw.toLowerCase().includes(query))) {
+      foundProjectIndex = index;
+      return true;
+    }
+    return false;
+  });
+
+  if (foundProjectIndex === -1) {
+    alert("해당 프로젝트 또는 디자이너를 찾을 수 없습니다.");
+    return;
+  }
+
+  // --- 결과 처리 (뷰 모드에 따라 다르게) ---
+  if (isGridView) {
+    // [그리드 뷰]: 필터링 + 스크롤 이동 + 흰색 테두리
+    const gridCards = document.querySelectorAll(".project-grid-container .slide");
+    let targetCard = null;
+
+    gridCards.forEach((card) => {
+      if (parseInt(card.dataset.index) === foundProjectIndex) {
+        card.style.display = ""; // 찾은건 보여줌
+        targetCard = card;
+      } else {
+        card.style.display = "none"; // 나머진 숨김
+      }
+    });
+
+    if (targetCard) {
+      setTimeout(() => {
+        const rect = targetCard.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const targetY = rect.top + scrollTop - window.innerHeight / 2 + rect.height / 2;
+
+        if (window.lenis) {
+          window.lenis.scrollTo(targetY, { duration: 1.5, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        } else {
+          window.scrollTo({ top: targetY, behavior: "smooth" });
+        }
+
+        // 흰색 테두리 (CSS 클래스 사용)
+        document.querySelectorAll(".grid-highlight").forEach((el) => el.classList.remove("grid-highlight"));
+        targetCard.classList.add("grid-highlight");
+
+        // 2.5초 뒤 제거
+        setTimeout(() => targetCard.classList.remove("grid-highlight"), 2500);
+      }, 50);
+
+      if (inputEl) inputEl.blur();
+    }
+  } else {
+    // [슬라이더 뷰]: 줌인 효과
+    const targetSlide = document.querySelector(`.sliders .slide[data-content-index="${foundProjectIndex}"]`);
+    if (targetSlide) {
+      const customEvent = new CustomEvent("search:found", {
+        detail: { targetSlide: targetSlide },
+      });
+      document.dispatchEvent(customEvent);
+      if (inputEl) inputEl.blur();
+    }
+  }
+}
 
 function initializeEventListeners() {
   const slider = document.querySelector(".sliders");
-
+  const searchForm = document.querySelector(".search-form");
   const searchInput = document.querySelector('.search-title input[type="search"]');
 
+  // 검색 폼 이벤트 연결
+  if (searchForm) {
+    searchForm.addEventListener("submit", handleSearch);
+  }
+
+  // 검색어 지웠을 때 초기화
   if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      if (searchInput.value.trim() === "") {
-        resetSearchZoom();
+    searchInput.addEventListener("input", (e) => {
+      if (e.target.value.trim() === "") {
+        if (isGridView) {
+          document.querySelectorAll(".project-grid-container .slide").forEach((c) => {
+            c.style.display = "";
+            c.classList.remove("grid-highlight");
+          });
+        } else {
+          resetSearchZoom();
+        }
       }
     });
   }
 
+  // 슬라이더 이벤트
   slider.addEventListener("mouseenter", () => {
     if (window.lenis) window.lenis.stop();
   });
-
   slider.addEventListener("mouseleave", () => {
     if (window.lenis) window.lenis.start();
   });
-
   slider.addEventListener("wheel", resetSearchZoom, { passive: true });
   slider.addEventListener("mousedown", resetSearchZoom);
   slider.addEventListener("touchstart", resetSearchZoom);
-
   slider.addEventListener("wheel", handleWheel, { passive: false });
   slider.addEventListener("touchstart", handleTouchStart, { passive: true });
   slider.addEventListener("touchmove", handleTouchMove, { passive: false });

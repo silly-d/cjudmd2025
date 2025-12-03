@@ -32,7 +32,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 9;
 }
 
 .swiper-slide iframe {
@@ -94,9 +94,11 @@
   justify-content: space-between;
   position: absolute;
   z-index: 10;
-  top: 50%;
+  top: 45%;
   left: 50%;
-  transform: translate(-50%, -45%);
+  transform: translate(-50%, -50%);
+  user-select: none;
+  pointer-events: none;
 }
 
 .ct06-braket-right,
@@ -104,4 +106,48 @@
   font-size: 40rem;
   font-weight: 100;
   color: #d6d6d6;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.ct06-braket-right:hover,
+.ct06-braket-left:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.swiper-slide iframe {
+  pointer-events: auto;
+  position: relative;
+  z-index: 5;
+}
+
+@media (max-width: 768px) {
+  .content06 {
+    padding: 100px 0; /* 모바일 패딩 축소 */
+  }
+
+  .content06 > h2 {
+    margin-bottom: 50px;
+    font-size: 1.5rem;
+  }
+
+  .swiper-container {
+    margin-bottom: 50px;
+  }
+
+  .ct06-braket-container {
+    width: 100%;
+    top: 50%;
+    /* 모바일에서는 괄호가 영상 위를 너무 가리지 않게 조정 */
+    justify-content: space-between;
+    padding: 0 10px;
+  }
+
+  .ct06-braket-right,
+  .ct06-braket-left {
+    font-size: 8rem; /* 모바일 사이즈: 폰트 대폭 줄임 */
+    opacity: 0.5; /* 영상 가림 방지를 위해 투명도 조절 */
+  }
 }

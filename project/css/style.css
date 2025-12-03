@@ -105,6 +105,7 @@ body {
 .project-grid-container {
   width: 100%;
   max-width: 1440px;
+  min-height: 80vh;
   margin: 50px auto;
   padding: 0 20px;
   display: grid;
@@ -123,7 +124,7 @@ body {
   opacity: 1 !important;
   visibility: visible !important;
   transform-style: preserve-3d;
-  transition: transform 0.6s ease;
+  transition: all 0.6s ease;
   perspective: 1000px;
 }
 
@@ -222,7 +223,7 @@ body {
   position: relative;
   perspective: 1200px;
   transform-style: preserve-3d;
-  transition: transform 0.5s ease, box-shadow 0.4s ease, opacity 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 .slide-front,
