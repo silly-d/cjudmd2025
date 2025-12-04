@@ -24,7 +24,7 @@
 }
 
 .flow-area {
-  width: 50vw;
+  width: 45vw;
   height: 45svh;
   border-radius: 30px;
   display: flex;
@@ -33,6 +33,7 @@
   left: 50%;
   transform: translateX(-50%);
   box-shadow: 0 0 15px rgba(60, 60, 60, 0.4);
+  background: #121212;
 }
 
 .flow-inner {
@@ -69,87 +70,40 @@
 
 .txt-area h1 {
   font-size: 2.3rem;
+  margin-bottom: 14svh;
 }
 
 .txt-area h3 {
   font-size: 1.9rem;
   font-weight: 500;
-  margin-top: 130px;
-  margin-bottom: 10px;
 }
 
 .txt-area p {
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.5rem;
+  white-space: nowrap;
+  color: #aaa;
 }
 
 .img-area {
-  width: 20vw;
+  width: 400px;
   height: auto;
   position: relative;
-}
-
-.area-1 {
-  background: #121212;
-}
-
-.area-2 {
-  background: #121212;
-}
-
-.area-3 {
-  background: #121212;
-}
-
-.area-4 {
-  background: #121212;
-}
-
-.prof-1::before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0) 70%, #121212);
-}
-
-.prof-2::before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0) 70%, #121212);
-}
-
-.prof-3::before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0) 70%, #121212);
-}
-
-.prof-4::before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0) 70%, #121212);
+  margin-left: 50px;
 }
 
 .img-area img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+/*---- 모바일 부분 ----*/
+.ct05-mobile-list {
+  display: none;
 }
 
 /*------------*/
@@ -158,55 +112,119 @@
 @media (max-width: 768px) {
   .content05 {
     width: 90vw;
-    padding-bottom: 5svh;
+    padding-bottom: 150px;
   }
 
   .ct05-header {
     font-size: 1.3rem;
-    margin-bottom: 10svh;
+    margin-bottom: 20px;
   }
 
   .ct05-flow-container {
-    height: 80svh;
+    display: none;
   }
 
-  .flow-area {
-    width: 85vw;
-    height: 500px;
-  }
-
-  .flow-inner {
-    height: auto;
+  .ct05-mobile-list {
+    display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 8vw;
-    justify-content: flex-start;
-    flex-direction: column-reverse;
-  }
-
-  .txt-area {
+    gap: 15px;
     width: 100%;
     height: auto;
-    gap: 15px;
   }
 
-  .txt-area h1 {
-    font-size: 1.5rem;
+  .prof-accordion {
+    box-shadow: 0 0 15px rgba(60, 60, 60, 0.4);
+    background: #121212;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.5s ease;
   }
 
-  .txt-area h3 {
+  .prof-accordion[open] .accordion-body {
+    animation: slideDown 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+
+  @keyframes slideDown {
+    0% {
+      opacity: 0;
+      max-height: 0; /* 높이 0에서 시작 */
+      transform: translateY(-10px); /* 살짝 위에서 내려옴 */
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    100% {
+      opacity: 1;
+      max-height: 500px; /* 충분히 큰 값으로 설정 (내용이 잘리지 않게) */
+      transform: translateY(0);
+      padding-top: 0;
+      padding-bottom: 30px; /* 원래 패딩값으로 복구 */
+    }
+  }
+
+  .prof-accordion summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 30px;
+    list-style: none;
+  }
+
+  .prof-accordion summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .summary-text {
+    display: flex;
+    text-align: left;
+  }
+
+  .prof-subject {
     font-size: 1.2rem;
-    margin-top: 0;
+    font-weight: 600;
+    color: #fff;
   }
 
-  .txt-area p {
-    font-size: 0.85rem;
-    line-height: 1.3rem;
+  .prof-name {
+    font-size: 1rem;
+    color: #aaa;
   }
 
-  .img-area {
+  .accordion-body {
+    padding: 0 20px 40px 20px;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .prof-img {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    margin: 30px auto 20px auto;
+  }
+
+  .prof-img img {
     width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
+    height: 100%;
+    object-fit: cover;
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  }
+
+  .prof-desc {
+    color: #d6d6d6;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    word-break: keep-all;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }

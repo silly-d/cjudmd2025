@@ -110,7 +110,7 @@ function initPosterSection() {
   // ------------------------------------------------
   // (A) PC 화면 (800px 이상) - 기존의 디테일한 시퀀스 유지
   // ------------------------------------------------
-  mm.add("(min-width: 800px)", () => {
+  mm.add("(max-width: 60000px)", () => {
     // 초기 상태 설정
     gsap.set(aniTargets, { y: 90, opacity: 0 });
 
@@ -130,13 +130,6 @@ function initPosterSection() {
       .to(body, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.45)
       .to(body2, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.6)
       .to(downloadBtn, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, 0.75);
-  });
-
-  // ------------------------------------------------
-  // (B) 모바일 화면 (799px 이하) - 단순화하여 버벅임/튐 방지
-  // ------------------------------------------------
-  mm.add("(max-width: 799px)", () => {
-    gsap.set(aniTargets, { y: 0, opacity: 1 });
   });
 }
 
@@ -224,7 +217,6 @@ function initTeamSection() {
     ofEl.dataset.inited = "1";
   }
 
-  // 데이터 정의
   const DATA = {
     디피부: [
       { name: "유은비", url: "../designer/designer30.html", img: "../designer/img/30.png" },
@@ -326,13 +318,23 @@ function initTeamSection() {
 
   const previewBox = document.getElementById("member-preview");
 
+  function initParallax() {
+    if (!bgElement) return;
+
+    document.addEventListener("mousemove", (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+      bgElement.style.backgroundPosition = `calc(50% + ${x}px) calc(50% + ${y}px)`;
+    });
+  }
+
   function renderMembers(key) {
     const members = DATA[key] || [];
-    const deptBg = DEPT_IMAGES[key]; // 부서 배경 이미지
+    const deptBg = DEPT_IMAGES[key];
 
     list.innerHTML = "";
 
-    // 1. [배경 설정] 탭 클릭 시 전체 배경을 '부서 단체 사진'으로 변경
     if (bgElement) {
       if (deptBg) {
         bgElement.style.backgroundImage = `url('${deptBg}')`;
@@ -341,7 +343,6 @@ function initTeamSection() {
       }
     }
 
-    // 2. [박스 초기화] 탭 바뀌면 개인 사진 박스는 일단 숨김
     if (previewBox) {
       previewBox.classList.remove("active");
       previewBox.style.backgroundImage = "";
@@ -351,7 +352,6 @@ function initTeamSection() {
       const li = document.createElement("li");
       li.textContent = member.name;
 
-      // 3. [호버 이벤트] 마우스 올리면 -> 가운데 박스에 개인 사진 띄움
       li.addEventListener("mouseenter", () => {
         if (previewBox) {
           previewBox.style.backgroundImage = `url('${member.img}')`;
@@ -360,16 +360,13 @@ function initTeamSection() {
       });
 
       li.addEventListener("click", () => {
-        // 데이터에 url이 있는 경우에만 이동
         if (member.url) {
           window.location.href = member.url;
         } else {
-          alert("준비 중인 페이지입니다."); // url이 없을 때 처리 (선택사항)
+          alert("준비 중인 페이지입니다.");
         }
       });
 
-      // 4. [호버 해제] 마우스 떼면 -> 가운데 박스 다시 숨김
-      // (배경은 부서 사진 그대로 유지됨)
       li.addEventListener("mouseleave", () => {
         if (previewBox) {
           previewBox.classList.remove("active");
@@ -385,10 +382,10 @@ function initTeamSection() {
     syncTrackHeight();
     const first = nav.querySelector("button.is-active") || nav.querySelector("button");
     if (first) {
-      // [수정] 배열 대신 키(데이터셋 값)를 넘김
       renderMembers(first.dataset.key);
       requestAnimationFrame(() => moveAll(first));
     }
+    initParallax();
   }
 
   init();
@@ -400,7 +397,6 @@ function initTeamSection() {
     btn.classList.add("is-active");
     moveAll(btn);
 
-    // [수정] 배열 대신 키(데이터셋 값)를 넘김
     renderMembers(btn.dataset.key);
   });
 
@@ -422,6 +418,16 @@ function initTeamSection() {
   });
 }
 
+document.querySelectorAll(".commitee-accordion").forEach((accordion) => {
+  accordion.addEventListener("toggle", function () {
+    if (this.open) {
+      const list = this.querySelector(".commitee-list");
+      const height = list.scrollHeight;
+      list.style.maxHeight = height + "px";
+    }
+  });
+});
+
 // ============================================
 // 5. CONTENT 05: Professor Cards Stack
 // ============================================
@@ -431,16 +437,12 @@ function initProfessorSection() {
 
   if (!flowContainer || cards.length === 0) return;
 
-  const isMobile = () => window.innerWidth <= 768;
+  // GSAP 미디어 쿼리 생성
+  let mm = gsap.matchMedia();
 
-  function setupScrollAnimation() {
-    // 기존 트리거 제거 (리사이즈 대응)
-    ScrollTrigger.getAll().forEach((trigger) => {
-      if (trigger.vars.trigger === ".content05") {
-        trigger.kill();
-      }
-    });
-
+  // [PC 전용] 769px 이상일 때만 애니메이션 실행
+  mm.add("(min-width: 769px)", () => {
+    // 1. 초기 상태 설정
     cards.forEach((card, index) => {
       gsap.set(card, { transformOrigin: "center top" });
       if (index === 0) {
@@ -450,24 +452,28 @@ function initProfessorSection() {
       }
     });
 
-    const scrollDistance = isMobile() ? 400 : 500;
-    const startOffset = isMobile() ? "top-=100 top" : "-=150";
+    const scrollDistance = 500;
 
+    // 2. 타임라인 및 스크롤 트리거 설정
     const scrollTl = gsap.timeline({
       scrollTrigger: {
         trigger: ".content05",
-        start: startOffset,
+        start: "-=150",
         end: () => `+=${(cards.length - 1) * scrollDistance}`,
         scrub: true,
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,
+        // invalidateOnRefresh: true // 리사이즈 시 값 재계산 (필요 시 주석 해제)
       },
     });
 
+    // 3. 카드 모션 정의
     cards.forEach((card, index) => {
       if (index < cards.length - 1) {
         const nextIndex = index + 1;
+
+        // 현재 카드는 뒤로 가면서 작아짐
         scrollTl.to(
           cards.slice(0, index + 1),
           {
@@ -479,9 +485,10 @@ function initProfessorSection() {
           index
         );
 
+        // 다음 카드는 아래에서 올라옴
         scrollTl.fromTo(
           cards[nextIndex],
-          { y: "100svh", scale: 1 },
+          { y: "100vh", scale: 1 }, // svh 대신 vh 써도 무방 (핀 고정이라)
           {
             y: 0,
             filter: `brightness(${1 - (index + 1) * 0.05})`,
@@ -493,20 +500,16 @@ function initProfessorSection() {
         );
       }
     });
-  }
 
-  setupScrollAnimation();
-
-  let resizeTimer;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      setupScrollAnimation();
-      ScrollTrigger.refresh();
-    }, 250);
+    // return () => {
+    //   // cleanup function (matchMedia가 알아서 처리하므로 보통은 비워도 됨)
+    // };
   });
-}
 
+  // [모바일 전용] 768px 이하일 때 (선택 사항)
+  // 애니메이션 없이 그냥 세로로 나열되길 원하시면 이 블록은 비워두셔도 됩니다.
+  // GSAP이 PC용 스타일을 싹 걷어내므로 CSS 레이아웃대로 나옵니다.
+}
 // ============================================
 // 6. CONTENT 06: YouTube Video Carousel
 // ============================================
@@ -528,10 +531,11 @@ function initYoutubeSection() {
     },
 
     // [수정] 양쪽 슬라이드가 보이도록 설정
-    slidesPerView: "auto", // 1 대신 auto로 설정하여 CSS 너비를 따르게 함
-    centeredSlides: true, // 활성 슬라이드를 항상 가운데 배치
-    spaceBetween: 50, // 간격을 200에서 50~100 정도로 줄임 (너무 넓으면 양쪽이 안 보임)
-    loop: true, // 무한 루프
+    slidesPerView: "auto",
+    centeredSlides: true,
+    spaceBetween: 150,
+    loop: true,
+    loopedSlides: 3,
 
     // 괄호 버튼 연결
     navigation: {
@@ -542,6 +546,8 @@ function initYoutubeSection() {
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
+      dynamicBullets: true,
+      dynamicMainBullets: 1,
     },
     allowTouchMove: true,
   });

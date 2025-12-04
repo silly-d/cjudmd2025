@@ -81,9 +81,9 @@ window.addEventListener("load", () => {
 
 // --- 아래는 기존 헤더 및 모바일 메뉴 로직 ---
 
-const header = document.querySelector("header");
-const headerHeight = header ? header.offsetHeight : 0;
+let header = document.querySelector("header");
 let lastScrollTop = 0;
+let headerHeight = header ? header.offsetHeight : 0;
 
 window.addEventListener("scroll", function () {
   let currentScrollTop = window.scrollY || document.documentElement.scrollTop;

@@ -9,16 +9,15 @@
   position: relative;
 }
 
-.content06 > h2 {
+.content06 h2 {
+  font-size: 2rem;
   font-weight: 600;
   margin-bottom: 100px;
 }
 
 .swiper-container {
-  max-width: 1200px;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   position: relative;
 }
 
@@ -31,8 +30,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 55% !important;
   aspect-ratio: 16 / 9;
+  opacity: 0.4;
+  transform: scale(0.75);
+  transition: all 0.4s ease-in-out;
+}
+
+.swiper-slide-active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 10;
 }
 
 .swiper-slide iframe {
@@ -44,12 +52,9 @@
 
 .swiper-pagination {
   position: relative !important;
-  bottom: auto !important;
-  left: auto !important;
-  transform: none !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
+  bottom: 4% !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
   gap: 10px;
   margin-top: 40px;
   margin-bottom: 40px;
@@ -66,19 +71,19 @@
 }
 
 .swiper-pagination-bullet-active {
-  width: 40px !important;
+  width: 20px !important;
   background: #fff !important;
 }
 
 #youtubeBtn {
-  background: rgba(85, 85, 85, 0.5);
+  background: #121212;
   border: 1px solid #555;
-  border-radius: 50px;
+  border-radius: 1000px;
   cursor: pointer;
   padding: 14px 24px;
   font-weight: 600;
   color: var(--text01);
-  font-size: 20px;
+  font-size: 1.3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,12 +94,12 @@
 }
 
 .ct06-braket-container {
-  width: 1600px;
+  width: 70vw;
   display: flex;
   justify-content: space-between;
   position: absolute;
   z-index: 10;
-  top: 45%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   user-select: none;
@@ -128,26 +133,35 @@
     padding: 100px 0; /* 모바일 패딩 축소 */
   }
 
-  .content06 > h2 {
+  .content06 h2 {
     margin-bottom: 50px;
     font-size: 1.5rem;
   }
 
   .swiper-container {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+  }
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90% !important;
+    aspect-ratio: 16 / 9;
   }
 
   .ct06-braket-container {
-    width: 100%;
-    top: 50%;
-    /* 모바일에서는 괄호가 영상 위를 너무 가리지 않게 조정 */
-    justify-content: space-between;
-    padding: 0 10px;
+    display: none;
   }
 
-  .ct06-braket-right,
-  .ct06-braket-left {
-    font-size: 8rem; /* 모바일 사이즈: 폰트 대폭 줄임 */
-    opacity: 0.5; /* 영상 가림 방지를 위해 투명도 조절 */
+  #youtubeBtn {
+    border-radius: 1000px;
+    padding: 14px 24px;
+    font-weight: 600;
+    color: var(--text01);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
