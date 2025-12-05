@@ -424,30 +424,40 @@ function renderGrid() {
   });
 }
 
-// 뷰 토글 변수
 let isGridView = false;
 const toggleBtn = document.getElementById("view-toggle-btn");
 const sliderView = document.getElementById("view-slider");
 const gridView = document.getElementById("view-grid");
 
+// [추가] 아이콘 껍데기와 텍스트 선택
+const iconWrapper = document.getElementById("icon-wrapper");
+const btnText = document.getElementById("btn-text");
+
 // 뷰 토글 이벤트
 if (toggleBtn) {
   toggleBtn.addEventListener("click", () => {
     isGridView = !isGridView;
-    const btnIcon = toggleBtn.querySelector("i");
-    const btnText = toggleBtn.querySelector("span");
 
     if (isGridView) {
-      if (reqId) cancelAnimationFrame(reqId);
+      // [그리드 모드 진입]
+      if (typeof reqId !== "undefined" && reqId) cancelAnimationFrame(reqId);
       renderGrid();
+
       sliderView.style.display = "none";
       gridView.style.display = "grid";
       gsap.fromTo(gridView, { opacity: 0 }, { opacity: 1, duration: 0.5 });
 
-      btnIcon.className = "fa-solid fa-layer-group";
-      btnText.textContent = "슬라이드 보기";
+      // ★ [안전장치 추가] 요소가 있을 때만 내용 변경
+      if (iconWrapper) {
+        iconWrapper.innerHTML = `<img src="./img/list1.gif" class="custom-icon" alt="icon">`;
+      }
+      if (btnText) {
+        btnText.textContent = "슬라이드 보기";
+      }
+
       if (window.lenis) window.lenis.start();
     } else {
+      // [슬라이드 모드 진입]
       gridView.style.display = "none";
       sliderView.style.display = "block";
       gsap.set(sliderView, { opacity: 0 });
@@ -455,9 +465,15 @@ if (toggleBtn) {
       updateParallax();
       gsap.to(sliderView, { opacity: 1, duration: 0.5, clearProps: "opacity" });
 
-      btnIcon.className = "fa-solid fa-border-all";
-      btnText.textContent = "전체보기";
-      state.lastCurrentX = state.currentX;
+      // ★ [안전장치 추가]
+      if (iconWrapper) {
+        iconWrapper.innerHTML = `<i class="fa-solid fa-border-all"></i>`;
+      }
+      if (btnText) {
+        btnText.textContent = "전체보기";
+      }
+
+      if (typeof state !== "undefined") state.lastCurrentX = state.currentX;
       animate();
     }
   });

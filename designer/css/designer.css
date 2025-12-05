@@ -428,8 +428,27 @@ input::-webkit-search-results-decoration {
     opacity: 1;
   }
 
+  .hero-center {
+    margin-bottom: 30px;
+  }
+
   #search-name {
     width: 60vw;
+  }
+
+  .search-title {
+    margin-bottom: 15px;
+  }
+
+  .designer-title-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .designer-title-wrapper h1 {
+    font-size: 2.4rem;
+    line-height: 1.1;
+    margin: 0;
   }
 
   .sort-bar {
@@ -462,6 +481,7 @@ input::-webkit-search-results-decoration {
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
     padding: 10px;
+    margin-bottom: 50px;
     height: auto;
   }
 
