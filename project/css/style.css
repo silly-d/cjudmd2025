@@ -466,4 +466,14 @@ body {
     width: 180px;
     height: 260px;
   }
+
+  .project-grid-container .slide:hover {
+    transform: none; /* 슬라이더의 scale(0.5) 효과 제거 */
+    z-index: 10;
+  }
+
+  .project-grid-container .slide.flipped {
+    transform: none !important;
+    box-shadow: none;
+  }
 }
