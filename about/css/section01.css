@@ -7,6 +7,11 @@
   font-size: 1rem;
 }
 
+.head-bg {
+  opacity: 0.8;
+  mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+}
+
 /* 01 히어로 */
 .content01 {
   width: 100%;
@@ -14,7 +19,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #121212;
 }
 
 /* 줄 전체는 중앙 정렬 */

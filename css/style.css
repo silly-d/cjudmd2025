@@ -8,6 +8,25 @@
   font-family: "Pretendard", sans-serif;
 }
 
+/*-------- 헤더 배경 이미지 --------*/
+.lg-bg,
+.sm-bg {
+  object-fit: cover;
+  position: absolute;
+  z-index: -9999;
+  opacity: 0.7;
+}
+
+.lg-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.sm-bg {
+  display: none;
+}
+
 a {
   text-decoration: none;
   display: block;
@@ -371,6 +390,16 @@ section {
 @media (max-width: 768px) {
   html {
     overflow-x: hidden;
+  }
+
+  .lg-bg {
+    display: none;
+  }
+
+  .sm-bg {
+    width: 100vw;
+    height: auto;
+    display: block;
   }
 
   body {

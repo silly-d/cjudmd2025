@@ -448,7 +448,7 @@ function initProfessorSection() {
       if (index === 0) {
         gsap.set(card, { y: 0, scale: 1 });
       } else {
-        gsap.set(card, { y: "100vh", scale: 1 });
+        gsap.set(card, { y: "100svh", scale: 1 });
       }
     });
 
@@ -458,7 +458,7 @@ function initProfessorSection() {
     const scrollTl = gsap.timeline({
       scrollTrigger: {
         trigger: ".content05",
-        start: "-=150",
+        start: "center 60%",
         end: () => `+=${(cards.length - 1) * scrollDistance}`,
         scrub: true,
         pin: true,

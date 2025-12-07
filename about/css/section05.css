@@ -1,12 +1,12 @@
 .content05 {
   width: 100%;
-  max-width: 1440px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   padding-bottom: 10vh;
+  overflow: visible;
 }
 
 .ct05-header h1 {
@@ -99,6 +99,15 @@
   object-fit: cover;
   -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+.prof-bg {
+  mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+}
+
+.prof-sm-bg {
+  bottom: 0;
+  mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
 }
 
 /*---- 모바일 부분 ----*/
