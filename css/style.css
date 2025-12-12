@@ -634,9 +634,10 @@ section {
     font-size: 0.85em;
   }
   /* mobile footer end */
+
   .field {
     position: absolute;
-    bottom: 120px;
+    bottom: 0px;
     left: 50%;
     transform: translateX(-50%);
   }

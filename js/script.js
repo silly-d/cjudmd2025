@@ -305,6 +305,44 @@ mm.add("(max-width: 768px)", () => {
     },
   });
 
+  const cardSettings = [
+    { id: "#ct03-card-1", rotate: -10, ySpeed: 100 },
+    { id: "#ct03-card-2", rotate: 20, ySpeed: 80 },
+    { id: "#ct03-card-3", rotate: -5, ySpeed: 120 },
+    { id: "#ct03-card-4", rotate: -25, ySpeed: 90 },
+    { id: "#ct03-card-5", rotate: -5, ySpeed: 110 },
+    { id: "#ct03-card-6", rotate: 10, ySpeed: 50 },
+  ];
+
+  cardSettings.forEach((setting) => {
+    const card = document.querySelector(setting.id);
+    if (!card) return;
+
+    // 1. 초기 상태 설정 (JS로 강제 적용)
+    gsap.set(card, {
+      rotation: setting.rotate,
+      scale: 0.9,
+      opacity: 0.5,
+      y: setting.ySpeed, // 아래(또는 위)에서 시작
+    });
+
+    // 2. 애니메이션 실행
+    gsap.to(card, {
+      scrollTrigger: {
+        trigger: card,
+        start: "top 99%", // 화면 하단에 걸치면 시작
+        end: "bottom 20%", // 화면 상단 쯤에서 끝
+        scrub: 1.5, // 부드럽게 따라오도록
+      },
+      scale: 1.5, // 확대
+      y: -setting.ySpeed, // 반대 방향으로 이동 (패럴랙스)
+      opacity: 1, // 선명해짐
+      rotation: setting.rotate, // 회전값 유지 (중요)
+      ease: "none",
+      zIndex: -100,
+    });
+  });
+
   const heroReveal = gsap.utils.toArray(".content04");
   heroReveal.forEach((element) => {
     const heroBox = element.querySelector(".hero-reveal__header");
