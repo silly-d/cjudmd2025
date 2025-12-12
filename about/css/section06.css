@@ -95,25 +95,37 @@
 
 .ct06-braket-container {
   width: 70vw;
+  height: 0;
   display: flex;
   justify-content: space-between;
-  position: absolute;
   z-index: 10;
-  top: 40%;
+  position: absolute;
+  top: 37%;
   left: 50%;
   transform: translate(-50%, -50%);
   user-select: none;
   pointer-events: none;
+  margin-bottom: 100px;
 }
 
 .ct06-braket-right,
 .ct06-braket-left {
-  font-size: 40rem;
+  font-size: 38rem;
   font-weight: 100;
   color: #d6d6d6;
   cursor: pointer;
   pointer-events: auto;
   transition: color 0.3s ease, transform 0.3s ease;
+  line-height: 0;
+  position: absolute;
+}
+
+.ct06-braket-right {
+  right: -4%;
+}
+
+.ct06-braket-left {
+  left: -4%;
 }
 
 .ct06-braket-right:hover,
@@ -126,6 +138,10 @@
   pointer-events: auto;
   position: relative;
   z-index: 5;
+}
+
+.content06 a {
+  color: #fff;
 }
 
 @media (max-width: 768px) {

@@ -22,12 +22,12 @@ export const sliderData = [
     description: "기술과 온기로 회복을 잇는 뇌졸중\n 환자 맞춤형 재활 인터페이스",
   },
   {
-    title: "다다다 한글놀이",
+    title: "다다다 한글마을",
     img: "./img/box/project_10.png",
     url: "./project3.html",
     members: ["이새연", "이채현", "박기연"],
     description: "다문화 아동의 한글 습득을 돕는\n 인터랙티브 학습 게임",
-    keywords: ["다 다 다 한 글 놀 이", "다다다"],
+    keywords: ["다 다 다 한 글 마 을", "다다다"],
   },
   {
     title: "마음담音",
