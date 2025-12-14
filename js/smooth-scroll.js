@@ -1,5 +1,9 @@
 // js/smooth-scroll.js
 
+function openExhibitionLink() {
+  window.open("https://indd.adobe.com/view/8f1b216b-37f3-455b-8386-77ac47a920ac", "_blank");
+}
+
 // 1. GSAP 플러그인 등록 (가장 먼저 실행)
 if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
